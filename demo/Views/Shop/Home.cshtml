@@ -24,7 +24,7 @@
                 <li class="nav-item active" style="border-right: 2px solid black">
                     <a class="nav-link" href="~/Shop/Home">TRANG CHỦ</a>
                 </li>
-                <li class="nav-item submenu dropdown">
+                <li class="nav-item submenu dropdown" style="border-right: 2px solid black">
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">PHÂN LOẠI</a>
                     <ul class="dropdown-menu">
                         <li class="nav-item">
@@ -33,14 +33,27 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#">ĐỒNG HỒ NỮ</a>
                         </li>
-
                         <li class="nav-item">
                             <a class="nav-link" href="#">GIỎ HÀNG</a>
                         </li>
                     </ul>
                 </li>
+                <li class="nav-item submenu dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">HÃNG</a>
+                    <ul class="dropdown-menu">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">ROLEX</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">DW</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">CASIO</a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
-
+            
         </div>
         <div class="home-Menu-right col-lg-6">
             <ul class="nav navbar-nav center_nav pull-right">
@@ -116,4 +129,13 @@
         before[0].className = "Before-login active";
         after[0].className = "after-login"
     }
+</script>
+<script>
+    $(document).ready(function () {
+        $('.dropdown-submenu a.test').on("click", function (e) {
+            $(this).next('ul').toggle();
+            e.stopPropagation();
+            e.preventDefault();
+        });
+    });
 </script>

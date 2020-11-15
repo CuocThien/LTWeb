@@ -1,0 +1,141 @@
+﻿body {
+    padding: 0;
+    margin: 0;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 100%;
+}
+.content-right{
+    justify-content:center;
+    align-items:center;
+}
+.title{
+    margin:auto;
+    padding:10px 0 10px 400px;
+}
+h2{
+    font-family:Elephant;
+}
+
+.product-img {
+    display: block;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid red;
+    border-radius: 2px;
+    padding: 10px;
+    margin: 20px 0;
+    margin-left: 60px;
+    max-width: 350px;
+    height: 304px;
+}
+
+input[type=text] {
+    outline: none;
+    border: 2px solid black;
+    padding: 12px 13px 12px 12px;
+    max-width: 500px;
+    margin: 10px 0 15px;
+    display: block;
+    border-radius: 4px;
+    box-sizing: border-box;
+    transition: .3s;
+    height: 50px;
+    font-size: 20px;
+}
+input[type=text]:focus{
+    border-color:aqua;
+    box-shadow: 0 0 8px 0 dodgerBlue;
+}
+input[type=date] {
+    outline: none;
+    border: 2px solid black;
+    padding: 12px 13px 12px 12px;
+    max-width: 500px;
+    margin: 10px 0 15px;
+    display: block;
+    border-radius: 4px;
+    box-sizing: border-box;
+    transition: .3s;
+    height: 50px;
+    font-size: 20px;
+}
+
+    input[type=date]:focus {
+        border-color: aqua;
+        box-shadow: 0 0 8px 0 dodgerBlue;
+    }
+input[type=number] {
+    outline: none;
+    border: 2px solid black;
+    padding: 12px 13px 12px 12px;
+    max-width: 500px;
+    margin: 10px 0 15px;
+    display: block;
+    border-radius: 4px;
+    box-sizing: border-box;
+    transition: .3s;
+    height: 50px;
+    font-size: 20px;
+}
+
+    input[type=number]:focus {
+        border-color: aqua;
+        box-shadow: 0 0 8px 0 dodgerBlue;
+    }
+select {
+    outline: none;
+    border: 2px solid black;
+    padding: 12px 13px 12px 12px;
+    max-width: 300px;
+    margin: 10px 0 15px;
+    display: block;
+    border-radius: 4px;
+    box-sizing: border-box;
+    transition: .3s;
+    height: 50px;
+    font-size: 20px;
+}
+input[type=file] {
+    
+    outline: none;
+    border: 2px solid black;
+    padding: 12px 13px 12px 12px;
+    max-width: 400px;
+    margin: 10px 0 15px;
+    display: block;
+    border-radius: 4px;
+    box-sizing: border-box;
+    transition: .3s;
+    height: 50px;
+    font-size: 20px;
+}
+
+    input[type=file]:hover {
+        border-color: aqua;
+        box-shadow: 0 0 8px 0 dodgerBlue;
+    }
+input[type=submit] {
+    background-color: antiquewhite;
+    outline: none;
+    border: 2px solid black;
+    padding: 12px 13px 12px 12px;
+    max-width: 200px;
+    margin: 10px 0 15px;
+    display: block;
+    border-radius: 4px;
+    box-sizing: border-box;
+    transition: .3s;
+    height: 50px;
+    font-size: 20px;
+}
+
+    input[type=submit]:hover {
+        border-color: aqua;
+        box-shadow: 0 0 8px 0 dodgerBlue;
+        background-color: burlywood;
+    }
+span{
+    display:block;
+    font-size:20px;
+    color:red;
+}

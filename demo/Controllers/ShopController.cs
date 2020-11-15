@@ -32,6 +32,11 @@ namespace demo.Controllers
         {
             return View();
         }
+        public ActionResult AddProduct()
+
+        {
+            return View();
+        }
         [HttpPost]
         public ActionResult Login(User user)
 

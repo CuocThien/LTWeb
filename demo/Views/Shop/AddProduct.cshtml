@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewBag.Title = "AddProduct";
+}
+
+<div>
+    <div class="title">
+        <h2>THÊM SẢN PHẨM</h2>
+    </div>
+    <div class="col-lg-5" >
+        <div class="content-right">
+            <div class="product-img">
+
+            </div>
+            <input type="file" name="name"  accept="image/*" style="padding-left:50px;margin-left:33px;"/>
+            <input type="submit" name="name" value="TẢI ẢNH LÊN" style="margin-left:130px;"/>
+        </div>
+        
+    </div>
+    <div class="content-left col-lg-7" style="border-left: 2px solid black; padding-left:50px">
+        <form action="/" method="post">
+            <span>Tên sản phẩm</span>
+            <input type="text" name="" value="" />
+
+            <span>Năm sản xuất</span>
+            <input type="date" name="" value="" />
+
+            <span>Giá tiền</span>
+            <input type="number" name="" value="" />
+
+            <span>Hãng</span>
+            <select>
+                <option value="value">DW</option>
+                <option value="value">CASIO</option>
+                <option value="value">ROLEX</option>
+            </select>
+
+            <span>Mô tả</span>
+            <textarea rows="10" cols="70" style="max-width:500px; max-height:300px;" placeholder="Nhập mô tả sản phẩm"></textarea>
+            <input type="submit" name="name" value="THÊM" style="margin-left:130px;" />
+
+        </form>
+        
+    </div>
+</div>
+
