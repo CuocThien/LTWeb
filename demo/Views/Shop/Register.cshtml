@@ -1,0 +1,61 @@
+﻿
+@{
+    ViewBag.Title = "Register";
+}
+@model demo.Model.User
+
+<div class="header">
+    <div class="header-main">
+        <h1>REGISTER</h1>
+        <div class="header-top">
+            <div class="header-left-top">
+
+                <form action="#" method="post">
+                    <span>User Name:</span>
+                    <input type="text" value="" name="username" />
+                    @Html.ValidationMessageFor(m => m.Username)
+                    <br /><br />
+                    <span>Password:</span>
+                    <input type="password" value="" name="password" />
+                    @Html.ValidationMessageFor(m => m.Password)
+
+                    <br /><br />
+                    <span>Confirm:</span>
+                    <input type="password" value="" name="confirm" />
+                    @Html.ValidationMessageFor(m => m.Password)
+
+                    <br /><br />
+                    <span>Name:</span>
+                    <input type="text" name="name" value="" />
+                    @Html.ValidationMessageFor(m => m.Name)
+                    <br /><br />
+
+                    <span>Date of Birth:</span>
+                    <input type="date" name="dob" value="" />
+                    @Html.ValidationMessageFor(m => m.Birthday)
+                    <br /><br />
+
+                    <span>Phone Number:</span>
+                    <input type="number" name="phonenum" value=""/>
+                    @Html.ValidationMessageFor(m => m.Phone)
+                    <br /><br />
+
+                    <span>Address:</span>
+                    <input class="address" type="text" name="address" value=""/>
+                    @Html.ValidationMessageFor(m => m.Address)
+                    <br /><br />
+
+                    <input type="submit" value="Register">
+                </form>
+                <div class="header-left-bottom">
+                    <div class="sign-up"> <h2>OR</h2> </div>
+
+                </div>
+                <div class="header-social">
+                    <a href="#" class="face"><h5>Facebook</h5></a>
+                    <a href="#" class="twitt"><h5>Twitter</h5></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
