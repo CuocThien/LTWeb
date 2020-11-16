@@ -13,10 +13,10 @@ namespace demo.Model
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class LTwebEntities : DbContext
+    public partial class shopEntities : DbContext
     {
-        public LTwebEntities()
-            : base("name=LTwebEntities")
+        public shopEntities()
+            : base("name=shopEntities")
         {
         }
     
@@ -25,6 +25,10 @@ namespace demo.Model
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Brand> Brands { get; set; }
+        public virtual DbSet<Order> Orders { get; set; }
+        public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<User> Users { get; set; }
     }
 }

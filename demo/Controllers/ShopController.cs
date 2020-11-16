@@ -15,7 +15,7 @@ namespace demo.Controllers
         
 
 
-        public LTwebEntities _db = new LTwebEntities();
+        public shopEntities _db = new shopEntities();
         [HttpGet]
 
         public ActionResult Index()
@@ -53,6 +53,10 @@ namespace demo.Controllers
                     ViewBag.Message = "Thành Công";
                     @ViewBag.user = u.Name.Trim();
                     @ViewBag.isSuccess = "1";
+                    //if(u.isAdmin==true)
+                    //{
+                    //    ViewBag.isAdmin = "1";
+                    //}    
                     return View("Home");
                 }
                 else

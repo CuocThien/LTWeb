@@ -127,24 +127,24 @@
     <Content Include="Img\phone-24.png" />
     <Content Include="Img\tick.png" />
     <Content Include="Img\twitter.png" />
-    <Content Include="Model\LTweb.Context.tt">
+    <Content Include="Model\LTWeb.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>LTweb.edmx</DependentUpon>
-      <LastGenOutput>LTweb.Context.cs</LastGenOutput>
+      <DependentUpon>LTWeb.edmx</DependentUpon>
+      <LastGenOutput>LTWeb.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Model\LTweb.tt">
+    <Content Include="Model\LTWeb.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>LTweb.edmx</DependentUpon>
-      <LastGenOutput>LTweb.cs</LastGenOutput>
+      <DependentUpon>LTWeb.edmx</DependentUpon>
+      <LastGenOutput>LTWeb.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="Model\LTweb.edmx">
+    <EntityDeploy Include="Model\LTWeb.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>LTweb.Designer.cs</LastGenOutput>
+      <LastGenOutput>LTWeb.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Model\LTweb.edmx.diagram">
-      <DependentUpon>LTweb.edmx</DependentUpon>
+    <Content Include="Model\LTWeb.edmx.diagram">
+      <DependentUpon>LTWeb.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -172,23 +172,35 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Model\LTweb.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>LTweb.Context.tt</DependentUpon>
+    <Compile Include="Model\Brand.cs">
+      <DependentUpon>LTWeb.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\LTweb.cs">
+    <Compile Include="Model\LTWeb.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>LTweb.tt</DependentUpon>
+      <DependentUpon>LTWeb.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\LTweb.Designer.cs">
+    <Compile Include="Model\LTWeb.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>LTweb.edmx</DependentUpon>
+      <DependentUpon>LTWeb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\LTWeb.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LTWeb.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Order.cs">
+      <DependentUpon>LTWeb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Product.cs">
+      <DependentUpon>LTWeb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\sysdiagram.cs">
+      <DependentUpon>LTWeb.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\User.cs">
-      <DependentUpon>LTweb.tt</DependentUpon>
+      <DependentUpon>LTWeb.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

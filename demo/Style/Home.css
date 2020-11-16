@@ -72,12 +72,19 @@ a {
     align-items: center;
     height: 100%;
 }
-
+.isnotAdmin {
+    padding-right: 30px;
+    display: flex;
+    justify-content: flex-end;
+}
+.isAdmin {
+    padding-right: 30px;
+    display: flex;
+    justify-content: flex-end;
+}
 .home-Menu-right {
     background-color: antiquewhite;
     margin: 0;
-    padding-top: 10px;
-    padding-bottom: 10px;
     padding-right: 30px;
     display: flex;
     justify-content: flex-end;

@@ -56,14 +56,17 @@
             
         </div>
         <div class="home-Menu-right col-lg-6">
-            <ul class="nav navbar-nav center_nav pull-right">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">THÊM SẢN PHẨM</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">CHỈNH SỬA SẢN PHẨM</a>
-                </li>
-            </ul>
+            <div class="isAdmin">
+                <ul class="nav navbar-nav center_nav pull-right">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">THÊM SẢN PHẨM</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">CHỈNH SỬA SẢN PHẨM</a>
+                    </li>
+                </ul>
+            </div>
+
         </div>
     </div>
     <div class="container">
@@ -122,20 +125,21 @@
 <script type="text/javascript">
     let before = document.getElementsByClassName("Before-login");
     let after = document.getElementsByClassName("after-login");
+    let admin = document.getElementsByClassName("isAdmin");
+    let notadmin = document.getElementsByClassName("isnotAdmin");
     if (@ViewBag.isSuccess) {
         before[0].className = "Before-login";
-        after[0].className = "after-login active"
+        after[0].className = "after-login active";
     } else {
         before[0].className = "Before-login active";
-        after[0].className = "after-login"
+        after[0].className = "after-login";
     }
-</script>
-<script>
-    $(document).ready(function () {
-        $('.dropdown-submenu a.test').on("click", function (e) {
-            $(this).next('ul').toggle();
-            e.stopPropagation();
-            e.preventDefault();
-        });
-    });
+    @*if (@ViewBag.isAdmin) {
+        admin[0].className = "isAdmin active";
+        notadmin[0].className = "isnotAdmin";
+    }
+    else {
+        admin[0].className = "isAdmin";
+        notadmin[0].className = "isnotAdmin active";
+    }*@
 </script>

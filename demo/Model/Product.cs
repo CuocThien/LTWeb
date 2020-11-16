@@ -12,23 +12,29 @@ namespace demo.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class User
+    public partial class Product
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public User()
+        public Product()
         {
             this.Orders = new HashSet<Order>();
         }
     
-        public string Username { get; set; }
-        public string Password { get; set; }
+        public string ID { get; set; }
         public string Name { get; set; }
-        public Nullable<System.DateTime> Birthday { get; set; }
-        public string Phone { get; set; }
-        public string Address { get; set; }
-        public Nullable<bool> isAdmin { get; set; }
-        public string avatar { get; set; }
+        public string Image { get; set; }
+        public Nullable<double> Price { get; set; }
+        public Nullable<int> Quantity { get; set; }
+        public Nullable<int> Warraty { get; set; }
+        public Nullable<double> Price_New { get; set; }
+        public string TopHot { get; set; }
+        public Nullable<System.DateTime> DateCreat { get; set; }
+        public string Description { get; set; }
+        public string Style { get; set; }
+        public string Brand { get; set; }
+        public string Country { get; set; }
     
+        public virtual Brand Brand1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders { get; set; }
     }
