@@ -12,6 +12,7 @@ using MimeKit;
 using MailKit;
 using MimeKit.Text;
 using MailKit.Security;
+using System.Data.Entity.Migrations;
 
 namespace demo.Controllers
 {
@@ -107,26 +108,27 @@ namespace demo.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult ResetPassword(User user)
+        public ActionResult ResetPassword(FormCollection user)
         {//Kiểm tra User có tồn tại trong database hay không
-            if (user.Username == null || _db.Users.Find(user.Username.Trim()) == null)
+            if (user["Username"] == null || _db.Users.Find(user["Username"].Trim()) == null)
                 return Content("false");
             else
             {
                 //Nếu có thì tiến hành kiểm tra ở Form và ở database có trùng khớp hay không
-                var u = _db.Users.Find(user.Username.Trim());
-                if (user.Username.Trim() == u.Username.Trim() && user.Password.Trim() == u.Password.Trim())
+                var u = _db.Users.Find(user["Username"].Trim());
+                if (user["Password"].Equals(user["Confirm"]))
                 {
-                    @ViewBag.user = u.Name.Trim();
-                    @ViewBag.isSuccess = "1";
-                    if (u.isAdmin == true)
-                    {
-                        @ViewBag.isAdmin = "1";
-                    }
-                    return View("Home");
+                    u.Password = user["Password"].Trim();
+                    _db.Users.AddOrUpdate(u);
+                    _db.SaveChanges();
+                    return View("Login");
+                }
+                else
+                {
+                    return Content("NotEqual");
                 }
             }
-            return View("");
+            //return View("");
         }
         [HttpPost]
         public ActionResult ForgotPassword(User user)

@@ -21,7 +21,7 @@ namespace demo.Model
             this.Orders = new HashSet<Order>();
         }
         [Required(ErrorMessage = "Không được để trống")]
-        [MinLength(5, ErrorMessage = "Tối thiểu 5 kí tự")]
+        [MinLength(4, ErrorMessage = "Tối thiểu 4 kí tự")]
         public string Username { get; set; }
 
         [Required(ErrorMessage = "Không được để trống")]
