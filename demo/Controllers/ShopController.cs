@@ -160,11 +160,11 @@ namespace demo.Controllers
             }
             else
             {
-                ViewBag.textbox = "false";
+                
                 
                 return Content("false");
             }
-            return View();
+            //return View();
         }
 
     }
