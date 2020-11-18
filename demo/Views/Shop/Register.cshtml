@@ -22,6 +22,8 @@
                     <br /><br />
                     <span>Confirm:</span>
                     <input type="password" id="confirm" class="ip-password" value="" name="confirm" />
+                    <br />
+                    <span id="showError"></span>
                     @Html.ValidationMessageFor(m => m.Password)
 
                     <br /><br />
@@ -44,8 +46,14 @@
                     <input class="ip-text" id="address" type="text" name="address" value="" />
                     @Html.ValidationMessageFor(m => m.Address)
                     <br /><br />
+
+                    <span>Email:</span>
+                    <input class="ip-text" id="email" type="text" name="email" value="" />
+                    @Html.ValidationMessageFor(m => m.Address)
+
+                    <br /><br />
                     <div type="submit" id="register" class="ip-submit" style="text-align:center">Register</div>
-                    
+
                 </form>
                 <div class="header-left-bottom">
                     <div class="sign-up"> <h2>OR</h2> </div>
@@ -68,6 +76,8 @@
             let birthday = $("#birthday")[0].value;
             let phone = $("#phone")[0].value;
             let address = $("#address")[0].value;
+            let email = $("#email")[0].value
+            let confirm = $("#confirm")[0].value
             $.ajax({
                 cache: false,
                 type: "POST",
@@ -80,14 +90,18 @@
                     name: name,
                     birthday: birthday,
                     phone: phone,
-                    address: address
+                    address: address,
+                    email: email,
+                    confirm: confirm
                 },
                 success: function (res) {
                     if (res === "false")
                         alert("Đăng ký thất bại")
-                    else if (res === "userexist")
-                    {
+                    else if (res === "userexist") {
                         alert("Đăng ký thất bại user trùng")
+                    }
+                    else if (res === "NotEqual") {
+                        alert("Không khớp mật khẩu")
                     }
                     else {
                         alert("Đăng ký thành công")
@@ -98,3 +112,4 @@
         })
     })
 </script>
+<script src="~/Scripts/CheckPass.js"></script>
