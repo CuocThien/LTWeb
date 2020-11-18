@@ -80,18 +80,27 @@ namespace demo.Controllers
             return Content("false");
         }
         [HttpPost]
-        public ActionResult Register(User user)
+        public ActionResult Register(FormCollection user)
         {
-            var u = _db.Users.Find(user.Username);
+            var u = _db.Users.Find(user["Username"]);
             if (u != null)
                 return Content("userexist");
-            if (Check.CheckUser(user)==true && u==null)
-            {     
-                _db.Users.Add(user);
-                _db.SaveChanges();
-                return View("Login");
+            var x = user["Password"];
+            var y = user["Confirm"];
+            if (Check.CheckUser(user) == true && u == null)
+            {
+                if (user["Password"].Equals(user["Confirm"]))
+                {
+                    u = Check.convertFtoU(user);
+                    _db.Users.Add(u);
+                    _db.SaveChanges();
+                    return View("Login");
+                }
+                else
+                    return Content("NotEqual");
+
+
             }
-            
             else
             {
                 return Content("false");
