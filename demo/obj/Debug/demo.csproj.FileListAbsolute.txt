@@ -346,3 +346,7 @@ D:\vy\study\HK1-20-21\Lập trình Web\new\newnew\LTWeb\demo\obj\Debug\demo.cspr
 D:\vy\study\HK1-20-21\Lập trình Web\new\newnew\LTWeb\demo\obj\Debug\demo.csproj.CopyComplete
 D:\vy\study\HK1-20-21\Lập trình Web\new\newnew\LTWeb\demo\obj\Debug\demo.dll
 D:\vy\study\HK1-20-21\Lập trình Web\new\newnew\LTWeb\demo\obj\Debug\demo.pdb
+D:\vy\study\HK1-20-21\Lập trình Web\new\newnew\LTWeb\demo\bin\PagedList.dll
+D:\vy\study\HK1-20-21\Lập trình Web\new\newnew\LTWeb\demo\bin\PagedList.Mvc.dll
+D:\vy\study\HK1-20-21\Lập trình Web\new\newnew\LTWeb\demo\bin\PagedList.xml
+D:\vy\study\HK1-20-21\Lập trình Web\new\newnew\LTWeb\demo\bin\PagedList.Mvc.xml

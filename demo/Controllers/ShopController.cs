@@ -54,11 +54,6 @@ namespace demo.Controllers
 
             return View();
         }
-        public ActionResult ForgotPasswordconfirmation()
-        {
-
-            return View();
-        }
         [HttpPost]
         public ActionResult Login(User user)
 
@@ -157,7 +152,7 @@ namespace demo.Controllers
                         client.Send(message);
                         client.Disconnect(true);
                     }
-                    return View("ForgotPasswordconfirmation");
+                    return View();
                 }
             }
             else
