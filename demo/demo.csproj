@@ -47,19 +47,29 @@
     <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.5.0, Culture=neutral, PublicKeyToken=0e99375e54769942, processorArchitecture=MSIL">
+      <HintPath>..\packages\Portable.BouncyCastle.1.8.5\lib\net40\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="MailKit, Version=2.9.0.0, Culture=neutral, PublicKeyToken=4e064fe7c44a8f1b, processorArchitecture=MSIL">
+      <HintPath>..\packages\MailKit.2.9.0\lib\net47\MailKit.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
+    <Reference Include="MimeKit, Version=2.9.0.0, Culture=neutral, PublicKeyToken=bede1c8a46c66814, processorArchitecture=MSIL">
+      <HintPath>..\packages\MimeKit.2.9.2\lib\net47\MimeKit.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
@@ -127,24 +137,24 @@
     <Content Include="Img\phone-24.png" />
     <Content Include="Img\tick.png" />
     <Content Include="Img\twitter.png" />
-    <Content Include="Model\LTWeb.Context.tt">
+    <Content Include="Model\shop.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>LTWeb.edmx</DependentUpon>
-      <LastGenOutput>LTWeb.Context.cs</LastGenOutput>
+      <DependentUpon>shop.edmx</DependentUpon>
+      <LastGenOutput>shop.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Model\LTWeb.tt">
+    <Content Include="Model\shop.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>LTWeb.edmx</DependentUpon>
-      <LastGenOutput>LTWeb.cs</LastGenOutput>
+      <DependentUpon>shop.edmx</DependentUpon>
+      <LastGenOutput>shop.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="Model\LTWeb.edmx">
+    <EntityDeploy Include="Model\shop.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>LTWeb.Designer.cs</LastGenOutput>
+      <LastGenOutput>shop.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Model\LTWeb.edmx.diagram">
-      <DependentUpon>LTWeb.edmx</DependentUpon>
+    <Content Include="Model\shop.edmx.diagram">
+      <DependentUpon>shop.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -152,6 +162,7 @@
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-3.5.1.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -167,40 +178,41 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\Check.cs" />
     <Compile Include="Controllers\FormatIMG.cs" />
     <Compile Include="Controllers\ShopController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Model\Brand.cs">
-      <DependentUpon>LTWeb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\LTWeb.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>LTWeb.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\LTWeb.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>LTWeb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\LTWeb.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>LTWeb.edmx</DependentUpon>
+      <DependentUpon>shop.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Order.cs">
-      <DependentUpon>LTWeb.tt</DependentUpon>
+      <DependentUpon>shop.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Product.cs">
-      <DependentUpon>LTWeb.tt</DependentUpon>
+      <DependentUpon>shop.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\shop.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>shop.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\shop.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>shop.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\shop.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>shop.edmx</DependentUpon>
     </Compile>
     <Compile Include="Model\sysdiagram.cs">
-      <DependentUpon>LTWeb.tt</DependentUpon>
+      <DependentUpon>shop.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\User.cs">
-      <DependentUpon>LTWeb.tt</DependentUpon>
+      <DependentUpon>shop.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -223,6 +235,9 @@
     <Content Include="Views\Shop\Register.cshtml" />
     <Content Include="Views\Shop\Home.cshtml" />
     <Content Include="Views\Shop\AddProduct.cshtml" />
+    <Content Include="Views\Shop\ResetPassword.cshtml" />
+    <Content Include="Views\Shop\ForgotPassword.cshtml" />
+    <Content Include="Views\Shop\ForgotPasswordconfirmation.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

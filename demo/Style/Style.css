@@ -9,6 +9,12 @@ a {
     font-weight: bold;
     color: black;
 }
+.header h1 {
+    color: #fff;
+    text-align: center;
+    font-size: 50px;
+    padding-top: 120px;
+}
 span {
     font-size: 14px;
     font-family: 'Roboto Condensed', sans-serif;
@@ -104,7 +110,7 @@ input{width:100%}
 .header-left-top input {
     max-width: none;
 }
-    .header-left-top input[type="text"] {
+    .ip-text {
         background: url(../Img/m.png)no-repeat 0px 5px;
         outline: none;
         font-size: 15px;
@@ -118,7 +124,7 @@ input{width:100%}
         display: block;
     }
 
-    .header-left-top input[type="password"] {
+    .ip-password {
         background: url(../Img/l.png)no-repeat 0px 5px;
         outline: none;
         font-size: 15px;
@@ -131,7 +137,7 @@ input{width:100%}
         margin: 10px 0 35px;
         display: block;
     }
-    .header-left-top input[type="date"] {
+    .ip-date {
         background: url(../Img/calendar-11-24.png)no-repeat 0px 5px;
         outline: none;
         font-size: 15px;
@@ -144,7 +150,7 @@ input{width:100%}
         margin: 10px 0 35px;
         display: block;
     }
-    .header-left-top input[type="number"] {
+    .ip-number {
         background: url(../Img/phone-24.png)no-repeat 0px 5px;
         outline: none;
         font-size: 15px;
@@ -158,45 +164,31 @@ input{width:100%}
         display: block;
         icon:unset;
     }
-    .header-left-top input[class="address"]{
-        background: url(../Img/map-marker-2-24.png)no-repeat 0px 5px;
-        outline: none;
-        font-size: 15px;
-        font-weight: 400;
-        color: #fff;
-        border: none;
-        border-bottom: 1px solid #fff;
-        padding: 12px 13px 20px 44px;
-        width: 100%;
-        margin: 10px 0 35px;
-        display: block;
-    }
-    .header-left-top input[type="submit"] > #login {
-        background: space;
-        color: #FFF;
-        font-size: 26px;
-        padding: 0.3em 1.2em;
-        width: 100%;
-        font-weight: 500;
+        
+ .ip-submit {
+    background: space;
+    color: #FFF;
+    font-size: 26px;
+    padding: 0.3em 1.2em;
+    width: 100%;
+    font-weight: 500;
+    transition: 0.5s all;
+    -webkit-transition: 0.5s all;
+    -moz-transition: 0.5s all;
+    -o-transition: 0.5s all;
+    display: inline-block;
+    cursor: pointer;
+    border: 2px solid #ffa12e;
+    border-radius: 3px;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+    .ip-submit:hover {
+        background: rgba(252, 161, 74,0.3);
         transition: 0.5s all;
         -webkit-transition: 0.5s all;
         -moz-transition: 0.5s all;
         -o-transition: 0.5s all;
-        display: inline-block;
-        cursor: pointer;
-        border: 2px solid #ffa12e;
-        border-radius: 3px;
-        font-family: 'Roboto Condensed', sans-serif;
     }
-
-        .header-left-top input[type="submit"]:hover {
-            background: rgba(252, 161, 74,0.3);
-            transition: 0.5s all;
-            -webkit-transition: 0.5s all;
-            -moz-transition: 0.5s all;
-            -o-transition: 0.5s all;
-        }
-
 .remember {
     margin: 1em 0em;
 }
@@ -305,6 +297,9 @@ h5 {
 
 label.checkbox {
     display: inline-block;
+}
+.checkbox1{
+    display:inline !important;
 }
 
 .checkbox i {

@@ -15,7 +15,6 @@ a {
     font-weight: bold;
     color: black;
 }
-
 a {
     transition: 0.5s all;
     -webkit-transition: 0.5s all;
@@ -72,23 +71,8 @@ a {
     align-items: center;
     height: 100%;
 }
-.isnotAdmin {
-    padding-right: 30px;
-    display: flex;
-    justify-content: flex-end;
-}
-.isAdmin {
-    padding-right: 30px;
-    display: flex;
-    justify-content: flex-end;
-}
-.home-Menu-right {
-    background-color: antiquewhite;
-    margin: 0;
-    padding-right: 30px;
-    display: flex;
-    justify-content: flex-end;
-}
+
+
 
 .home-Menu-left {
     background-color: antiquewhite;
@@ -97,6 +81,19 @@ a {
     padding-bottom: 10px;
     display: flex;
     justify-content: flex-start;
+}
+#admin{
+    display:none;
+}
+.home-Menu-right {
+    background-color: antiquewhite;
+    margin: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    height:50px;
+    padding-right: 30px;
+    display: flex;
+    justify-content: flex-end;
 }
 
 .home-Menu hr {
@@ -110,15 +107,15 @@ a {
 
 .product {
     display: flex;
+    flex-direction:column;
     justify-content: center;
     align-items: center;
-    border: 2px solid red;
     border-radius: 2px;
     padding:10px;
     margin:20px 0;
     margin-left:60px;
     width: 100%;
-    height:304px;
+    height:320px;
 }
 
 .overlay {

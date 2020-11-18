@@ -33,12 +33,10 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#">ĐỒNG HỒ NỮ</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">GIỎ HÀNG</a>
-                        </li>
+
                     </ul>
                 </li>
-                <li class="nav-item submenu dropdown">
+                <li class="nav-item submenu dropdown" style="border-right: 2px solid black">
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">HÃNG</a>
                     <ul class="dropdown-menu">
                         <li class="nav-item">
@@ -52,27 +50,30 @@
                         </li>
                     </ul>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">GIỎ HÀNG</a>
+                </li>
             </ul>
             
         </div>
         <div class="home-Menu-right col-lg-6">
-            <div class="isAdmin">
-                <ul class="nav navbar-nav center_nav pull-right">
+                <ul id="admin" class="nav navbar-nav center_nav pull-right">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">THÊM SẢN PHẨM</a>
+                        <a class="nav-link" href="~/Shop/AddProduct">THÊM SẢN PHẨM</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">CHỈNH SỬA SẢN PHẨM</a>
                     </li>
                 </ul>
-            </div>
-
         </div>
     </div>
     <div class="container">
         <div class="products row">
             <div class="product col-lg-2">
                 @Html.Image("../Img/dongho3.jpg", "Alternate Text", "300", "250")
+                <div>
+                    <span>Giá tiền: 2000000</span>
+                </div>
                 <div class="overlay">
                     <div class="text">Hello World</div>
                 </div>
@@ -125,21 +126,21 @@
 <script type="text/javascript">
     let before = document.getElementsByClassName("Before-login");
     let after = document.getElementsByClassName("after-login");
-    let admin = document.getElementsByClassName("isAdmin");
-    let notadmin = document.getElementsByClassName("isnotAdmin");
     if (@ViewBag.isSuccess) {
         before[0].className = "Before-login";
-        after[0].className = "after-login active";
+        after[0].className = "after-login active"
     } else {
         before[0].className = "Before-login active";
-        after[0].className = "after-login";
+        after[0].className = "after-login"
     }
-    @*if (@ViewBag.isAdmin) {
-        admin[0].className = "isAdmin active";
-        notadmin[0].className = "isnotAdmin";
+    
+</script>
+<script>
+    if (@ViewBag.isAdmin) {
+
+        $("#admin").show();
     }
     else {
-        admin[0].className = "isAdmin";
-        notadmin[0].className = "isnotAdmin active";
-    }*@
+        $("#admin").hide();
+    }
 </script>
