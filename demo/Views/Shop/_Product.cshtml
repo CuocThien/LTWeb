@@ -1,0 +1,25 @@
+﻿@using demo.Controllers
+@model PagedList.IPagedList<demo.Model.Product>
+@using PagedList.Mvc;
+@if (!(Model is null))
+{
+    foreach (var pro in Model.ToList())
+    {
+        <div class="total col-lg-2">
+            <div class="product">
+
+                @Html.Image(pro.Image, "Alternate Text", "300", "250")
+                <div class="overlay">
+                    <di class="text">@pro.Description</di>
+                </div>
+            </div>
+            <div class="detail">
+                <span>@pro.Name</span>
+                <span style="font-size:15px; color:blue">Giá tiền:</span>
+                <br />
+                <div class="price">@pro.Price</div>
+                <button>Chọn mua</button>
+            </div>
+        </div>
+    }
+}

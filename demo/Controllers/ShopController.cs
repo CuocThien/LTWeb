@@ -7,7 +7,7 @@ using demo.Model;
 using demo.Controllers;
 using System.Web.UI;
 using MailKit.Net.Smtp;
-//using System.Net.Mail;
+using PagedList;
 using MimeKit;
 using MailKit;
 using MimeKit.Text;
@@ -106,11 +106,23 @@ namespace demo.Controllers
                 return Content("false");
             }
         }
-        public ActionResult Home()
-
+        public ActionResult _Product(int? page)
         {
-            return View();
+            int pagesize = 2;
+            int pageNumber = (page ?? 1);
+            var result = _db.Products.OrderBy(id => id.ID);
+            return PartialView(result.ToPagedList(pageNumber, pagesize));
         }
+
+        [HttpGet]
+        public ActionResult Home(int? page)
+        {
+            int pagesize = 2;
+            int pageNumber = (page ?? 1);
+            var result = _db.Products.OrderBy(id => id.ID);
+            return View(result.ToPagedList(pageNumber,pagesize));
+        }
+
         [HttpPost]
         public ActionResult ResetPassword(FormCollection user)
         {//Kiểm tra User có tồn tại trong database hay không

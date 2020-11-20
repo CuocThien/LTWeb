@@ -245,6 +245,7 @@
     <Content Include="Views\Shop\AddProduct.cshtml" />
     <Content Include="Views\Shop\ResetPassword.cshtml" />
     <Content Include="Views\Shop\ForgotPassword.cshtml" />
+    <Content Include="Views\Shop\_Product.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
