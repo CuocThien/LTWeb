@@ -6,13 +6,16 @@
     <link href="~/Style/Style.css" rel="stylesheet" />
     <link href="~/Style/Home.css" rel="stylesheet" />
     <link href="~/Style/Product.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.5.1.js"></script>
+    <script type="text/javascript" src="~/Scripts/bootstrap.min.js"></script>
     <title>@ViewBag.title</title>
+
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
-<body>
-    
+<body id="loadBody" style="padding:0">
+
     @RenderBody()
 
     @Scripts.Render("~/bundles/jquery")

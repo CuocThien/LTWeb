@@ -10,42 +10,50 @@
         <div class="header-top">
             <div class="header-left-top">
 
-                <form action="#" method="post">
+                <form>
                     <span>User Name:</span>
-                    <input type="text" value="" name="username" />
+                    <input type="text" id="user" class="ip-text" value="" name="username" />
                     @Html.ValidationMessageFor(m => m.Username)
                     <br /><br />
                     <span>Password:</span>
-                    <input type="password" value="" name="password" />
+                    <input type="password" id="password" class="ip-password" value="" name="password" />
                     @Html.ValidationMessageFor(m => m.Password)
 
                     <br /><br />
                     <span>Confirm:</span>
-                    <input type="password" value="" name="confirm" />
+                    <input type="password" id="confirm" class="ip-password" value="" name="confirm" />
+                    <br />
+                    <span id="showError"></span>
                     @Html.ValidationMessageFor(m => m.Password)
 
                     <br /><br />
                     <span>Name:</span>
-                    <input type="text" name="name" value="" />
+                    <input type="text" id="name" class="ip-text" name="name" value="" />
                     @Html.ValidationMessageFor(m => m.Name)
                     <br /><br />
 
                     <span>Date of Birth:</span>
-                    <input type="date" name="dob" value="" />
+                    <input type="date" id="birthday" class="ip-date" name="birthday" value="" />
                     @Html.ValidationMessageFor(m => m.Birthday)
                     <br /><br />
 
                     <span>Phone Number:</span>
-                    <input type="number" name="phonenum" value=""/>
+                    <input type="text" id="phone" class="ip-number" name="phone" value="" />
                     @Html.ValidationMessageFor(m => m.Phone)
                     <br /><br />
 
                     <span>Address:</span>
-                    <input class="address" type="text" name="address" value=""/>
+                    <input class="ip-text" id="address" type="text" name="address" value="" />
                     @Html.ValidationMessageFor(m => m.Address)
                     <br /><br />
 
-                    <input type="submit" value="Register">
+                    <span>Email:</span>
+                    <input class="ip-text" id="email" type="text" name="email" value="" />
+                    @Html.ValidationMessageFor(m => m.Address)
+
+                    <br /><br />
+                    <div type="submit" id="register" class="ip-submit" style="text-align:center">Register</div>
+
                 </form>
                 <div class="header-left-bottom">
                     <div class="sign-up"> <h2>OR</h2> </div>
@@ -59,3 +67,49 @@
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function () {
+        $("#register").click(function () {
+            let username = $("#user")[0].value;
+            let password = $("#password")[0].value;
+            let name = $("#name")[0].value;
+            let birthday = $("#birthday")[0].value;
+            let phone = $("#phone")[0].value;
+            let address = $("#address")[0].value;
+            let email = $("#email")[0].value
+            let confirm = $("#confirm")[0].value
+            $.ajax({
+                cache: false,
+                type: "POST",
+
+                url: "/Shop/Register",
+                data: {
+
+                    username: username,
+                    password: password,
+                    name: name,
+                    birthday: birthday,
+                    phone: phone,
+                    address: address,
+                    email: email,
+                    confirm: confirm
+                },
+                success: function (res) {
+                    if (res === "false")
+                        alert("Đăng ký thất bại")
+                    else if (res === "userexist") {
+                        alert("Đăng ký thất bại user trùng")
+                    }
+                    else if (res === "NotEqual") {
+                        alert("Không khớp mật khẩu")
+                    }
+                    else {
+                        alert("Đăng ký thành công")
+                        $("#loadBody").html(res)
+                    }
+                }
+            })
+        })
+    })
+</script>
+<script src="~/Scripts/CheckPass.js"></script>
