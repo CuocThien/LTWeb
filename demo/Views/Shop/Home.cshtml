@@ -96,13 +96,13 @@
             }
         </div>
         </div>
-    <div class="container">
+    <div class="container-fluid">
         <div id="loadProduct" class ="products row">
             @if (!(Model is null))
             {
                 foreach (var pro in Model.ToList())
                 {
-                    <div class="total col-lg-2">
+                    <div class="total col-lg-3">
                         <div class="product">
 
                             @Html.Image(pro.Image, "Alternate Text", "300", "250")
@@ -153,7 +153,7 @@
             });
         });
         $('#next').click(function () {
-            pagesize = 1;
+            pagesize = 4;
             var max = 0;
             var size = (@db.Products.Count()) / pagesize;
             if ((@db.Products.Count()) % pagesize == 0) {
@@ -190,7 +190,7 @@
             });
         });
         $('#maxpage').click(function () {
-            pagesize = 1;
+            pagesize = 4;
             var max = 0;
             var size = (@db.Products.Count()) / pagesize;
             if ((@db.Products.Count()) % pagesize == 0) {

@@ -125,7 +125,7 @@ namespace demo.Controllers
         }
         public ActionResult _Product(int? page)
         {
-            int pagesize = 1;
+            int pagesize = 4;
             int pageNumber = (page ?? 1);
             var result = _db.Products.OrderBy(id => id.ID);
             return PartialView(result.ToPagedList(pageNumber, pagesize));
@@ -135,7 +135,7 @@ namespace demo.Controllers
         [AuthorizeController]
         public ActionResult Home(int? page)
         {
-            int pagesize = 1;
+            int pagesize = 4;
             int pageNumber = (page ?? 1);
             var result = _db.Products.OrderBy(id => id.ID);
             return View(result.ToPagedList(pageNumber,pagesize));
@@ -143,7 +143,7 @@ namespace demo.Controllers
         [HttpGet]
         public ActionResult HomeGuest(int? page)
         {
-            int pagesize = 1;
+            int pagesize = 4;
             int pageNumber = (page ?? 1);
             var result = _db.Products.OrderBy(id => id.ID);
             return View(result.ToPagedList(pageNumber, pagesize));
