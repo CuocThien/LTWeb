@@ -13,11 +13,25 @@ using MailKit;
 using MimeKit.Text;
 using MailKit.Security;
 using System.Data.Entity.Migrations;
+using Facebook;
+using System.Configuration;
 
 namespace demo.Controllers
 {
     public class ShopController : Controller
     {
+        
+        private Uri RedirectUri
+        {
+            get
+            {
+                var uriBuilder = new UriBuilder(Request.Url);
+                uriBuilder.Query = null;
+                uriBuilder.Fragment = null;
+                uriBuilder.Path = Url.Action("FacebookCallback");
+                return uriBuilder.Uri;
+            }
+        }
         // GET: Shop
         
 
@@ -58,6 +72,8 @@ namespace demo.Controllers
         public ActionResult Login(User user)
 
         {
+            Session["Is Login"] = 0;
+            Session["User"] = null;
             //Kiểm tra User có tồn tại trong database hay không
             if (user.Username == null || _db.Users.Find(user.Username.Trim()) == null)
                 return Content("false");
@@ -67,13 +83,16 @@ namespace demo.Controllers
                 var u = _db.Users.Find(user.Username.Trim());
                 if (user.Username.Trim() == u.Username.Trim() && user.Password.Trim() == u.Password.Trim())
                 {
-                    @ViewBag.user = u.Name.Trim();
-                    @ViewBag.isSuccess = "1";
-                    if(u.isAdmin==true)
-                    {
-                        @ViewBag.isAdmin = "1";
-                    }    
-                    return View("Home");
+                    Session["Is Login"] = 1;
+                    Session["User"] = u;
+                    return RedirectToAction("Home", "Shop");
+                    //@ViewBag.user = u.Name.Trim();
+                    //@ViewBag.isSuccess = "1";
+                    //if(u.isAdmin==true)
+                    //{
+                    //    @ViewBag.isAdmin = "1";
+                    //}    
+                    //return View("Home");
                 }
             }
 
@@ -98,8 +117,6 @@ namespace demo.Controllers
                 }
                 else
                     return Content("NotEqual");
-
-
             }
             else
             {
@@ -108,21 +125,36 @@ namespace demo.Controllers
         }
         public ActionResult _Product(int? page)
         {
-            int pagesize = 2;
+            int pagesize = 1;
             int pageNumber = (page ?? 1);
             var result = _db.Products.OrderBy(id => id.ID);
             return PartialView(result.ToPagedList(pageNumber, pagesize));
         }
 
         [HttpGet]
+        [AuthorizeController]
         public ActionResult Home(int? page)
         {
-            int pagesize = 2;
+            int pagesize = 1;
             int pageNumber = (page ?? 1);
             var result = _db.Products.OrderBy(id => id.ID);
             return View(result.ToPagedList(pageNumber,pagesize));
         }
-
+        [HttpGet]
+        public ActionResult HomeGuest(int? page)
+        {
+            int pagesize = 1;
+            int pageNumber = (page ?? 1);
+            var result = _db.Products.OrderBy(id => id.ID);
+            return View(result.ToPagedList(pageNumber, pagesize));
+        }
+        [HttpPost]
+        public ActionResult Logout()
+        {
+            Session["User"] = null;
+            Session["Is Login"] = 0;
+            return View("HomeGuest");
+        }
         [HttpPost]
         public ActionResult ResetPassword(FormCollection user)
         {//Kiểm tra User có tồn tại trong database hay không
@@ -184,6 +216,70 @@ namespace demo.Controllers
             }
             //return View();
         }
+        public ActionResult LoginFacebook()
+        {
+            var fb = new FacebookClient();
+            var loginUrl = fb.GetLoginUrl(new
+            {
+                client_id = ConfigurationManager.AppSettings["FbAppId"],
+                client_secret = ConfigurationManager.AppSettings["FbAppSecret"],
+                redirect_uri = RedirectUri.AbsoluteUri,
+                response_type = "code",
+                scope = "email",
+            });
+            return Redirect(loginUrl.AbsoluteUri);
+        }
+        public ActionResult FacebookCallback(string code)
+        {
+            var fb = new FacebookClient();
+            dynamic result = fb.Post("oauth/access_token", new
+            {
+                client_id = ConfigurationManager.AppSettings["FbAppId"],
+                client_secret = ConfigurationManager.AppSettings["FbAppSecret"],
+                redirect_uri = RedirectUri.AbsoluteUri,
+                code = code,
+            });
+            var accessToken = result.access_token;
+            if (!string.IsNullOrEmpty(accessToken))
+            {
+                fb.AccessToken = accessToken;
 
+                dynamic me = fb.Get("me?fields=name,email,birthday,gender");
+                string email = me.email;
+                string name = me.name;
+                DateTime birthday = Convert.ToDateTime(me.birthday);
+                string gender = me.gender;
+
+                var user = new User();
+                user.Email = email;
+                user.Username = email;
+                user.Name = name;
+                user.Birthday = birthday;
+                //user. = gender;
+
+                var resultInsert = new ShopController().InsertForFacebook(user);
+                if(resultInsert!=null)
+                {
+                    Session["Is Login"] = 1;
+                    Session["User"] = user;
+                }    
+                
+            }
+            return RedirectToAction("Home", "Shop");
+        }
+        public string InsertForFacebook(User model)
+        {
+            var user = _db.Users.SingleOrDefault(n => n.Username == model.Username);
+            if (user == null)
+            {
+                _db.Users.Add(model);
+                _db.SaveChanges();
+                return model.Username;
+            }
+            else
+            {
+                return user.Username;
+            }
+        }
     }
 }

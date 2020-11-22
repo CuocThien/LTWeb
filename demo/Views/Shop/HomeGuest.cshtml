@@ -9,37 +9,11 @@
     <div class="home-Contact">
         <span>Contact us: <a href="tel:#0708033730">0708033730</a></span>
         <hr>
-        @{
-
-            var user = Session["User"] as User;
-            if (Session["User"] != null)
-            {
-                string temp = user.Username;
-                if (user.Name != null)
-                {
-                    temp = user.Name;
-                }
-                else
-                {
-                    temp = user.Username;
-                }
-
-                <div class="after-login">
-                    <a href="#" id="user">@temp</a>
-                    <hr>
-                    <SPAN><a href="~/Shop/HomeGuest" id="Logout">ĐĂNG XUẤT</a></SPAN>
-                </div>
-
-            }
-            else
-            {
-                <div class="Before-login">
-                    <span><a href="~/Shop/Register">ĐĂNG KÝ</a></span>
-                    <hr>
-                    <SPAN><a href="~/Shop/Login">ĐĂNG NHẬP</a></SPAN>
-                </div>
-            }
-        }
+        <div class="Before-login">
+            <span><a href="~/Shop/Register">ĐĂNG KÝ</a></span>
+            <hr>
+            <SPAN><a href="~/Shop/Login">ĐĂNG NHẬP</a></SPAN>
+        </div>
     </div>
     <div class="home-Menu row">
         <div class="home-Menu-left col-lg-6">
@@ -49,7 +23,7 @@
                 </li>
                 <li class="nav-item submenu dropdown" style="border-right:solid 2px black">
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">PHÂN LOẠI</a>
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu" role="menu">
                         <li class="nav-item">
                             <a class="nav-link" href="#">ĐỒNG HỒ NAM</a>
                         </li>
@@ -61,7 +35,7 @@
                 </li>
                 <li class="nav-item submenu dropdown " style="border-right:solid 2px black">
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">HÃNG</a>
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu" role="menu">
                         <li class="nav-item">
                             <a class="nav-link" href="#">ROLEX</a>
                         </li>
@@ -80,24 +54,11 @@
 
         </div>
         <div class="home-Menu-right col-lg-6">
-            @{
-                
-                if (!(user is null) && user.isAdmin == true)
-                {
-                      <ul id="admin" class="nav navbar-nav center_nav pull-right">
-                         <li class="nav-item">
-                            <a class="nav-link" href="~/Shop/AddProduct">THÊM SẢN PHẨM</a>
-                         </li>
-                         <li class="nav-item">
-                            <a class="nav-link" href="#">CHỈNH SỬA SẢN PHẨM</a>
-                         </li>
-                      </ul>
-                }
-            }
+            
         </div>
-        </div>
+    </div>
     <div class="container">
-        <div id="loadProduct" class ="products row">
+        <div id="loadProduct" class="products row">
             @if (!(Model is null))
             {
                 foreach (var pro in Model.ToList())
@@ -212,17 +173,5 @@
             });
         });
     });
-</script>
-<script>
-    $(document).ready(function () {
-        $('#Logout').click(function () {
-            $.ajax({
-                type: "POST",
-                url: "/Shop/Logout",
-                success: function (res) {
-                    alert("Đăng xuất thành công")
-                }
-            });
-        });
-    });
+
 </script>

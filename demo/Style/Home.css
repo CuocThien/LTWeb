@@ -51,13 +51,7 @@ a {
         margin: 0 5px 0;
     }
 
-    .home-Contact div {
-        display: none;
-    }
-
-        .home-Contact div.active {
-            display: flex;
-        }
+    
 
     .home-Contact span {
         font-size: 14px;
@@ -72,7 +66,12 @@ a {
     height: 100%;
 }
 
-
+.after-login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
 
 .home-Menu-left {
     background-color: antiquewhite;
@@ -81,9 +80,6 @@ a {
     margin: 0;
     display: flex;
     justify-content: flex-start;
-}
-#admin{
-    display:none;
 }
 .home-Menu-right {
     background-color: antiquewhite;

@@ -56,6 +56,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Facebook, Version=6.0.10.0, Culture=neutral, PublicKeyToken=58cb4f2111d1e6de, processorArchitecture=MSIL">
+      <HintPath>..\packages\Facebook.7.0.6\lib\net45\Facebook.dll</HintPath>
+    </Reference>
     <Reference Include="MailKit, Version=2.9.0.0, Culture=neutral, PublicKeyToken=4e064fe7c44a8f1b, processorArchitecture=MSIL">
       <HintPath>..\packages\MailKit.2.9.0\lib\net47\MailKit.dll</HintPath>
     </Reference>
@@ -192,6 +195,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Model\AuthorizeController.cs" />
     <Compile Include="Model\Brand.cs">
       <DependentUpon>shop.tt</DependentUpon>
     </Compile>
@@ -246,6 +250,7 @@
     <Content Include="Views\Shop\ResetPassword.cshtml" />
     <Content Include="Views\Shop\ForgotPassword.cshtml" />
     <Content Include="Views\Shop\_Product.cshtml" />
+    <Content Include="Views\Shop\HomeGuest.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

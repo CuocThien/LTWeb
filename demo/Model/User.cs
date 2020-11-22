@@ -20,32 +20,32 @@ namespace demo.Model
         {
             this.Orders = new HashSet<Order>();
         }
-        [Required(ErrorMessage = "Không được để trống")]
-        [MinLength(4, ErrorMessage = "Tối thiểu 4 kí tự")]
+        //[Required(ErrorMessage = "Không được để trống")]
+        //[MinLength(4, ErrorMessage = "Tối thiểu 4 kí tự")]
         public string Username { get; set; }
 
-        [Required(ErrorMessage = "Không được để trống")]
-        [MinLength(5, ErrorMessage = "Tối thiểu 5 kí tự")]
+        //[Required(ErrorMessage = "Không được để trống")]
+        //[MinLength(5, ErrorMessage = "Tối thiểu 5 kí tự")]
         public string Password { get; set; }
 
-        [Required(ErrorMessage = "Không được để trống")]
-        [MinLength(5, ErrorMessage = "Tối thiểu 5 kí tự")]
+        //[Required(ErrorMessage = "Không được để trống")]
+        //[MinLength(5, ErrorMessage = "Tối thiểu 5 kí tự")]
 
         public string Name { get; set; }
-        [Required(ErrorMessage = "Không được để trống")]
+        //[Required(ErrorMessage = "Không được để trống")]
         public Nullable<System.DateTime> Birthday { get; set; }
-        [Required(ErrorMessage = "Không được để trống")]
-        [MaxLength(10, ErrorMessage = "10 số")]
-        [MinLength(10, ErrorMessage = "10 số")]
-        [Phone]
+        //[Required(ErrorMessage = "Không được để trống")]
+        //[MaxLength(10, ErrorMessage = "10 số")]
+        //[MinLength(10, ErrorMessage = "10 số")]
+        //[Phone]
         public string Phone { get; set; }
 
-        [Required(ErrorMessage = "Không được để trống")]
+        //[Required(ErrorMessage = "Không được để trống")]
         public string Address { get; set; }
         public Nullable<bool> isAdmin { get; set; }
         public string avatar { get; set; }
 
-        [Required(ErrorMessage = "Không được để trống")]
+        //[Required(ErrorMessage = "Không được để trống")]
         [EmailAddress]
         public string Email { get; set; }
 
