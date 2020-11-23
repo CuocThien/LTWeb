@@ -181,15 +181,14 @@ namespace demo.Controllers
         [HttpPost]
         public ActionResult ForgotPassword(User user)
         {
-            if (user.Email != null)
+            if (user.Email != null && ModelState.IsValid)
             {
-                var x = _db.Users.Where(u => u.Email.Contains(u.Email));
+                //var x = _db.Users.Where(u => u.Email.Equals(user.Email));
+                var x = (from u in _db.Users where u.Email == user.Email select u).ToList();
                 var MailTo = user.Email.Trim();
                 //var u = _db.Users.Find(f["email"]);
-                if (x == null)
-                    return Content("false");
-                else
-                {
+                if (x.Count==1)
+                {     
                     var message = new MimeMessage();
                     message.From.Add(new MailboxAddress("Thien-Vy's Watch Store", "watchstorethienvys@gmail.com"));
                     message.To.Add(new MailboxAddress("Custom", MailTo));
@@ -206,6 +205,11 @@ namespace demo.Controllers
                         client.Disconnect(true);
                     }
                     return View();
+                }
+                else
+                {
+
+                    return Content("false");
                 }
             }
             else

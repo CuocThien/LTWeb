@@ -121,7 +121,7 @@
                 max = (@db.Products.Count()) / pagesize;
             }
             else {
-                max = (@db.Products.Count()) / pagesize + 1;
+                max = Math.floor(((@db.Products.Count()) / pagesize) + 1);
             }
             currentpage = currentpage + 1;
             if (currentpage > max)
@@ -160,8 +160,9 @@
                 max = (@db.Products.Count()) / pagesize;
             }
             else {
-                max = (@db.Products.Count()) / pagesize + 1;
+                max = Math.floor(((@db.Products.Count()) / pagesize) + 1);
             }
+            console.log(max);
             currentpage = max;
             $.ajax({
                 type: "GET",
