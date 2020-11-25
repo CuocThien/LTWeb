@@ -62,8 +62,9 @@
                     password: password
                 },
                 success: function (res) {
-                    if (res === "false")
+                    if (res === "false") {
                         alert("Đăng nhập thất bại")
+                    }
                     else {
                         alert("Đăng nhập thành công")
                         $("#loadBody").html(res)

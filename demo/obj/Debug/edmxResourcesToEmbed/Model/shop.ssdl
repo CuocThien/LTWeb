@@ -23,13 +23,13 @@
     </Key>
     <Property Name="ID" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Name" Type="nvarchar" MaxLength="250" />
-    <Property Name="Image" Type="nvarchar" MaxLength="250" />
+    <Property Name="Image" Type="ntext" />
     <Property Name="Price" Type="float" />
     <Property Name="Quantity" Type="int" />
-    <Property Name="Warraty" Type="int" />
+    <Property Name="Warranty" Type="int" />
     <Property Name="Price_New" Type="float" />
     <Property Name="TopHot" Type="nvarchar" MaxLength="250" />
-    <Property Name="DateCreat" Type="date" />
+    <Property Name="DateCreate" Type="date" />
     <Property Name="Description" Type="ntext" />
     <Property Name="Style" Type="nvarchar" MaxLength="250" />
     <Property Name="Brand" Type="nvarchar" MaxLength="50" Nullable="false" />

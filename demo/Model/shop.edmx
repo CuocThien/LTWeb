@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="shopModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="shopModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Brand">
           <Key>
             <PropertyRef Name="ID" />
@@ -28,13 +28,13 @@
           </Key>
           <Property Name="ID" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="250" />
-          <Property Name="Image" Type="nvarchar" MaxLength="250" />
+          <Property Name="Image" Type="ntext" />
           <Property Name="Price" Type="float" />
           <Property Name="Quantity" Type="int" />
-          <Property Name="Warraty" Type="int" />
+          <Property Name="Warranty" Type="int" />
           <Property Name="Price_New" Type="float" />
           <Property Name="TopHot" Type="nvarchar" MaxLength="250" />
-          <Property Name="DateCreat" Type="date" />
+          <Property Name="DateCreate" Type="date" />
           <Property Name="Description" Type="ntext" />
           <Property Name="Style" Type="nvarchar" MaxLength="250" />
           <Property Name="Brand" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -119,56 +119,74 @@
             <End Role="Products" EntitySet="Products" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="shopModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="shopEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Brands" EntityType="shopModel.Brand" />
+          <EntitySet Name="Orders" EntityType="shopModel.Order" />
+          <EntitySet Name="Products" EntityType="shopModel.Product" />
+          <EntitySet Name="sysdiagrams" EntityType="shopModel.sysdiagram" />
+          <EntitySet Name="Users" EntityType="shopModel.User" />
+          <AssociationSet Name="FK_Products_Brand" Association="shopModel.FK_Products_Brand">
+            <End Role="Brand" EntitySet="Brands" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Products" Association="shopModel.FK_Orders_Products">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_User" Association="shopModel.FK_Orders_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="Brand">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Products" Relationship="Self.FK_Products_Brand" FromRole="Brand" ToRole="Products" />
+          <NavigationProperty Name="Products" Relationship="shopModel.FK_Products_Brand" FromRole="Brand" ToRole="Product" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
             <PropertyRef Name="MaDH" />
           </Key>
-          <Property Name="MaDH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="MaKH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="MaSP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MaDH" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MaKH" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MaSP" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="SoLuong" Type="Int32" />
           <Property Name="GiaTien" Type="Double" />
-          <NavigationProperty Name="Product" Relationship="Self.FK_Orders_Products" FromRole="Orders" ToRole="Products" />
-          <NavigationProperty Name="User" Relationship="Self.FK_Orders_User" FromRole="Orders" ToRole="User" />
+          <NavigationProperty Name="Product" Relationship="shopModel.FK_Orders_Products" FromRole="Order" ToRole="Product" />
+          <NavigationProperty Name="User" Relationship="shopModel.FK_Orders_User" FromRole="Order" ToRole="User" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="Image" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Price" Type="Double" />
           <Property Name="Quantity" Type="Int32" />
-          <Property Name="Warraty" Type="Int32" />
+          <Property Name="Warranty" Type="Int32" />
           <Property Name="Price_New" Type="Double" />
           <Property Name="TopHot" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="DateCreat" Type="DateTime" Precision="0" />
+          <Property Name="DateCreate" Type="DateTime" Precision="0" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Style" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="Brand" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Brand" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Brand1" Relationship="Self.FK_Products_Brand" FromRole="Products" ToRole="Brand" />
-          <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Products" FromRole="Products" ToRole="Orders" />
+          <NavigationProperty Name="Brand1" Relationship="shopModel.FK_Products_Brand" FromRole="Product" ToRole="Brand" />
+          <NavigationProperty Name="Orders" Relationship="shopModel.FK_Orders_Products" FromRole="Product" ToRole="Order" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
             <PropertyRef Name="diagram_id" />
           </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="principal_id" Type="Int32" Nullable="false" />
           <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="version" Type="Int32" />
@@ -178,7 +196,7 @@
           <Key>
             <PropertyRef Name="Username" />
           </Key>
-          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Birthday" Type="DateTime" Precision="0" />
@@ -187,64 +205,45 @@
           <Property Name="isAdmin" Type="Boolean" />
           <Property Name="avatar" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_User" FromRole="User" ToRole="Orders" />
+          <NavigationProperty Name="Orders" Relationship="shopModel.FK_Orders_User" FromRole="User" ToRole="Order" />
         </EntityType>
         <Association Name="FK_Products_Brand">
-          <End Role="Brand" Type="Self.Brand" Multiplicity="1" />
-          <End Role="Products" Type="Self.Product" Multiplicity="*" />
+          <End Type="shopModel.Brand" Role="Brand" Multiplicity="1" />
+          <End Type="shopModel.Product" Role="Product" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Brand">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="Products">
+            <Dependent Role="Product">
               <PropertyRef Name="Brand" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Orders_Products">
-          <End Role="Products" Type="Self.Product" Multiplicity="1" />
-          <End Role="Orders" Type="Self.Order" Multiplicity="*" />
+          <End Type="shopModel.Product" Role="Product" Multiplicity="1" />
+          <End Type="shopModel.Order" Role="Order" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Products">
+            <Principal Role="Product">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="Orders">
+            <Dependent Role="Order">
               <PropertyRef Name="MaSP" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Orders_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="Orders" Type="Self.Order" Multiplicity="*" />
+          <End Type="shopModel.User" Role="User" Multiplicity="1" />
+          <End Type="shopModel.Order" Role="Order" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="Username" />
             </Principal>
-            <Dependent Role="Orders">
+            <Dependent Role="Order">
               <PropertyRef Name="MaKH" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="shopEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Brands" EntityType="Self.Brand" />
-          <EntitySet Name="Orders" EntityType="Self.Order" />
-          <EntitySet Name="Products" EntityType="Self.Product" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
-          <EntitySet Name="Users" EntityType="Self.User" />
-          <AssociationSet Name="FK_Products_Brand" Association="Self.FK_Products_Brand">
-            <End Role="Brand" EntitySet="Brands" />
-            <End Role="Products" EntitySet="Products" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Orders_Products" Association="Self.FK_Orders_Products">
-            <End Role="Products" EntitySet="Products" />
-            <End Role="Orders" EntitySet="Orders" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Orders_User" Association="Self.FK_Orders_User">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Orders" EntitySet="Orders" />
-          </AssociationSet>
-        </EntityContainer>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -253,64 +252,64 @@
           <EntitySetMapping Name="Brands">
             <EntityTypeMapping TypeName="shopModel.Brand">
               <MappingFragment StoreEntitySet="Brand">
-                <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="shopModel.Order">
               <MappingFragment StoreEntitySet="Orders">
-                <ScalarProperty Name="MaDH" ColumnName="MaDH" />
-                <ScalarProperty Name="MaKH" ColumnName="MaKH" />
-                <ScalarProperty Name="MaSP" ColumnName="MaSP" />
-                <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
                 <ScalarProperty Name="GiaTien" ColumnName="GiaTien" />
+                <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
+                <ScalarProperty Name="MaSP" ColumnName="MaSP" />
+                <ScalarProperty Name="MaKH" ColumnName="MaKH" />
+                <ScalarProperty Name="MaDH" ColumnName="MaDH" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Products">
             <EntityTypeMapping TypeName="shopModel.Product">
               <MappingFragment StoreEntitySet="Products">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Image" ColumnName="Image" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="Warraty" ColumnName="Warraty" />
-                <ScalarProperty Name="Price_New" ColumnName="Price_New" />
-                <ScalarProperty Name="TopHot" ColumnName="TopHot" />
-                <ScalarProperty Name="DateCreat" ColumnName="DateCreat" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Style" ColumnName="Style" />
-                <ScalarProperty Name="Brand" ColumnName="Brand" />
                 <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="Brand" ColumnName="Brand" />
+                <ScalarProperty Name="Style" ColumnName="Style" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="DateCreate" ColumnName="DateCreate" />
+                <ScalarProperty Name="TopHot" ColumnName="TopHot" />
+                <ScalarProperty Name="Price_New" ColumnName="Price_New" />
+                <ScalarProperty Name="Warranty" ColumnName="Warranty" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
             <EntityTypeMapping TypeName="shopModel.sysdiagram">
               <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="shopModel.User">
               <MappingFragment StoreEntitySet="User">
-                <ScalarProperty Name="Username" ColumnName="Username" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="isAdmin" ColumnName="isAdmin" />
-                <ScalarProperty Name="avatar" ColumnName="avatar" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="avatar" ColumnName="avatar" />
+                <ScalarProperty Name="isAdmin" ColumnName="isAdmin" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

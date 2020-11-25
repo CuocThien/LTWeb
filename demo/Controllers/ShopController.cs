@@ -179,6 +179,44 @@ namespace demo.Controllers
             //return View("");
         }
         [HttpPost]
+        public ActionResult AddProduct(FormCollection pro)
+
+        {
+            //var u = Check.convertFtoUPro(pro);
+            Product product = new Product();
+            if (Check.CheckProduct(pro) == true)
+            {
+                int i = 1;
+                var p = _db.Products.ToList();
+                foreach (var item in p)
+                {
+                    if(i<int.Parse(item.ID))
+                    {
+                        i = int.Parse(item.ID);
+                    }    
+                }
+                i++;
+                product.ID = i.ToString();
+                product.Brand = pro["Brand"];
+                product.Country = pro["Country"];
+                product.DateCreate = DateTime.Parse(pro["DateCreate"]);
+                product.Description = pro["Description"];
+                product.Image = pro["Image"];
+                var x = product.Image.Length;
+                product.Name = pro["Name"];
+                product.Price = float.Parse(pro["Price"]);
+                product.Style = pro["Style"];
+                product.Warranty = int.Parse(pro["Warranty"]);
+                _db.Products.Add(product);
+                _db.SaveChanges();
+                return View("AddProduct");
+            }
+            else
+            {
+                return Content("false");
+            }                
+        }
+        [HttpPost]
         public ActionResult ForgotPassword(User user)
         {
             if (user.Email != null && ModelState.IsValid)

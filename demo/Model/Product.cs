@@ -25,10 +25,10 @@ namespace demo.Model
         public string Image { get; set; }
         public Nullable<double> Price { get; set; }
         public Nullable<int> Quantity { get; set; }
-        public Nullable<int> Warraty { get; set; }
+        public Nullable<int> Warranty { get; set; }
         public Nullable<double> Price_New { get; set; }
         public string TopHot { get; set; }
-        public Nullable<System.DateTime> DateCreat { get; set; }
+        public Nullable<System.DateTime> DateCreate { get; set; }
         public string Description { get; set; }
         public string Style { get; set; }
         public string Brand { get; set; }
