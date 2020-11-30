@@ -13,11 +13,10 @@
                 <div class="header-left-top">
 
                     <form >
-                        <input type="text" class="ip-text" value="" name="username" placeholder="username" />
-                        @Html.ValidationMessageFor(m => m.Username)
+                        <input type="text" id="username" class="ip-text" value="" name="username" placeholder="username" />
+                        <span id="usererror"></span>
                         <input type="password" class="ip-password" value="" name="password" placeholder="password" />
 
-                        @Html.ValidationMessageFor(m => m.Password)
                         <div class="remember">
                             <span class="checkbox1">
                                 <label class="checkbox"><input type="checkbox" name="" checked=""><i> </i>Remember me</label>
@@ -73,4 +72,21 @@
             })
         })  
     })
+</script>
+<script>
+    $(document).ready(function () {
+        $('#username').keyup(function () {
+            var check = $('#username').val();
+            if (/^[a-zA-Z0-9]*$/.test(check) == false) {
+                $('#usererror').html('Username không chứa các ký tự đặc biệt');
+                $('#usererror').css('color', 'rgb(100, 230, 97)');
+                $('#login').e
+                return false;
+            }
+            else {
+                $('#usererror').html('')
+                return true;
+            }
+        });
+    });
 </script>

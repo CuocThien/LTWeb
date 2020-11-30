@@ -13,43 +13,37 @@
                 <form>
                     <span>User Name:</span>
                     <input type="text" id="user" class="ip-text" value="" name="username" />
-                    @Html.ValidationMessageFor(m => m.Username)
+                    <span id="usererror"></span>
                     <br /><br />
                     <span>Password:</span>
                     <input type="password" id="password" class="ip-password" value="" name="password" />
-                    @Html.ValidationMessageFor(m => m.Password)
 
                     <br /><br />
                     <span>Confirm:</span>
                     <input type="password" id="confirm" class="ip-password" value="" name="confirm" />
                     <br />
                     <span id="showError"></span>
-                    @Html.ValidationMessageFor(m => m.Password)
 
                     <br /><br />
                     <span>Name:</span>
                     <input type="text" id="name" class="ip-text" name="name" value="" />
-                    @Html.ValidationMessageFor(m => m.Name)
+                    <span id="nameerror"></span>
                     <br /><br />
 
                     <span>Date of Birth:</span>
                     <input type="date" id="birthday" class="ip-date" name="birthday" value="" />
-                    @Html.ValidationMessageFor(m => m.Birthday)
                     <br /><br />
 
                     <span>Phone Number:</span>
                     <input type="text" id="phone" class="ip-number" name="phone" value="" />
-                    @Html.ValidationMessageFor(m => m.Phone)
                     <br /><br />
 
                     <span>Address:</span>
                     <input class="ip-text" id="address" type="text" name="address" value="" />
-                    @Html.ValidationMessageFor(m => m.Address)
                     <br /><br />
 
                     <span>Email:</span>
                     <input class="ip-text" id="email" type="text" name="email" value="" />
-                    @Html.ValidationMessageFor(m => m.Address)
 
                     <br /><br />
                     <div type="submit" id="register" class="ip-submit" style="text-align:center">Register</div>
@@ -113,3 +107,33 @@
     })
 </script>
 <script src="~/Scripts/CheckPass.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#user').keyup(function () {
+            var check = $('#user').val();
+            if (/^[a-zA-Z0-9]*$/.test(check) == false) {
+                $('#usererror').html('Username không chứa các ký tự đặc biệt');
+                $('#usererror').css('color', 'rgb(100, 230, 97)');
+                $('#register').e
+                return false;
+            }
+            else {
+                $('#usererror').html('')
+                return true;
+            }
+        });
+        $('#name').keyup(function () {
+            var check = $('#name').val();
+            if (/^[a-zA-Z]*$/.test(check) == false) {
+                $('#nameerror').html('Tên không chứa các ký tự đặc biệt và số');
+                $('#nameerror').css('color', 'rgb(100, 230, 97)');
+                $('#register').e
+                return false;
+            }
+            else {
+                $('#nameerror').html('')
+                return true;
+            }
+        });
+    });
+</script>
