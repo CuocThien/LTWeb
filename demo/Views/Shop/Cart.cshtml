@@ -102,13 +102,14 @@
                                         <tbody>
                                             @foreach (var item in Model)
                                             {
+                                                var temp=(item.Product.Price.GetValueOrDefault(0) * item.Quantity);
                                                 <tr>
                                                     <td style="width: 15%;text-align:center;">@Html.Image(item.Product.Image, "Alternate Text", "100", "150")</td>
                                                     <td style="width:5% ;text-align:center;">@item.Product.ID</td>
                                                     <td style="width: 40%;text-align:center;">@item.Product.Name</td>
                                                     <td style="width: 5%;"><input style="border:none;text-align:center;" type="text" class="txtquantity" data-id="@item.Product.ID" value="@item.Quantity" /></td>
                                                     <td style="width: 15%;text-align:center;">@(item.Product.Price.GetValueOrDefault(0).ToString("N0"))</td>
-                                                    <td style="width: 15%;text-align:center;">@((item.Product.Price.GetValueOrDefault(0) * item.Quantity))</td>
+                                                    <td style="width: 15%;text-align:center;">@(((float)temp).ToString("N0"))</td>
                                                     <td style="width: 5%;text-align:center;"><a href="#" data-id="@item.Product.ID" class="btn-delete">Xóa</a></td>
                                                 </tr>
                                             }
