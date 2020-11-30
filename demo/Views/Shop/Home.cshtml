@@ -74,30 +74,30 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">GIỎ HÀNG</a>
+                    <a class="nav-link" id=" Cart" href="/Shop/Cart">GIỎ HÀNG</a>
                 </li>
             </ul>
 
         </div>
         <div class="home-Menu-right col-lg-6">
             @{
-                
+
                 if (!(user is null) && user.isAdmin == true)
                 {
-                      <ul id="admin" class="nav navbar-nav center_nav pull-right">
-                         <li class="nav-item">
+                    <ul id="admin" class="nav navbar-nav center_nav pull-right">
+                        <li class="nav-item">
                             <a class="nav-link" href="~/Shop/AddProduct">THÊM SẢN PHẨM</a>
-                         </li>
-                         <li class="nav-item">
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="#">CHỈNH SỬA SẢN PHẨM</a>
-                         </li>
-                      </ul>
+                        </li>
+                    </ul>
                 }
             }
         </div>
-        </div>
+    </div>
     <div class="container-fluid">
-        <div id="loadProduct" class ="products row">
+        <div id="loadProduct" class="products row">
             @if (!(Model is null))
             {
                 foreach (var pro in Model.ToList())
@@ -111,11 +111,15 @@
                             </div>
                         </div>
                         <div class="detail">
-                            <span>@pro.Name</span>
+                            <span id="product">@pro.Name</span>
                             <span style="font-size:15px; color:blue">Giá tiền:</span>
                             <br />
                             <div class="price">@pro.Price</div>
-                            <button>Chọn mua</button>
+                            <div class="AddCart">
+                                
+                                <h4><a href="/Shop/Cart?ProductID=@pro.ID&quantity=1" id="buy">Chọn Mua</a></h4>
+                            </div>
+                           
                         </div>
                     </div>
                 }
@@ -128,8 +132,6 @@
             <li><a id="maxpage">>>|</a></li>
         </ul>
     </div>
-</div>
-
 <script>
     var currentpage = 1;
     var max = 0;
@@ -222,6 +224,18 @@
                 success: function (res) {
                     alert("Đăng xuất thành công")
                 }
+            });
+        });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $('#buy').click(function () {
+           @{
+        shopEntities _db = new shopEntities();
+    }
+
+            
             });
         });
     });

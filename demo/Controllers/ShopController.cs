@@ -20,7 +20,7 @@ namespace demo.Controllers
 {
     public class ShopController : Controller
     {
-        
+
         private Uri RedirectUri
         {
             get
@@ -33,10 +33,11 @@ namespace demo.Controllers
             }
         }
         // GET: Shop
-        
+
 
 
         public shopEntities _db = new shopEntities();
+        private const string CartSession = "CartSession";
         [HttpGet]
 
         public ActionResult Index()
@@ -64,6 +65,134 @@ namespace demo.Controllers
             return View();
         }
         public ActionResult ForgotPassword()
+        {
+
+            return View();
+        }
+        // [HttpGet]
+        /* public ActionResult AddCart()
+
+         {
+             var cart = Session[CartSession];
+             var list = new List<OrderDetail>();
+             if(cart !=null)
+             {
+                 list = (List<OrderDetail>)cart;
+             }
+             return View(list);
+         }
+         */
+        public ActionResult Cart(string ProductID, string quantity)
+
+        {
+            int i = 0;
+            var p = _db.Orders.ToList();
+            User user = Session["User"] as User;
+            foreach (var item in p)
+            {
+                if (i < int.Parse(item.ID_Order))
+                {
+                    i = int.Parse(item.ID_Order);
+                }
+            }
+            i++;
+            
+            
+            int Quantity = Convert.ToInt32(quantity);
+            var product = _db.Products.Find(ProductID);
+            // OrderDetail order = new OrderDetail();
+            var cart = Session[CartSession];
+           
+            //Kiem tra gio hang co san pham hay khong
+            if (cart != null)
+            {
+               
+                var ID = _db.Orders.Where(o => o.ID_Customer == user.Username && o.status == false).SingleOrDefault();
+                var id = _db.OrderDetails.Where(x => x.ID_Order == ID.ID_Order && x.ID_Product==ProductID).SingleOrDefault();
+              
+               // var pro = _db.OrderDetails.Where(x => x.ID_Product == id[0].ID_Product && x.ID_Order == id[].ID_Order).SingleOrDefault();
+
+                //Kiem tra gio hang co san pham nay hay chua
+                var list = (List<OrderDetail>)cart;
+            //    var id = _db.OrderDetails.Where(x => x.ID_Order == ID.ID_Order).SingleOrDefault();
+                if (list.Exists(x => x.Product.ID == ProductID))
+                {
+                    foreach (var item in list)
+                    {
+                        if (item.Product.ID == ProductID)
+                        {
+                            item.Quantity += Quantity;
+                            id.Quantity = item.Quantity;
+                            id.Price = id.Quantity * item.Product.Price;
+                            _db.OrderDetails.AddOrUpdate(id);
+                        }
+                    }
+                    
+                    _db.SaveChanges();
+
+                }
+                //ad san pham moi neu san pham chua co
+                else
+                {
+                    OrderDetail orderDetail = new OrderDetail();
+                    var order = new OrderDetail();
+                    order.Product = product;
+                    order.Quantity = Quantity;
+                    list.Add(order);
+                    orderDetail.ID_Order = ID.ID_Order;
+                    orderDetail.ID_Product = order.Product.ID;
+                    orderDetail.Quantity = order.Quantity;
+                    orderDetail.Price = order.Quantity * order.Product.Price;
+                    _db.OrderDetails.Add(orderDetail);
+                   
+                    _db.SaveChanges();
+                }
+
+                Session[CartSession] = list;
+
+            }
+            //Chua co san pham nao trong gio hang
+            else
+            {
+                Order orders = new Order();
+                var order = new OrderDetail();
+                OrderDetail orderDetail = new OrderDetail();
+                order.Product = product;
+                order.Quantity = Quantity;
+                var list = new List<OrderDetail>();
+                list.Add(order);
+
+                //Luu xuong bang order
+                orders.ID_Order = i.ToString();
+                orders.ID_Customer = user.Username.ToString();
+                orders.status = false;
+                _db.Orders.Add(orders);
+                //Luu xuong bang orderdetail
+                orderDetail.ID_Order = orders.ID_Order;
+                orderDetail.ID_Product = order.Product.ID;
+                orderDetail.Quantity = order.Quantity;
+                orderDetail.Price = order.Quantity * order.Product.Price;
+                _db.OrderDetails.Add(orderDetail);
+                _db.SaveChanges();
+                Session[CartSession] = list;
+
+
+            }
+            
+            //Hien len view
+            if(Quantity==0)
+            {
+                Session[CartSession] = null;
+            }
+            cart = Session[CartSession];
+            var l = new List<OrderDetail>();
+            if (cart != null)
+                l = (List<OrderDetail>)cart;
+            return View(l);
+            //return RedirectToAction("AddCart");
+        }
+        [HttpPost]
+         public ActionResult Cart(OrderDetail orderDetail)
         {
 
             return View();
@@ -323,5 +452,8 @@ namespace demo.Controllers
                 return user.Username;
             }
         }
+        
+        
+       
     }
 }

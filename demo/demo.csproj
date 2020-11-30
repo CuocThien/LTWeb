@@ -202,6 +202,9 @@
     <Compile Include="Model\Order.cs">
       <DependentUpon>shop.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\OrderDetail.cs">
+      <DependentUpon>shop.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\Product.cs">
       <DependentUpon>shop.tt</DependentUpon>
     </Compile>
@@ -251,6 +254,7 @@
     <Content Include="Views\Shop\ForgotPassword.cshtml" />
     <Content Include="Views\Shop\_Product.cshtml" />
     <Content Include="Views\Shop\HomeGuest.cshtml" />
+    <Content Include="Views\Shop\Cart.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

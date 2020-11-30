@@ -542,3 +542,5 @@ E:\New folder\LTWeb\demo\obj\Debug\demo.dll
 E:\New folder\LTWeb\demo\obj\Debug\demo.pdb
 E:\New folder\LTWeb\demo\bin\Facebook.dll
 E:\New folder\LTWeb\demo\bin\Facebook.xml
+D:\vy\study\HK1-20-21\Lập trình Web\new\newnew\LTWeb\demo\bin\Facebook.dll
+D:\vy\study\HK1-20-21\Lập trình Web\new\newnew\LTWeb\demo\bin\Facebook.xml

@@ -1,0 +1,152 @@
+﻿@model List<demo.Model.OrderDetail>
+    @using PagedList.Mvc;
+    @using demo.Model;
+    @{
+        ViewBag.Title = "Cart";
+    }
+
+    @using demo.Controllers;
+    <div>
+        <div class="home-Contact">
+            <span>Contact us: <a href="tel:#0708033730">0708033730</a></span>
+            <hr>
+            @{
+
+                var user = Session["User"] as User;
+                var c=user.Orders.Where(t=>t.ID_Customer==user.Name).ToList().Count();
+                if (Session["User"] != null)
+                {
+                    string temp = user.Username;
+                    if (user.Name != null)
+                    {
+                        temp = user.Name;
+                    }
+                    else
+                    {
+                        temp = user.Username;
+                    }
+
+                    <div class="after-login">
+                        <a href="#" id="user">@temp</a>
+                        <hr>
+                        <SPAN><a href="~/Shop/HomeGuest" id="Logout">ĐĂNG XUẤT</a></SPAN>
+                    </div>
+
+                }
+            }
+        </div>
+        <div class="home-Menu row">
+            <div class="home-Menu-left col-lg-6">
+                <ul class="nav navbar-nav center_nav pull-right">
+                    <li class="nav-item active" style="border-right: 2px solid black">
+                        <a class="nav-link" href="~/Shop/Home">TRANG CHỦ</a>
+                    </li>
+                    <li class="nav-item submenu dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">PHÂN LOẠI</a>
+                        <ul class="dropdown-menu">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">ĐỒNG HỒ NAM</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">ĐỒNG HỒ NỮ</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">GIỎ HÀNG</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+
+            </div>
+            <div class="home-Menu-right col-lg-6">
+                <ul class="nav navbar-nav center_nav pull-right">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">THÊM SẢN PHẨM</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">CHỈNH SỬA SẢN PHẨM</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div id="cart" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <!-- Begin empty cart -->
+                    <div class="row">
+                        <div id="layout-page" class="col-md-12 col-sm-12 col-xs-12" margin-left:10px">
+                            <span class="header-page clearfix">
+                                <h1 style="color:black">
+                                    Giỏ hàng
+                                </h1>
+                            </span>
+
+                            @{
+                                if(Model.Count>0)
+                               // if (@c > 0)
+                                {
+                                    <table class="table-cart" >
+                                        
+                                        <thead>
+                                            <tr>
+                                                <th style="text-align: center;">Ảnh SP</th>
+                                                <th style="text-align: center;">Mã SP</th>
+                                                <th style="text-align: center;">Tên SP</th>
+                                                <th style="text-align: center;">Số lượng</th>
+                                                <th style="text-align: center;">Đơn giá</th>
+                                                <th style="text-align: center;">Thành tiền</th>
+                                                <th style="text-align: center;"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model)
+                                            {
+                                                <tr>
+                                                    <td style="width: 15%;text-align:center;">@Html.Image(item.Product.Image, "Alternate Text", "100", "150")</td>
+                                                    <td style="width:5% ;text-align:center;">@item.Product.ID</td>
+                                                    <td style="width: 40%;text-align:center;">@item.Product.Name</td>
+                                                    <td style="width: 5%;"><input style="border:none;text-align:center;" type="text" class="txtquantity" data-id="@item.Product.ID" value="@item.Quantity" /></td>
+                                                    <td style="width: 15%;text-align:center;">@(item.Product.Price.GetValueOrDefault(0).ToString("N0"))</td>
+                                                    <td style="width: 15%;text-align:center;">@((item.Product.Price.GetValueOrDefault(0) * item.Quantity))</td>
+                                                    <td style="width: 5%;text-align:center;"><a href="#" data-id="@item.Product.ID" class="btn-delete">Xóa</a></td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                    
+                                }
+                                else
+                                {
+                                    <p class="text-center">
+                                        Không có sản phẩm nào trong giỏ hàng!
+                                    </p>
+                                }
+                            }
+
+
+
+                           <div class="row">
+                                <div class="col-md-6 col-sm-6 col-xs-12 inner-left inner-right">
+                                </div>
+                                <div class="col-md-6 col-sm-6 col-xs-12 cart-buttons inner-right inner-left">
+                                    <div class="buttons clearfix">
+                                        <button type="button" id="" class="button-default" style="float:right;margin-left:10px" name="" value="" onclick="checkout()">
+                                            Thanh toán
+                                        </button>
+                                        <button type="button" id="update-cart" class="button-default" name="update" value="" onclick="updatecart('<%=dsCartID %>')">
+                                            Cập nhật
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-sm-12  col-xs-12 continue-shop">
+                                    <a href="~/Shop/Home"><i class="fa fa-reply"></i>Tiếp tục mua hàng</a>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <!-- End cart -->
+                </div>
+            </div>
+        </div>

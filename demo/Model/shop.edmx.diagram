@@ -6,12 +6,14 @@
     <edmx:Diagrams>
       <Diagram DiagramId="22f1e342d9e643d3a0881bfdc46df796" Name="Diagram1">
         <EntityTypeShape EntityType="shopModel.Brand" Width="1.5" PointX="0.75" PointY="2.125" />
-        <EntityTypeShape EntityType="shopModel.Order" Width="1.5" PointX="5.25" PointY="1.75" />
+        <EntityTypeShape EntityType="shopModel.OrderDetail" Width="1.5" PointX="5.25" PointY="1.875" />
+        <EntityTypeShape EntityType="shopModel.Order" Width="1.5" PointX="3" PointY="6.625" />
         <EntityTypeShape EntityType="shopModel.Product" Width="1.5" PointX="3" PointY="1" />
         <EntityTypeShape EntityType="shopModel.sysdiagram" Width="1.5" PointX="5.75" PointY="5.75" />
-        <EntityTypeShape EntityType="shopModel.User" Width="1.5" PointX="3" PointY="6.5" />
+        <EntityTypeShape EntityType="shopModel.User" Width="1.5" PointX="0.75" PointY="6.5" />
         <AssociationConnector Association="shopModel.FK_Products_Brand" />
-        <AssociationConnector Association="shopModel.FK_Orders_Products" />
+        <AssociationConnector Association="shopModel.FK_OrderDetail_Orders" />
+        <AssociationConnector Association="shopModel.FK_OrderDetail_Products" />
         <AssociationConnector Association="shopModel.FK_Orders_User" />
       </Diagram>
     </edmx:Diagrams>

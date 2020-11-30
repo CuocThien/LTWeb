@@ -14,13 +14,22 @@ namespace demo.Model
     
     public partial class Order
     {
-        public string MaDH { get; set; }
-        public string MaKH { get; set; }
-        public string MaSP { get; set; }
-        public Nullable<int> SoLuong { get; set; }
-        public Nullable<double> GiaTien { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Order()
+        {
+            this.OrderDetails = new HashSet<OrderDetail>();
+        }
     
-        public virtual Product Product { get; set; }
+        public string ID_Order { get; set; }
+        public string ID_Customer { get; set; }
+        public Nullable<System.DateTime> Date_Create { get; set; }
+        public string shipName { get; set; }
+        public string shipMobile { get; set; }
+        public string shipAddress { get; set; }
+        public Nullable<bool> status { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<OrderDetail> OrderDetails { get; set; }
         public virtual User User { get; set; }
     }
 }

@@ -7,15 +7,27 @@
     <Property Name="ID" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Name" Type="nvarchar" MaxLength="250" />
   </EntityType>
+  <EntityType Name="OrderDetail">
+    <Key>
+      <PropertyRef Name="ID_Order" />
+      <PropertyRef Name="ID_Product" />
+    </Key>
+    <Property Name="ID_Order" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ID_Product" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Quantity" Type="int" />
+    <Property Name="Price" Type="float" />
+  </EntityType>
   <EntityType Name="Orders">
     <Key>
-      <PropertyRef Name="MaDH" />
+      <PropertyRef Name="ID_Order" />
     </Key>
-    <Property Name="MaDH" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="MaKH" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="MaSP" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="SoLuong" Type="int" />
-    <Property Name="GiaTien" Type="float" />
+    <Property Name="ID_Order" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ID_Customer" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Date_Create" Type="datetime" />
+    <Property Name="shipName" Type="nvarchar(max)" />
+    <Property Name="shipMobile" Type="nchar" MaxLength="10" />
+    <Property Name="shipAddress" Type="nvarchar" MaxLength="50" />
+    <Property Name="status" Type="bit" />
   </EntityType>
   <EntityType Name="Products">
     <Key>
@@ -59,15 +71,27 @@
     <Property Name="avatar" Type="nvarchar" MaxLength="2000" />
     <Property Name="Email" Type="nvarchar" MaxLength="250" />
   </EntityType>
-  <Association Name="FK_Orders_Products">
+  <Association Name="FK_OrderDetail_Orders">
+    <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+    <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Orders">
+        <PropertyRef Name="ID_Order" />
+      </Principal>
+      <Dependent Role="OrderDetail">
+        <PropertyRef Name="ID_Order" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderDetail_Products">
     <End Role="Products" Type="Self.Products" Multiplicity="1" />
-    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Products">
         <PropertyRef Name="ID" />
       </Principal>
-      <Dependent Role="Orders">
-        <PropertyRef Name="MaSP" />
+      <Dependent Role="OrderDetail">
+        <PropertyRef Name="ID_Product" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -79,7 +103,7 @@
         <PropertyRef Name="Username" />
       </Principal>
       <Dependent Role="Orders">
-        <PropertyRef Name="MaKH" />
+        <PropertyRef Name="ID_Customer" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -97,13 +121,18 @@
   </Association>
   <EntityContainer Name="shopModelStoreContainer">
     <EntitySet Name="Brand" EntityType="Self.Brand" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OrderDetail" EntityType="Self.OrderDetail" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK_Orders_Products" Association="Self.FK_Orders_Products">
-      <End Role="Products" EntitySet="Products" />
+    <AssociationSet Name="FK_OrderDetail_Orders" Association="Self.FK_OrderDetail_Orders">
       <End Role="Orders" EntitySet="Orders" />
+      <End Role="OrderDetail" EntitySet="OrderDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderDetail_Products" Association="Self.FK_OrderDetail_Products">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="OrderDetail" EntitySet="OrderDetail" />
     </AssociationSet>
     <AssociationSet Name="FK_Orders_User" Association="Self.FK_Orders_User">
       <End Role="User" EntitySet="User" />
