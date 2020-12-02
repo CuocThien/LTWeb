@@ -42,6 +42,7 @@
         }
     </div>
     <div class="home-Menu row">
+       
         <div class="home-Menu-left col-lg-6">
             <ul class="nav navbar-nav center_nav pull-right">
                 <li class="nav-item active" style="border-right:solid 2px black">
@@ -73,9 +74,15 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" id=" Cart" href="/Shop/Cart">GIỎ HÀNG</a>
-                </li>
+                @{ Html.RenderAction("HeaderCart", "Shop");}
+                @*<li class="nav-item">
+            <a class="nav-link" id="Cart" href="/Shop/Cart">
+                @{ Html.RenderAction("HeaderCart", "Shop");}
+            </a>
+        </li>*@
+                @*<li class="nav-item">
+            <a class="nav-link" id=" Cart" href="/Shop/Cart">GIỎ HÀNG</a>
+        </li>*@
             </ul>
 
         </div>
@@ -116,10 +123,9 @@
                             <br />
                             <div class="price">@pro.Price</div>
                             <div class="AddCart">
-                                
                                 <h4><a href="/Shop/Cart?ProductID=@pro.ID&quantity=1" id="buy">Chọn Mua</a></h4>
+
                             </div>
-                           
                         </div>
                     </div>
                 }
@@ -224,18 +230,6 @@
                 success: function (res) {
                     alert("Đăng xuất thành công")
                 }
-            });
-        });
-    });
-</script>
-<script>
-    $(document).ready(function () {
-        $('#buy').click(function () {
-           @{
-        shopEntities _db = new shopEntities();
-    }
-
-            
             });
         });
     });

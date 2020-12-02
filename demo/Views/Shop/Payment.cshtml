@@ -1,0 +1,222 @@
+﻿@model List<demo.Model.OrderDetail>
+@using PagedList.Mvc;
+@using demo.Model;
+@{
+    ViewBag.Title = "Payment";
+}
+
+@using demo.Controllers;
+    <div class="home-Contact">
+        <span>Contact us: <a href="tel:#0708033730">0708033730</a></span>
+        <hr>
+        @{
+
+            var user = Session["User"] as User;
+            var c = user.Orders.Where(t => t.ID_Customer == user.Name).ToList().Count();
+            if (Session["User"] != null)
+            {
+                string temp = user.Username;
+                if (user.Name != null)
+                {
+                    temp = user.Name;
+                }
+                else
+                {
+                    temp = user.Username;
+                }
+
+                <div class="after-login">
+                    <a href="#" id="user">@temp</a>
+                    <hr>
+                    <SPAN><a href="~/Shop/HomeGuest" id="Logout">ĐĂNG XUẤT</a></SPAN>
+                </div>
+
+            }
+        }
+    </div>
+    <div class="home-Menu row">
+        <div class="home-Menu-left col-lg-6">
+            <ul class="nav navbar-nav center_nav pull-right">
+                <li class="nav-item active" style="border-right:solid 2px black">
+                    <a class="nav-link" href="~/Shop/Home">TRANG CHỦ</a>
+                </li>
+                <li class="nav-item submenu dropdown" style="border-right:solid 2px black">
+                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">PHÂN LOẠI</a>
+                    <ul class="dropdown-menu">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">ĐỒNG HỒ NAM</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">ĐỒNG HỒ NỮ</a>
+                        </li>
+
+                    </ul>
+                </li>
+                <li class="nav-item submenu dropdown " style="border-right:solid 2px black">
+                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">HÃNG</a>
+                    <ul class="dropdown-menu">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">ROLEX</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">DW</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">CASIO</a>
+                        </li>
+                    </ul>
+                </li>
+                @{ Html.RenderAction("HeaderCart", "Shop");}
+                @*<li class="nav-item">
+            <a class="nav-link" id="Cart">
+                @{ Html.RenderAction("HeaderCart", "Shop");}
+            </a>
+        </li>*@
+                @*<li class="nav-item">
+            @{ Html.RenderAction("HeaderCart", "Shop");}
+            <a class="nav-link" href="#">GIỎ HÀNG</a>
+        </li>*@
+            </ul>
+
+        </div>
+        <div class="home-Menu-right col-lg-6">
+            @{
+
+                if (!(user is null) && user.isAdmin == true)
+                {
+                    <ul id="admin" class="nav navbar-nav center_nav pull-right">
+                        <li class="nav-item">
+                            <a class="nav-link" href="~/Shop/AddProduct">THÊM SẢN PHẨM</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">CHỈNH SỬA SẢN PHẨM</a>
+                        </li>
+                    </ul>
+                }
+            }
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div id="cart" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <!-- Begin empty cart -->
+                <div class="row">
+                    <div class="section group">
+                        <form>
+                            <div class="col-md-6">
+                                @{var ID = user.Orders.Where(o => o.ID_Customer == user.Username && o.status == false).SingleOrDefault();
+                                    
+                                    using (Html.BeginForm("Payment", "Shop", FormMethod.Post))
+                                    {
+                                        var Name = ID.User.Name;
+                                        var Mobile = ID.User.Phone;
+                                        var Address = ID.User.Address;
+                                        <div class="form-group">
+                                            <label>Người nhận</label>
+                                            <input name="shipName" id="name" class="form-control" value="@Name" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Điện thoại</label>
+                                            <input name="mobile" id="phone" class="form-control" value="@Mobile" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Địa chỉ</label>
+                                            <input name="address" id="address" class="form-control" value="@Address" />
+                                        </div>
+
+                                    }
+                                }
+
+                            </div>
+                        </form>
+                    </div>
+
+                    <div id="layout-page" class="col-md-12 col-sm-12 col-xs-12" margin-left:10px">
+
+                        @{
+                            if (Model.Count > 0)
+                            // if (@c > 0)
+                            {
+                                <table class="table-cart">
+
+                                    <thead>
+                                        <tr>
+                                            <th style="text-align: center;">Ảnh SP</th>
+                                            <th style="text-align: center;">Mã SP</th>
+                                            <th style="text-align: center;">Tên SP</th>
+                                            <th style="text-align: center;">Số lượng</th>
+                                            <th style="text-align: center;">Đơn giá</th>
+                                            <th style="text-align: center;">Thành tiền</th>
+                                            <th style="text-align: center;"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model)
+                                        {
+                                            var temp = (item.Product.Price.GetValueOrDefault(0) * item.Quantity);
+                                            <tr>
+                                                <td style="width: 15%;text-align:center;">@Html.Image(item.Product.Image, "Alternate Text", "100", "150")</td>
+                                                <td style="width:5% ;text-align:center;">@item.Product.ID</td>
+                                                <td style="width: 40%;text-align:center;">@item.Product.Name</td>
+                                                <td style="width: 5%;"><input style="border:none;text-align:center;" type="number" min="0" max="@item.Product.Quantity" class="txtquantity" id="sl" data-id="@item.Product.ID" value="@item.Quantity" onchange="changeHandler()" /></td>
+                                                <td style="width: 15%;text-align:center;" id="price">@(item.Product.Price.GetValueOrDefault(0).ToString("N0"))</td>
+                                                <td style="width: 15%;text-align:center;" id="totalprice">@(((float)temp).ToString("N0"))</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+
+                            }
+                        }
+                        @{float total = 0; }
+                        @foreach (var item in Model)
+                        {
+                            total += (float)(item.Product.Price.GetValueOrDefault(0) * item.Quantity);
+
+
+                        }
+                        <div>Tổng tiền hàng : @total.ToString("N0") đ</b></div>
+
+                        <button type="submit" id="send" class="btn" style=" margin-left: 50px; margin-top: 50px; float: right; width: 12%; height: 40px;">Thanh toán</button>
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12  col-xs-12 continue-shop">
+                                <a href="~/Shop/Home"><i class="fa fa-reply"></i>Tiếp tục mua hàng</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- End cart -->
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        $(document).ready(function () {
+            $("#send").click(function () {
+                var name = $('#name').val();
+                var phone = $('#phone').val();
+                var address = $('#address').val();
+                $.ajax({
+                    url: "/Shop/Payment",
+                    type: "POST",
+                    data: {
+                        shipName: name,
+                        mobile: phone,
+                        address: address
+                    },
+                    success: function (res) {
+                        if (res === "false") {
+                            
+                        }
+                        else {
+                            alert("Thanh toán đơn hàng thành công")
+                            $("#loadBody").html(res)
+                        }
+                    }
+
+                });
+            });
+        });
+    </script>
