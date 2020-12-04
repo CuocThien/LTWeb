@@ -1,0 +1,28 @@
+﻿.Cart-menu {
+    background-color: rgb(92, 239, 255);
+    margin-right: 0 !important;
+    height: 50px;
+    padding-left: 30px;
+    display: flex;
+    justify-content: flex-start;
+}
+    .Cart-menu > ul > li > a:active {
+        background-color: rgb(86, 213, 255);
+        border-bottom: 3px solid red;
+        transition: border-bottom-width 0.5s;
+    }
+    .Cart-menu > ul > li > a:hover {
+        background-color: rgb(86, 213, 255);
+        -webkit-transition: 2s;
+        transition: border-bottom-width 0.5s;
+    }
+    .Cart-menu > ul > li > a:focus {
+        background-color: rgb(86, 213, 255);
+        border-bottom: 3px solid red;
+        transition: border-bottom-width 0.5s;
+    }
+.Active a {
+    background-color: rgb(86, 213, 255);
+    border-bottom: 3px solid red;
+    transition: border-bottom-width 0.5s;
+}

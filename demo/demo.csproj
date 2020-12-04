@@ -180,6 +180,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\CheckPass.js" />
+    <Content Include="Style\Cart.css" />
     <Content Include="Style\Home.css" />
     <Content Include="Style\Product.css" />
     <Content Include="Style\Style.css" />
@@ -223,9 +224,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>shop.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Model\sysdiagram.cs">
-      <DependentUpon>shop.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\User.cs">
       <DependentUpon>shop.tt</DependentUpon>

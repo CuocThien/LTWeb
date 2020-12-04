@@ -8,7 +8,6 @@
 @using demo.Controllers;
 
 
-<div>
     <div class="home-Contact">
         <span>Contact us: <a href="tel:#0708033730">0708033730</a></span>
         <hr>
@@ -70,15 +69,6 @@
                     </ul>
                 </li>
                 @{ Html.RenderAction("HeaderCart", "Shop");}
-                @*<li class="nav-item">
-                    <a class="nav-link" id="Cart">
-
-                    </a>
-                </li>*@
-                @*<li class="nav-item">
-            @{ Html.RenderAction("HeaderCart", "Shop");}
-            <a class="nav-link" href="#">GIỎ HÀNG</a>
-        </li>*@
             </ul>
 
         </div>
@@ -99,101 +89,114 @@
             }
         </div>
     </div>
-    <div class="container">
-        <div class="row">
-            <div id="cart" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <!-- Begin empty cart -->
-                <div class="row">
-                    <div id="layout-page" class="col-md-12 col-sm-12 col-xs-12" margin-left:10px">
-                        <span class="header-page clearfix">
-                            <h1 style="color:black">
-                                Giỏ hàng
-                            </h1>
-                        </span>
+    <div class="home-Menu row">
+        <div class="Cart-menu">
+            <ul class="nav navbar-nav center_nav pull-right">
+                <li class="nav-item Active">
+                    <a class="nav-link" href="#">Tất cả</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Chờ xác nhận</a>
 
-                        @{
-                            if (Model.Count > 0)
-                            // if (@c > 0)
-                            {
-                                <table class="table-cart">
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Chờ lấy hàng</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Đang giao</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Đã giao</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Đã hủy</a>
+                </li>
+            </ul>
 
-                                    <thead>
-                                        <tr>
-                                            <th style="text-align: center;">Ảnh SP</th>
-                                            <th style="text-align: center;">Mã SP</th>
-                                            <th style="text-align: center;">Tên SP</th>
-                                            <th style="text-align: center;">Số lượng</th>
-                                            <th style="text-align: center;">Đơn giá</th>
-                                            <th style="text-align: center;">Thành tiền</th>
-                                            <th style="text-align: center;"></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach (var item in Model)
-                                        {
-                                            var temp = (item.Product.Price.GetValueOrDefault(0) * item.Quantity);
-                                            <tr>
-                                                <td style="width: 15%;text-align:center;">@Html.Image(item.Product.Image, "Alternate Text", "100", "150")</td>
-                                                <td style="width:5% ;text-align:center;">@item.Product.ID</td>
-                                                <td style="width: 40%;text-align:center;">@item.Product.Name</td>
-                                                <td style="width: 5%;"><input style="border:none;text-align:center;" type="number" min="0" max="@item.Product.Quantity" class="txtquantity" id="sl" data-id="@item.Product.ID" value="@item.Quantity" onchange="changeHandler()" /></td>
-                                                <td style="width: 15%;text-align:center;" id="price">@(item.Product.Price.GetValueOrDefault(0).ToString("N0"))</td>
-                                                <td style="width: 15%;text-align:center;" id="totalprice">@(((float)temp).ToString("N0"))</td>
-                                                <td style="width: 5%;text-align:center;"><div class="Deletepro"><a href="#" data-id="@item.Product.ID">Xóa</a></div></td>
-                                            </tr>
-                                        }
-                                    </tbody>
-                                </table>
-
-                            }
-                            else
-                            {
-                                <p class="text-center">
-                                    Không có sản phẩm nào trong giỏ hàng!
-                                </p>
-                            }
-                        }
-
-
-                        @{float total = 0; }
-                        @foreach (var item in Model)
-                        {
-                            total += (float)(item.Product.Price.GetValueOrDefault(0) * item.Quantity);
-
-
-                        }
-                        <div>Tổng tiền hàng : @total.ToString("N0") đ</b></div>
-
-
-                        <div class="row">
-                            @*<div class="col-md-6 col-sm-6 col-xs-12 inner-left inner-right">
-                                </div>
-                                <div class="col-md-6 col-sm-6 col-xs-12 cart-buttons inner-right inner-left">
-                                    <div class="buttons clearfix">
-                                        <button type="button" id="" class="button-default" style="float:right;margin-left:10px" name="" value="" onclick="checkout()">
-                                            Thanh toán
-                                        </button>
-                                        <button type="button" id="update-cart" class="button-default" name="update" value="" onclick="updatecart('<%=dsCartID %>')">
-                                            Cập nhật
-                                        </button>
-                                    </div>
-                                </div>*@
-
-                            <button id="btnPayment" style=" margin-left: 50px; margin-top: 50px; float: right; width: 12%; height: 40px;" class="btn">Thanh toán</button>
-                            <button id="btnUpdate" style=" margin-left: 50px; margin-top: 50px; float: right; width: 12%; height: 40px;" class="btn">Cập nhật giỏ hàng</button>
-                            <button id="btnDeleteAll" style=" margin-left: 50px; margin-top: 50px; float: right; width: 12%; height: 40px;" class="btn">Xoá giỏ hàng</button>
-                            <div class="col-md-12 col-sm-12  col-xs-12 continue-shop">
-                                <a href="~/Shop/Home"><i class="fa fa-reply"></i>Tiếp tục mua hàng</a>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                <!-- End cart -->
-            </div>
         </div>
     </div>
-    <script>
+        <div class="container">
+            <div class="row">
+                <div id="cart" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <!-- Begin empty cart -->
+                    <div class="row">
+                        <div id="layout-page" class="col-md-12 col-sm-12 col-xs-12" margin-left:10px">
+                            <span class="header-page clearfix">
+                                <h1 style="color:black">
+                                    Giỏ hàng
+                                </h1>
+                            </span>
+
+                            @{
+                                if (Model.Count > 0)
+                                {
+                                    <table class="table-cart">
+
+                                        <thead>
+                                            <tr>
+                                                <th style="text-align: center;">Ảnh SP</th>
+                                                <th style="text-align: center;">Mã SP</th>
+                                                <th style="text-align: center;">Tên SP</th>
+                                                <th style="text-align: center;">Số lượng</th>
+                                                <th style="text-align: center;">Đơn giá</th>
+                                                <th style="text-align: center;">Thành tiền</th>
+                                                <th style="text-align: center;"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model)
+                                            {
+                                                var temp = (item.Product.Price.GetValueOrDefault(0) * item.Quantity);
+                                                <tr>
+                                                    <td style="width: 15%;text-align:center;">@Html.Image(item.Product.Image, "Alternate Text", "100", "150")</td>
+                                                    <td style="width:5% ;text-align:center;">@item.Product.ID</td>
+                                                    <td style="width: 40%;text-align:center;">@item.Product.Name</td>
+                                                    <td style="width: 5%;"><input style="border:none;text-align:center;" type="number" min="0" max="@item.Product.Quantity" class="txtquantity" id="sl" data-id="@item.Product.ID" value="@item.Quantity" onchange="changeHandler()" /></td>
+                                                    <td style="width: 15%;text-align:center;" id="price">@(item.Product.Price.GetValueOrDefault(0).ToString("N0"))</td>
+                                                    <td style="width: 15%;text-align:center;" id="totalprice">@(((float)temp).ToString("N0"))</td>
+                                                    <td style="width: 5%;text-align:center;"><div class="Deletepro"><a href="#" data-id="@item.Product.ID">Xóa</a></div></td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+
+                                }
+                                else
+                                {
+                                    <p class="text-center">
+                                        Không có sản phẩm nào trong giỏ hàng!
+                                    </p>
+                                }
+                            }
+
+
+                            @{float total = 0; }
+                            @foreach (var item in Model)
+                            {
+                                total += (float)(item.Product.Price.GetValueOrDefault(0) * item.Quantity);
+
+
+                            }
+                            <div>Tổng tiền hàng : @total.ToString("N0") đ</br></div>
+
+
+                            <div class="row">
+
+                                <button id="btnPayment" style=" margin-left: 50px; margin-top: 50px; float: right; width: 12%; height: 40px;" class="btn">Thanh toán</button>
+                                <button id="btnUpdate" style=" margin-left: 50px; margin-top: 50px; float: right; width: 12%; height: 40px;" class="btn">Cập nhật giỏ hàng</button>
+                                <button id="btnDeleteAll" style=" margin-left: 50px; margin-top: 50px; float: right; width: 12%; height: 40px;" class="btn">Xoá giỏ hàng</button>
+                                <div class="col-md-12 col-sm-12  col-xs-12 continue-shop">
+                                    <a href="~/Shop/Home"><i class="fa fa-reply"></i>Tiếp tục mua hàng</a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- End cart -->
+                </div>
+            </div>
+        </div>
+        <script>
             $(document).ready(function () {
                 @{shopEntities _db = new shopEntities(); }
 
@@ -257,10 +260,21 @@
                     }
                     });
                 $('#btnPayment').click(function () {
-                    
+
                         window.location.href = "/Shop/Payment";
                     });
 
             });
 
-    </script>
+        </script>
+        <script>
+            $(document).ready(function () {
+                
+                $(".nav-item").click(function () {
+                    var x = $('.Active')
+                    $(this).addClass(' Active');
+                    x.removeClass();
+                    x.addClass('nav-item')
+                });
+            });
+        </script>
