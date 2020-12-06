@@ -174,7 +174,7 @@
                                                             Tổng tiền đơn hàng:@total.ToString("N0")
                                                         </td>
                                                         <td style="text-align:center"> <div class="DeleteOrder"><a href="#" data-id="@i.ID_Order">Xóa</a></div></td>
-                                                        <td style="text-align:center"><div class="Detail"><a href="#" data-id="@i.ID_Order">Xem chi tiết</a></div></td>
+                                                        <td style="text-align:center"><div class="Detail"><a href="~/Shop/Detail?ID=@i.ID_Order" data-id="@i.ID_Order">Xem chi tiết</a></div></td>
                                                         <td></td>
                                                     }
                                                     else
@@ -186,7 +186,7 @@
                                                         </td>
                                                         <td style="text-align:center"><div class="DeleteOrder"><a href="#" data-id="@i.ID_Order">Xóa</a></div></td>
                                                         <td style="text-align:center"><div class="ConfirmOrder"><a href="#" data-id="@i.ID_Order">Xác nhận</a></div></td>
-                                                        <td colspan="2" style="text-align:center"><div class="Detail"><a href="~/Shop/Detail" data-id="@i.ID_Order">Xem chi tiết</a></div></td>
+                                                        <td colspan="2" style="text-align:center"><div class="Detail"><a href="~/Shop/Detail?ID=@i.ID_Order" data-id="@i.ID_Order">Xem chi tiết</a></div></td>
 
                                                     }
                                                 </tr>
@@ -273,19 +273,7 @@
                 })
             }
         });
-        $('.Detail').click(function (e) {
-            const current = e.currentTarget;
-            $.ajax({
-                data: { ID: current.children[0].dataset.id },
-                url: '/Shop/Detail',
-                type: 'POST',
-                //success: function (res) {
-                //    if (res.status == true) {
-                //        window.location.href = "/Shop/Wait";
-                //    }
-                //}
-            })
-        });
+       
     });
 </script>
 <script>

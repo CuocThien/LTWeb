@@ -494,7 +494,7 @@ namespace demo.Controllers
         }
 
        
-        public ActionResult Detail(System.Int32 id)
+        public ActionResult Detail(string id)
         {
             string Id = id.ToString();
             User user = Session["User"] as User;
@@ -502,7 +502,6 @@ namespace demo.Controllers
             var pro = _db.OrderDetails.Where(x => x.ID_Order == ID.ID_Order).ToList();
             var l = new List<OrderDetail>();
             l = (List<OrderDetail>)pro;
-            var k = View(l);
             return View(l);
         }
 

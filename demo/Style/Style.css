@@ -395,6 +395,12 @@ label.checkbox {
     clear: both;
 }
 
+.line {
+    height: 3px!important;
+    background-image: repeating-linear-gradient(45deg,#6fa6d6,#6fa6d6 33px,transparent 0,transparent 41px,#f18d9b 0,#f18d9b 74px,transparent 0,transparent 82px);
+}
+
+
 @media(max-width:1440px) {
     .header-main {
         width: 33%;
@@ -686,5 +692,6 @@ label.checkbox {
     .header-social a.face {
         margin-right: 4%;
     }
+
 }
 
