@@ -3,6 +3,8 @@
 @using demo.Model;
 @using demo.Controllers;
 
+
+ @{User user = Session["User"] as User; }
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <li class="nav-item submenu dropdown " style="border-right:solid 2px black">
     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="glyphicon glyphicon-shopping-cart"></i>Giỏ hàng:@Model.Count sản phẩm</a>
@@ -28,11 +30,19 @@
                         </a>
                     </li>
                 }
-                <a href="/Shop/Cart" style="float:right">Xem Giỏ Hàng</a>
+
             }
             else
             {
                 <li>you have no items in your Shopping cart</li>
+            }
+            if (user.isAdmin == true)
+            {
+                <a href="/Shop/Wait" style="float:right">Xem Giỏ Hàng</a>
+            }
+            else
+            {
+                <a href="/Shop/Cart" style="float:right">Xem Giỏ Hàng</a>
             }
         }
     </ul>

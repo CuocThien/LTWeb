@@ -92,24 +92,25 @@
     <div class="home-Menu row">
         <div class="Cart-menu">
             <ul class="nav navbar-nav center_nav pull-right">
-                <li class="nav-item Active">
-                    <a class="nav-link" href="#">Tất cả</a>
+                @{
+                    if (!(user is null) && user.isAdmin == false)
+                    {
+                        <li class="nav-item Active">
+                            <a class="nav-link" href="/Shop/Cart">Giỏ Hàng</a>
+                        </li>
+                    }
+                }
+                <li class="nav-item">
+                    <a href="/Shop/Wait" class="nav-link">Chờ xác nhận</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">Chờ xác nhận</a>
-
+                    <a href="/Shop/Delivery" class="nav-link">Đang giao</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">Chờ lấy hàng</a>
+                    <a href="/Shop/Finish" class="nav-link">Đã giao</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">Đang giao</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">Đã giao</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">Đã hủy</a>
+                    <a href="/Shop/Cancel" class="nav-link">Đã hủy</a>
                 </li>
             </ul>
 

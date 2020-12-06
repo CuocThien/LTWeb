@@ -225,6 +225,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>shop.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Model\sysdiagram.cs">
+      <DependentUpon>shop.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\User.cs">
       <DependentUpon>shop.tt</DependentUpon>
     </Compile>
@@ -256,6 +259,10 @@
     <Content Include="Views\Shop\Cart.cshtml" />
     <Content Include="Views\Shop\HeaderCart.cshtml" />
     <Content Include="Views\Shop\Payment.cshtml" />
+    <Content Include="Views\Shop\Wait.cshtml" />
+    <Content Include="Views\Shop\Delivery.cshtml" />
+    <Content Include="Views\Shop\Finish.cshtml" />
+    <Content Include="Views\Shop\Cancel.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

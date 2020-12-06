@@ -87,7 +87,7 @@ namespace demo.Controllers
             }
             i++;
            // Session[CartSession] = null;
-            var ID = _db.Orders.Where(o => o.ID_Customer == user.Username && o.status == false).SingleOrDefault();
+            var ID = _db.Orders.Where(o => o.ID_Customer == user.Username && o.status == "Cart").SingleOrDefault();
             List< OrderDetail> pro = new List<OrderDetail>();
             if (!(ID is null))
             {
@@ -157,7 +157,7 @@ namespace demo.Controllers
                 //Luu xuong bang order
                 orders.ID_Order = i.ToString();
                 orders.ID_Customer = user.Username.ToString();
-                orders.status = false;
+                orders.status = "Cart";
                 _db.Orders.Add(orders);
                 //Luu xuong bang orderdetail
                 orderDetail.ID_Order = orders.ID_Order;
@@ -188,7 +188,7 @@ namespace demo.Controllers
         {
             string Id = id.ToString();
             User user = Session["User"] as User;
-            var ID = _db.Orders.Where(o => o.ID_Customer == user.Username && o.status == false).SingleOrDefault();
+            var ID = _db.Orders.Where(o => o.ID_Customer == user.Username && o.status == "Cart").SingleOrDefault();
             var pro = _db.OrderDetails.Where(x => x.ID_Order == ID.ID_Order && x.ID_Product == Id).SingleOrDefault();
             _db.OrderDetails.Remove(pro);
             _db.SaveChanges();
@@ -202,7 +202,7 @@ namespace demo.Controllers
         public JsonResult DeleteAll()
         {
             User user = Session["User"] as User;
-            var ID = _db.Orders.Where(o => o.ID_Customer == user.Username && o.status == false).SingleOrDefault();
+            var ID = _db.Orders.Where(o => o.ID_Customer == user.Username && o.status == "Cart").SingleOrDefault();
             var pro = _db.OrderDetails.Where(x => x.ID_Order == ID.ID_Order).ToList();
             foreach (var item in pro)
             {
@@ -221,7 +221,7 @@ namespace demo.Controllers
             var jsonCart = new JavaScriptSerializer().Deserialize<List<OrderDetail>>(cartModel);
             var sessionCart = (List<OrderDetail>)Session[CartSession];
             User user = Session["User"] as User;
-            var ID = _db.Orders.Where(o => o.ID_Customer == user.Username && o.status == false).SingleOrDefault();
+            var ID = _db.Orders.Where(o => o.ID_Customer == user.Username && o.status == "Cart").SingleOrDefault();
             foreach (var item in sessionCart)
             {
                 var jsonItem = jsonCart.SingleOrDefault(x => x.Product.ID == item.Product.ID);
@@ -244,7 +244,7 @@ namespace demo.Controllers
         public ActionResult Payment()
         {
             User user = Session["User"] as User;
-            var ID = _db.Orders.Where(o => o.ID_Customer == user.Username && o.status == false).SingleOrDefault();
+            var ID = _db.Orders.Where(o => o.ID_Customer == user.Username && o.status == "Cart").SingleOrDefault();
             var cart = Session[CartSession];
             var list = new List<OrderDetail>();
             if (cart != null)
@@ -259,13 +259,13 @@ namespace demo.Controllers
         {
 
             User user = Session["User"] as User;
-            var ID = _db.Orders.Where(o => o.ID_Customer == user.Username && o.status == false).SingleOrDefault();
+            var ID = _db.Orders.Where(o => o.ID_Customer == user.Username && o.status == "Cart").SingleOrDefault();
            // var order = new Order();
             ID.Date_Create = DateTime.Now;
             ID.shipAddress = frm["address"];
             ID.shipMobile = frm["mobile"];
             ID.shipName = frm["shipName"];
-            ID.status = true;
+            ID.status = "Wait";
             _db.Orders.AddOrUpdate(ID);
             _db.SaveChanges();
             return RedirectToAction("Cart", "Shop");
@@ -274,17 +274,237 @@ namespace demo.Controllers
             //return Redirect("/Shop/Success");
         }
 
-        [HttpGet]
+        public ActionResult Wait()
+        {
+            var ID = _db.Orders.ToList();
+            User user = Session["User"] as User;
+            if (user.isAdmin == true)
+            {
+                ID = _db.Orders.Where(x => x.status == "Wait").ToList();
+            }
+            else
+            {
+                // Session[CartSession] = null;
+                ID = _db.Orders.Where(o => o.ID_Customer == user.Username && o.status == "Wait").ToList();
+            }
+            List<OrderDetail> pro = new List<OrderDetail>();
+            if (!(ID is null))
+            {
+               foreach (var item in ID)
+               {
+                  var Pro = _db.OrderDetails.Where(x => x.ID_Order == item.ID_Order).ToList();
+                  pro.AddRange(Pro);
+
+               }
+               Session[CartSession] = pro;
+
+            }
+            //Hien len view
+            var cart = Session[CartSession];
+            var l = new List<OrderDetail>();
+            l = (List<OrderDetail>)cart;
+            return View(l);
+        }
+
+        public JsonResult DeleteOrder(long id)
+        {
+            string Id = id.ToString();
+            var dh = _db.Orders.ToList();
+            User user = Session["User"] as User;
+            var ID = _db.Orders.Where(o => o.ID_Order == Id).SingleOrDefault();
+            ID.status = "Cancel";
+            _db.Orders.AddOrUpdate(ID);
+            _db.SaveChanges();
+            if (user.isAdmin == true)
+            {
+                dh = _db.Orders.Where(o => o.status == "Wait").ToList();
+            }
+            else
+            {
+                dh = _db.Orders.Where(o => o.ID_Customer == user.Username && o.status == "Wait").ToList();
+            }
+            List<OrderDetail> idorder = new List<OrderDetail>();
+            if (!(ID is null))
+            {
+                foreach (var item in dh)
+                {
+                    var Pro = _db.OrderDetails.Where(x => x.ID_Order == item.ID_Order).ToList();
+                    idorder.AddRange(Pro);
+
+                }
+                Session[CartSession] = idorder;
+            }
+            return Json(new
+            {
+                status = true
+            });
+        }
+
+        public JsonResult Confirm(long id)
+        {
+            string Id = id.ToString();
+            var dh = _db.Orders.ToList();
+            User user = Session["User"] as User;
+            var ID = _db.Orders.Where(o => o.ID_Order == Id).SingleOrDefault();
+            ID.status = "Delivery";
+            _db.Orders.AddOrUpdate(ID);
+            _db.SaveChanges();
+            if (user.isAdmin == true)
+            {
+                dh = _db.Orders.Where(o => o.status == "Wait").ToList();
+            }
+            else
+            {
+                dh = _db.Orders.Where(o => o.ID_Customer == user.Username && o.status == "Wait").ToList();
+            }
+            List<OrderDetail> idorder = new List<OrderDetail>();
+            if (!(ID is null))
+            {
+                foreach (var item in dh)
+                {
+                    var Pro = _db.OrderDetails.Where(x => x.ID_Order == item.ID_Order).ToList();
+                    idorder.AddRange(Pro);
+
+                }
+                Session[CartSession] = idorder;
+            }
+            return Json(new
+            {
+                status = true
+            });
+        }
+        public ActionResult Delivery()
+        {
+            var ID = _db.Orders.ToList();
+            User user = Session["User"] as User;
+            if (user.isAdmin == true)
+            {
+                ID = _db.Orders.Where(x => x.status == "Delivery").ToList();
+            }
+            else
+            {
+                // Session[CartSession] = null;
+                ID = _db.Orders.Where(o => o.ID_Customer == user.Username && o.status == "Delivery").ToList();
+            }
+            List<OrderDetail> pro = new List<OrderDetail>();
+            if (!(ID is null))
+            {
+                foreach (var item in ID)
+                {
+                    var Pro = _db.OrderDetails.Where(x => x.ID_Order == item.ID_Order).ToList();
+                    pro.AddRange(Pro);
+                    
+                }
+                Session[CartSession] = pro;
+            }
+            //Hien len view
+            var cart = Session[CartSession];
+            var l = new List<OrderDetail>();
+            l = (List<OrderDetail>)cart;
+            return View(l);
+        }
+       
+        public ActionResult Finish()
+        {
+            var ID = _db.Orders.ToList();
+            User user = Session["User"] as User;
+            if (user.isAdmin == true)
+            {
+                ID = _db.Orders.Where(x => x.status == "Finish").ToList();
+            }
+            else
+            {
+                // Session[CartSession] = null;
+                ID = _db.Orders.Where(o => o.ID_Customer == user.Username && o.status == "Finish").ToList();
+            }
+            List<OrderDetail> pro = new List<OrderDetail>();
+            if (!(ID is null))
+            {
+                foreach (var item in ID)
+                {
+                    var Pro = _db.OrderDetails.Where(x => x.ID_Order == item.ID_Order).ToList();
+                    pro.AddRange(Pro);
+                    
+                }
+                Session[CartSession] = pro;
+            }
+
+            //Hien len view
+            var cart = Session[CartSession];
+            var l = new List<OrderDetail>();
+            l = (List<OrderDetail>)cart;
+            return View(l);
+        }
+
+        public ActionResult Cancel()
+        {
+            var ID = _db.Orders.ToList();
+            User user = Session["User"] as User;
+            if (user.isAdmin == true)
+            {
+                ID = _db.Orders.Where(x => x.status == "Cancel").ToList();
+            }
+            else
+            {
+                // Session[CartSession] = null;
+                ID = _db.Orders.Where(o => o.ID_Customer == user.Username && o.status == "Cancel").ToList();
+            }
+            List<OrderDetail> pro = new List<OrderDetail>();
+            if (!(ID is null))
+            {
+                foreach (var item in ID)
+                {
+                    var Pro = _db.OrderDetails.Where(x => x.ID_Order == item.ID_Order).ToList();
+                    pro.AddRange(Pro);
+                    
+                }
+                Session[CartSession] = pro;
+            }
+
+            //Hien len view
+            var cart = Session[CartSession];
+            var l = new List<OrderDetail>();
+            l = (List<OrderDetail>)cart;
+            return View(l);
+        }
+
+            [HttpGet]
       
     [ChildActionOnly]
         public PartialViewResult HeaderCart()
         {
             User user = Session["User"] as User;
-            var ID = _db.Orders.Where(o => o.ID_Customer == user.Username && o.status == false).SingleOrDefault();
-            if (!(ID is null))
+            if (user.isAdmin == false)
             {
-                var pro = _db.OrderDetails.Where(x => x.ID_Order == ID.ID_Order).ToList();
-                Session[CartSession] = pro;
+                var ID = _db.Orders.Where(o => o.ID_Customer == user.Username && o.status == "Cart").SingleOrDefault();
+                if (!(ID is null))
+                {
+                    var pro = _db.OrderDetails.Where(x => x.ID_Order == ID.ID_Order).ToList();
+                    Session[CartSession] = pro;
+                }
+            }
+            else
+            {
+                var ID = _db.Orders.Where(x => x.status == "Wait").ToList();
+                if(!(ID is null))
+                {
+                    foreach(var item in ID)
+                    {
+
+                    }
+                }
+                List<OrderDetail> pro = new List<OrderDetail>();
+                if (!(ID is null))
+                {
+                    foreach (var item in ID)
+                    {
+                        var Pro = _db.OrderDetails.Where(x => x.ID_Order == item.ID_Order).ToList();
+                        pro.AddRange(Pro);
+
+                    }
+                    Session[CartSession] = pro;
+
+                }
             }
             var cart = Session[CartSession];
             // var cart = Session[CartSession];
