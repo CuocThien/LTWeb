@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'D:\vy\study\HK1-20-21\Lập trình Web\new\newnew\LTWeb\demo\Model\shop.edmx'. 
+﻿// T4 code generation is enabled for model 'E:\New folder\LTWeb\demo\Model\shop.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

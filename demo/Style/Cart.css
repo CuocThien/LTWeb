@@ -26,3 +26,18 @@
     border-bottom: 3px solid red;
     transition: border-bottom-width 0.5s;
 }
+h2 {
+    color: coral!important;
+    font-style: initial!important;
+    font-family: -webkit-body!important;
+    font-weight: bold!important;
+    font-size:30px!important;
+    margin-bottom:15px!important;
+}
+.content{
+    padding:20px;
+
+}
+.content > p{
+    font-size:16px;
+}

@@ -96,94 +96,88 @@
             <!-- Begin empty cart -->
             <div class="row">
                 <div id="layout-page" class="col-md-12 col-sm-12 col-xs-12" margin-left:10px">
-                    <span class="header-page clearfix">
-                        <h1 style="color:black">
+                        <h1 style="margin-bottom:10px;text-align: center; font-size: -webkit-xxx-large; font-style: italic; font-family: ui-sans-serif; font-weight: bolder; color: darkmagenta;">
                             Chi tiết đơn hàng
                         </h1>
-                    </span>
                     @{
                         if (Model.Count > 0)
                         {
-                            <div>
-
-
-                                @{var count = 0;
-                                    foreach (var item in Model)
-                                    {
-                                        var temp = (item.Product.Price.GetValueOrDefault(0) * item.Quantity);
-                                        if (count == 0)
-                                        {
-
-                                            <div >
-                                                <span class="header-page clearfix">
-                                                    <h1 style="color:black">
-                                                        Địa chỉ nhận hàng
-                                                    </h1>
-                                                </span>
-
-                                                <p>@item.Order.shipName</p>
-                                                <p>@item.Order.shipMobile</p>
-                                                <p>@item.Order.shipAddress</p>
-                                            </div>
-                                            <div class="line"></div>
-                                            <div>
-                                                <p>Đơn hàng:@item.ID_Order</p>
-                                                <p>Trạng thái:@item.Order.status</p>
-                                                @if (item.Order.status == "Wait")
-                                                {
-                                                    <p>@item.Order.Date_Create:Tạo đơn hàng</p>
-                                                }
-                                                @if (item.Order.status == "Delivery")
-                                                {
-                                                    <p>@item.Order.Date_Create :Tạo đơn hàng</p>
-                                                    <p>@item.Order.Date_delivery:Đang giao hàng</p>
-                                                }
-                                                @if (item.Order.status == "Finish")
-                                                {
-                                                    <p>@item.Order.Date_Create :Tạo đơn hàng</p>
-                                                    <p>@item.Order.Date_delivery:Đang giao hàng</p>
-                                                    <p>@item.Order.Date_Recived: Giao hàng thành công</p>
-                                                }
-                                                @if (item.Order.status == "Cancel")
-                                                {
-                                                    <p>@item.Order.Date_Create :Tạo đơn hàng</p>
-                                                    <p>@item.Order.Date_Cancel:Hủy đơn hàng</p>
-                                                }
-                                            </div>
-                                            count = count + 1;
-                                        }
                                         <div>
-                                            <table class="table-cart">
-                                                <tbody>
-                                                    <tr>
-                                                        <td style="width: 15%;text-align:center; padding-top:10px">@Html.Image(item.Product.Image, "Alternate Text", "100", "150")</td>
-                                                        <td style="width:5% ;text-align:center;">@item.Product.ID</td>
-                                                        <td style="width: 40%;text-align:center;">@item.Product.Name</td>
-                                                        <td style="width: 5%;"><input style="border:none;text-align:center;" type="number" min="0" max="@item.Product.Quantity" class="txtquantity" id="sl" data-id="@item.Product.ID" value="@item.Quantity" onchange="changeHandler()" /></td>
-                                                        <td style="width: 15%;text-align:center;" id="price">@(item.Product.Price.GetValueOrDefault(0).ToString("N0"))</td>
-                                                        <td style="width: 15%;text-align:center;" id="totalprice">@(((float)temp).ToString("N0"))</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
+
+
+                                            @{var count = 0;
+                                                foreach (var item in Model)
+                                                {
+                                                    var temp = (item.Product.Price.GetValueOrDefault(0) * item.Quantity);
+                                                    if (count == 0)
+                                                    {
+                                                        <h2>Địa chỉ nhận hàng</h2>
+                                                        <div class="content">
+
+                                                            <p><b>Tên người nhận:</b> &emsp;&emsp;&emsp;&emsp;&emsp;@item.Order.shipName</p>
+                                                            <p><b>Số điện thoại người nhận:</b>&ensp; @item.Order.shipMobile</p>
+                                                            <p><b>Địa chỉ nhận hàng:</b>&emsp;&emsp;&emsp;&emsp; @item.Order.shipAddress</p>
+                                                        </div>
+                                                        <div class="line"></div>
+                                                        <div class="content">
+                                                            <p><b>Đơn hàng:</b> @item.ID_Order</p>
+                                                            <p><b>Trạng thái:</b> @item.Order.status</p>
+                                                            @if (item.Order.status == "Wait")
+                                                            {
+                                                                <p>@item.Order.Date_Create: Tạo đơn hàng</p>
+                                                            }
+                                                            @if (item.Order.status == "Delivery")
+                                                            {
+                                                                <p>@item.Order.Date_Create: Tạo đơn hàng</p>
+                                                                <p>@item.Order.Date_delivery: Đang giao hàng</p>
+                                                            }
+                                                            @if (item.Order.status == "Finish")
+                                                            {
+                                                                <p>@item.Order.Date_Create: Tạo đơn hàng</p>
+                                                                <p>@item.Order.Date_delivery: Đang giao hàng</p>
+                                                                <p>@item.Order.Date_Recived: Giao hàng thành công</p>
+                                                            }
+                                                            @if (item.Order.status == "Cancel")
+                                                            {
+                                                                <p>@item.Order.Date_Create: Tạo đơn hàng</p>
+                                                                <p>@item.Order.Date_Cancel: Hủy đơn hàng</p>
+                                                            }
+                                                        </div>
+                                                        <div class="line"></div>
+                                                        count = count + 1;
+                                                    }
+                                                    <div>
+                                                        <table class="table-cart">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td style="width: 15%;text-align:center; padding-top:10px">@Html.Image(item.Product.Image, "Alternate Text", "100", "150")</td>
+                                                                    <td style="width:5% ;text-align:center;">@item.Product.ID</td>
+                                                                    <td style="width: 40%;text-align:center;">@item.Product.Name</td>
+                                                                    <td style="width: 5%;"><input style="border:none;text-align:center;" type="number" min="0" max="@item.Product.Quantity" class="txtquantity" id="sl" data-id="@item.Product.ID" value="@item.Quantity" onchange="changeHandler()" /></td>
+                                                                    <td style="width: 15%;text-align:center;" id="price">@(item.Product.Price.GetValueOrDefault(0).ToString("N0"))</td>
+                                                                    <td style="width: 15%;text-align:center;" id="totalprice">@(((float)temp).ToString("N0"))</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                }
+                                            }
                                         </div>
-                                    }
-                                }
-                            </div>
                         }
                     }
-                    <div class="row">
+                    <div class="row" style="margin-top:20px;text-align:right;">
 
                         @{
                             if (user.isAdmin == false)
                             {
-                                <div class="col-md-12 col-sm-12  col-xs-12 continue-shop">
-                                    <a href="~/Shop/Cart"><i class="fa fa-reply"></i>Trở lại giỏ hàng</a>
+                                <div >
+                                    <a style="font-size:20px;" href="~/Shop/Cart">Trở lại giỏ hàng</a>
                                 </div>
                             }
                             else
                             {
-                                <div class="col-md-12 col-sm-12  col-xs-12 continue-shop">
-                                    <a href="~/Shop/Wait"><i class="fa fa-reply"></i>Trở lại giỏ hàng</a>
+                                <div >
+                                    <a style="font-size:20px;" href="~/Shop/Wait">Trở lại giỏ hàng</a>
                                 </div>
                             }
                         }

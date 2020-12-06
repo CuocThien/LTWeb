@@ -519,17 +519,14 @@ namespace demo.Controllers
                     var pro = _db.OrderDetails.Where(x => x.ID_Order == ID.ID_Order).ToList();
                     Session[CartSession] = pro;
                 }
+                else
+                {
+                    Session[CartSession] = null;
+                }
             }
             else
             {
                 var ID = _db.Orders.Where(x => x.status == "Wait").ToList();
-                if (!(ID is null))
-                {
-                    foreach (var item in ID)
-                    {
-
-                    }
-                }
                 List<OrderDetail> pro = new List<OrderDetail>();
                 if (!(ID is null))
                 {
@@ -541,6 +538,10 @@ namespace demo.Controllers
                     }
                     Session[CartSession] = pro;
 
+                }
+                else
+                {
+                    Session[CartSession] = null;
                 }
             }
             var cart = Session[CartSession];

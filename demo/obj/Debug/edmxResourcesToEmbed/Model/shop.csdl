@@ -5,7 +5,6 @@
     <EntitySet Name="OrderDetails" EntityType="shopModel.OrderDetail" />
     <EntitySet Name="Orders" EntityType="shopModel.Order" />
     <EntitySet Name="Products" EntityType="shopModel.Product" />
-    <EntitySet Name="sysdiagrams" EntityType="shopModel.sysdiagram" />
     <EntitySet Name="Users" EntityType="shopModel.User" />
     <AssociationSet Name="FK_Products_Brand" Association="shopModel.FK_Products_Brand">
       <End Role="Brand" EntitySet="Brands" />
@@ -53,7 +52,7 @@
     <Property Name="Date_Create" Type="DateTime" Precision="3" />
     <Property Name="shipName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="shipMobile" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-    <Property Name="shipAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="shipAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="status" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Date_delivery" Type="DateTime" Precision="3" />
     <Property Name="Date_Recived" Type="DateTime" Precision="3" />
@@ -80,16 +79,6 @@
     <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Brand1" Relationship="shopModel.FK_Products_Brand" FromRole="Product" ToRole="Brand" />
     <NavigationProperty Name="OrderDetails" Relationship="shopModel.FK_OrderDetail_Products" FromRole="Product" ToRole="OrderDetail" />
-  </EntityType>
-  <EntityType Name="sysdiagram">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-    <Property Name="principal_id" Type="Int32" Nullable="false" />
-    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="version" Type="Int32" />
-    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
   </EntityType>
   <EntityType Name="User">
     <Key>
