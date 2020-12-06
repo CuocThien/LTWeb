@@ -70,7 +70,7 @@ namespace demo.Controllers
 
             return View();
         }
-        
+
         //Xu ly gio hang
         public ActionResult Cart(string ProductID, string quantity)
 
@@ -86,9 +86,9 @@ namespace demo.Controllers
                 }
             }
             i++;
-           // Session[CartSession] = null;
+            // Session[CartSession] = null;
             var ID = _db.Orders.Where(o => o.ID_Customer == user.Username && o.status == "Cart").SingleOrDefault();
-            List< OrderDetail> pro = new List<OrderDetail>();
+            List<OrderDetail> pro = new List<OrderDetail>();
             if (!(ID is null))
             {
                 pro = _db.OrderDetails.Where(x => x.ID_Order == ID.ID_Order).ToList();
@@ -98,13 +98,13 @@ namespace demo.Controllers
             int Quantity = Convert.ToInt32(quantity);
             var product = _db.Products.Find(ProductID);
             var cart = Session[CartSession];
-           
+
             //Kiem tra gio hang co san pham hay khong
-            if (Quantity!=0 && !(ID is null))
+            if (Quantity != 0 && !(ID is null))
             {
-               
-                var id = _db.OrderDetails.Where(x => x.ID_Order == ID.ID_Order && x.ID_Product==ProductID).SingleOrDefault();
-              
+
+                var id = _db.OrderDetails.Where(x => x.ID_Order == ID.ID_Order && x.ID_Product == ProductID).SingleOrDefault();
+
                 //Kiem tra gio hang co san pham nay hay chua
                 var list = (List<OrderDetail>)cart;
                 if (list.Exists(x => x.Product.ID == ProductID))
@@ -119,7 +119,7 @@ namespace demo.Controllers
                             _db.OrderDetails.AddOrUpdate(id);
                         }
                     }
-                    
+
                     _db.SaveChanges();
 
                 }
@@ -130,7 +130,7 @@ namespace demo.Controllers
                     var order = new OrderDetail();
                     order.Product = product;
                     order.Quantity = Quantity;
-                   // list.Add(order);
+                    // list.Add(order);
                     orderDetail.ID_Order = ID.ID_Order;
                     orderDetail.ID_Product = order.Product.ID;
                     orderDetail.Quantity = order.Quantity;
@@ -144,7 +144,7 @@ namespace demo.Controllers
 
             }
             //Chua co san pham nao trong gio hang
-            else if(Quantity!=0)
+            else if (Quantity != 0)
             {
                 Order orders = new Order();
                 var order = new OrderDetail();
@@ -173,14 +173,14 @@ namespace demo.Controllers
             }
 
             //Hien len view
-          
-            if(Quantity==0)
+
+            if (Quantity == 0)
             {
                 Session[CartSession] = pro;
             }
             cart = Session[CartSession];
             var l = new List<OrderDetail>();
-                l = (List<OrderDetail>)cart;
+            l = (List<OrderDetail>)cart;
             return View(l);
             //return RedirectToAction("ViewCart");
         }
@@ -228,7 +228,7 @@ namespace demo.Controllers
                 if (jsonItem != null)
                 {
                     item.Quantity = jsonItem.Quantity;
-                    var pro = _db.OrderDetails.Where(x => x.ID_Order == ID.ID_Order && x.ID_Product==item.Product.ID).SingleOrDefault();
+                    var pro = _db.OrderDetails.Where(x => x.ID_Order == ID.ID_Order && x.ID_Product == item.Product.ID).SingleOrDefault();
                     pro.Quantity = item.Quantity;
                     _db.OrderDetails.AddOrUpdate(pro);
                     _db.SaveChanges();
@@ -260,7 +260,7 @@ namespace demo.Controllers
 
             User user = Session["User"] as User;
             var ID = _db.Orders.Where(o => o.ID_Customer == user.Username && o.status == "Cart").SingleOrDefault();
-           // var order = new Order();
+            // var order = new Order();
             ID.Date_Create = DateTime.Now;
             ID.shipAddress = frm["address"];
             ID.shipMobile = frm["mobile"];
@@ -290,13 +290,13 @@ namespace demo.Controllers
             List<OrderDetail> pro = new List<OrderDetail>();
             if (!(ID is null))
             {
-               foreach (var item in ID)
-               {
-                  var Pro = _db.OrderDetails.Where(x => x.ID_Order == item.ID_Order).ToList();
-                  pro.AddRange(Pro);
+                foreach (var item in ID)
+                {
+                    var Pro = _db.OrderDetails.Where(x => x.ID_Order == item.ID_Order).ToList();
+                    pro.AddRange(Pro);
 
-               }
-               Session[CartSession] = pro;
+                }
+                Session[CartSession] = pro;
 
             }
             //Hien len view
@@ -313,6 +313,7 @@ namespace demo.Controllers
             User user = Session["User"] as User;
             var ID = _db.Orders.Where(o => o.ID_Order == Id).SingleOrDefault();
             ID.status = "Cancel";
+            ID.Date_Cancel = DateTime.Now;
             _db.Orders.AddOrUpdate(ID);
             _db.SaveChanges();
             if (user.isAdmin == true)
@@ -347,16 +348,40 @@ namespace demo.Controllers
             User user = Session["User"] as User;
             var ID = _db.Orders.Where(o => o.ID_Order == Id).SingleOrDefault();
             ID.status = "Delivery";
+            ID.Date_delivery = DateTime.Now;
             _db.Orders.AddOrUpdate(ID);
             _db.SaveChanges();
             if (user.isAdmin == true)
             {
                 dh = _db.Orders.Where(o => o.status == "Wait").ToList();
             }
-            else
+            List<OrderDetail> idorder = new List<OrderDetail>();
+            if (!(ID is null))
             {
-                dh = _db.Orders.Where(o => o.ID_Customer == user.Username && o.status == "Wait").ToList();
+                foreach (var item in dh)
+                {
+                    var Pro = _db.OrderDetails.Where(x => x.ID_Order == item.ID_Order).ToList();
+                    idorder.AddRange(Pro);
+
+                }
+                Session[CartSession] = idorder;
             }
+            return Json(new
+            {
+                status = true
+            });
+        }
+
+        public JsonResult Received(long id)
+        {
+            string Id = id.ToString();
+            User user = Session["User"] as User;
+            var ID = _db.Orders.Where(o => o.ID_Order == Id).SingleOrDefault();
+            ID.status = "Finish";
+            ID.Date_Recived = DateTime.Now;
+            _db.Orders.AddOrUpdate(ID);
+            _db.SaveChanges();
+            var dh = _db.Orders.Where(o => o.status == "Delivery").ToList();
             List<OrderDetail> idorder = new List<OrderDetail>();
             if (!(ID is null))
             {
@@ -393,7 +418,7 @@ namespace demo.Controllers
                 {
                     var Pro = _db.OrderDetails.Where(x => x.ID_Order == item.ID_Order).ToList();
                     pro.AddRange(Pro);
-                    
+
                 }
                 Session[CartSession] = pro;
             }
@@ -403,7 +428,7 @@ namespace demo.Controllers
             l = (List<OrderDetail>)cart;
             return View(l);
         }
-       
+
         public ActionResult Finish()
         {
             var ID = _db.Orders.ToList();
@@ -424,7 +449,7 @@ namespace demo.Controllers
                 {
                     var Pro = _db.OrderDetails.Where(x => x.ID_Order == item.ID_Order).ToList();
                     pro.AddRange(Pro);
-                    
+
                 }
                 Session[CartSession] = pro;
             }
@@ -456,7 +481,7 @@ namespace demo.Controllers
                 {
                     var Pro = _db.OrderDetails.Where(x => x.ID_Order == item.ID_Order).ToList();
                     pro.AddRange(Pro);
-                    
+
                 }
                 Session[CartSession] = pro;
             }
@@ -468,9 +493,22 @@ namespace demo.Controllers
             return View(l);
         }
 
-            [HttpGet]
-      
-    [ChildActionOnly]
+       
+        public ActionResult Detail(System.Int32 id)
+        {
+            string Id = id.ToString();
+            User user = Session["User"] as User;
+            var ID = _db.Orders.Where(o => o.ID_Order == Id).SingleOrDefault();
+            var pro = _db.OrderDetails.Where(x => x.ID_Order == ID.ID_Order).ToList();
+            var l = new List<OrderDetail>();
+            l = (List<OrderDetail>)pro;
+            var k = View(l);
+            return View(l);
+        }
+
+        [HttpGet]
+
+        [ChildActionOnly]
         public PartialViewResult HeaderCart()
         {
             User user = Session["User"] as User;
@@ -486,9 +524,9 @@ namespace demo.Controllers
             else
             {
                 var ID = _db.Orders.Where(x => x.status == "Wait").ToList();
-                if(!(ID is null))
+                if (!(ID is null))
                 {
-                    foreach(var item in ID)
+                    foreach (var item in ID)
                     {
 
                     }
@@ -632,7 +670,7 @@ namespace demo.Controllers
             int pagesize = 4;
             int pageNumber = (page ?? 1);
             var result = _db.Products.OrderBy(id => id.ID);
-            return View(result.ToPagedList(pageNumber,pagesize));
+            return View(result.ToPagedList(pageNumber, pagesize));
         }
         [HttpGet]
         public ActionResult HomeGuest(int? page)
@@ -677,8 +715,8 @@ namespace demo.Controllers
                 var x = (from u in _db.Users where u.Email == user.Email select u).ToList();
                 var MailTo = user.Email.Trim();
                 //var u = _db.Users.Find(f["email"]);
-                if (x.Count==1)
-                {     
+                if (x.Count == 1)
+                {
                     var message = new MimeMessage();
                     message.From.Add(new MailboxAddress("Thien-Vy's Watch Store", "watchstorethienvys@gmail.com"));
                     message.To.Add(new MailboxAddress("Custom", MailTo));
@@ -704,8 +742,8 @@ namespace demo.Controllers
             }
             else
             {
-                
-                
+
+
                 return Content("false");
             }
             //return View();
@@ -754,12 +792,12 @@ namespace demo.Controllers
                 //user. = gender;
 
                 var resultInsert = new ShopController().InsertForFacebook(user);
-                if(resultInsert!=null)
+                if (resultInsert != null)
                 {
                     Session["Is Login"] = 1;
                     Session["User"] = user;
-                }    
-                
+                }
+
             }
             return RedirectToAction("Home", "Shop");
         }
@@ -777,8 +815,8 @@ namespace demo.Controllers
                 return user.Username;
             }
         }
-        
-        
-       
+
+
+
     }
 }

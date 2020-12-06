@@ -28,6 +28,9 @@
     <Property Name="shipMobile" Type="nchar" MaxLength="10" />
     <Property Name="shipAddress" Type="nvarchar" MaxLength="50" />
     <Property Name="status" Type="nvarchar(max)" />
+    <Property Name="Date_delivery" Type="datetime" />
+    <Property Name="Date_Recived" Type="datetime" />
+    <Property Name="Date_Cancel" Type="datetime" />
   </EntityType>
   <EntityType Name="Products">
     <Key>

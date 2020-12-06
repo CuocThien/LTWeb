@@ -5,139 +5,139 @@
     ViewBag.Title = "Home";
 }
 @using demo.Controllers;
-<div>
-    <div class="home-Contact">
-        <span>Contact us: <a href="tel:#0708033730">0708033730</a></span>
-        <hr>
-        @{
 
-            var user = Session["User"] as User;
-            if (Session["User"] != null)
+<div class="home-Contact">
+    <span>Contact us: <a href="tel:#0708033730">0708033730</a></span>
+    <hr>
+    @{
+
+        var user = Session["User"] as User;
+        if (Session["User"] != null)
+        {
+            string temp = user.Username;
+            if (user.Name != null)
             {
-                string temp = user.Username;
-                if (user.Name != null)
-                {
-                    temp = user.Name;
-                }
-                else
-                {
-                    temp = user.Username;
-                }
-
-                <div class="after-login">
-                    <a href="#" id="user">@temp</a>
-                    <hr>
-                    <SPAN><a href="~/Shop/HomeGuest" id="Logout">ĐĂNG XUẤT</a></SPAN>
-                </div>
-
+                temp = user.Name;
             }
             else
             {
-                <div class="Before-login">
-                    <span><a href="~/Shop/Register">ĐĂNG KÝ</a></span>
-                    <hr>
-                    <SPAN><a href="~/Shop/Login">ĐĂNG NHẬP</a></SPAN>
+                temp = user.Username;
+            }
+
+            <div class="after-login">
+                <a href="#" id="user">@temp</a>
+                <hr>
+                <SPAN><a href="~/Shop/HomeGuest" id="Logout">ĐĂNG XUẤT</a></SPAN>
+            </div>
+
+        }
+        else
+        {
+            <div class="Before-login">
+                <span><a href="~/Shop/Register">ĐĂNG KÝ</a></span>
+                <hr>
+                <SPAN><a href="~/Shop/Login">ĐĂNG NHẬP</a></SPAN>
+            </div>
+        }
+    }
+</div>
+<div class="home-Menu row">
+
+    <div class="home-Menu-left col-lg-6">
+        <ul class="nav navbar-nav center_nav pull-right">
+            <li class="nav-item active" style="border-right:solid 2px black">
+                <a class="nav-link" href="~/Shop/Home">TRANG CHỦ</a>
+            </li>
+            <li class="nav-item submenu dropdown" style="border-right:solid 2px black">
+                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">PHÂN LOẠI</a>
+                <ul class="dropdown-menu">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">ĐỒNG HỒ NAM</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">ĐỒNG HỒ NỮ</a>
+                    </li>
+
+                </ul>
+            </li>
+            <li class="nav-item submenu dropdown " style="border-right:solid 2px black">
+                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">HÃNG</a>
+                <ul class="dropdown-menu">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">ROLEX</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">DW</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">CASIO</a>
+                    </li>
+                </ul>
+            </li>
+            @{ Html.RenderAction("HeaderCart", "Shop");}
+            @*<li class="nav-item">
+                    <a class="nav-link" id="Cart" href="/Shop/Cart">
+                        @{ Html.RenderAction("HeaderCart", "Shop");}
+                    </a>
+                </li>*@
+            @*<li class="nav-item">
+                    <a class="nav-link" id=" Cart" href="/Shop/Cart">GIỎ HÀNG</a>
+                </li>*@
+        </ul>
+
+    </div>
+    <div class="home-Menu-right col-lg-6">
+        @{
+
+            if (!(user is null) && user.isAdmin == true)
+            {
+                <ul id="admin" class="nav navbar-nav center_nav pull-right">
+                    <li class="nav-item">
+                        <a class="nav-link" href="~/Shop/AddProduct">THÊM SẢN PHẨM</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">CHỈNH SỬA SẢN PHẨM</a>
+                    </li>
+                </ul>
+            }
+        }
+    </div>
+</div>
+<div class="container-fluid">
+    <div id="loadProduct" class="products row">
+        @if (!(Model is null))
+        {
+            foreach (var pro in Model.ToList())
+            {
+                <div class="total col-lg-3">
+                    <div class="product">
+
+                        @Html.Image(pro.Image, "Alternate Text", "300", "250")
+                        <div class="overlay">
+                            <di class="text">@pro.Description</di>
+                        </div>
+                    </div>
+                    <div class="detail">
+                        <span id="product">@pro.Name</span>
+                        <span style="font-size:15px; color:blue">Giá tiền:</span>
+                        <br />
+                        <div class="price">@pro.Price</div>
+                        <div class="AddCart">
+                            <h4><a href="/Shop/Cart?ProductID=@pro.ID&quantity=1" id="buy">Chọn Mua</a></h4>
+
+                        </div>
+                    </div>
                 </div>
             }
         }
     </div>
-    <div class="home-Menu row">
-       
-        <div class="home-Menu-left col-lg-6">
-            <ul class="nav navbar-nav center_nav pull-right">
-                <li class="nav-item active" style="border-right:solid 2px black">
-                    <a class="nav-link" href="~/Shop/Home">TRANG CHỦ</a>
-                </li>
-                <li class="nav-item submenu dropdown" style="border-right:solid 2px black">
-                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">PHÂN LOẠI</a>
-                    <ul class="dropdown-menu">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">ĐỒNG HỒ NAM</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">ĐỒNG HỒ NỮ</a>
-                        </li>
-
-                    </ul>
-                </li>
-                <li class="nav-item submenu dropdown " style="border-right:solid 2px black">
-                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">HÃNG</a>
-                    <ul class="dropdown-menu">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">ROLEX</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">DW</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">CASIO</a>
-                        </li>
-                    </ul>
-                </li>
-                @{ Html.RenderAction("HeaderCart", "Shop");}
-                @*<li class="nav-item">
-            <a class="nav-link" id="Cart" href="/Shop/Cart">
-                @{ Html.RenderAction("HeaderCart", "Shop");}
-            </a>
-        </li>*@
-                @*<li class="nav-item">
-            <a class="nav-link" id=" Cart" href="/Shop/Cart">GIỎ HÀNG</a>
-        </li>*@
-            </ul>
-
-        </div>
-        <div class="home-Menu-right col-lg-6">
-            @{
-
-                if (!(user is null) && user.isAdmin == true)
-                {
-                    <ul id="admin" class="nav navbar-nav center_nav pull-right">
-                        <li class="nav-item">
-                            <a class="nav-link" href="~/Shop/AddProduct">THÊM SẢN PHẨM</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">CHỈNH SỬA SẢN PHẨM</a>
-                        </li>
-                    </ul>
-                }
-            }
-        </div>
-    </div>
-    <div class="container-fluid">
-        <div id="loadProduct" class="products row">
-            @if (!(Model is null))
-            {
-                foreach (var pro in Model.ToList())
-                {
-                    <div class="total col-lg-3">
-                        <div class="product">
-
-                            @Html.Image(pro.Image, "Alternate Text", "300", "250")
-                            <div class="overlay">
-                                <di class="text">@pro.Description</di>
-                            </div>
-                        </div>
-                        <div class="detail">
-                            <span id="product">@pro.Name</span>
-                            <span style="font-size:15px; color:blue">Giá tiền:</span>
-                            <br />
-                            <div class="price">@pro.Price</div>
-                            <div class="AddCart">
-                                <h4><a href="/Shop/Cart?ProductID=@pro.ID&quantity=1" id="buy">Chọn Mua</a></h4>
-
-                            </div>
-                        </div>
-                    </div>
-                }
-            }
-        </div>
-        <ul class="pager">
-            <li><a id="minpage">|<<</a></li>
-            <li><a id="previous"><<</a></li>
-            <li><a id="next">>></a></li>
-            <li><a id="maxpage">>>|</a></li>
-        </ul>
-    </div>
+    <ul class="pager">
+        <li><a id="minpage">|<<</a></li>
+        <li><a id="previous"><<</a></li>
+        <li><a id="next">>></a></li>
+        <li><a id="maxpage">>>|</a></li>
+    </ul>
+</div>
 <script>
     var currentpage = 1;
     var max = 0;

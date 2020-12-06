@@ -165,26 +165,32 @@
 
                                                 }
                                                 <tr>
-                                                    <td> ID đơn hàng:@i.ID_Order</td>
-                                                    <td></td>
+                                                   
                                                     @if (!(user is null) && user.isAdmin == false)
-                                                                            {
-                                                                                <td>Tổng tiền đơn hàng:@total.ToString("N0")</td>
-                                                                                <td></td>
-                                                                                <td></td>
-                                                                                <td></td>
-                                                                                <td></td>
-                                                                            }
-                                                                            else
-                                                                            {
+                                                    {
+                                                         <td> ID đơn hàng:@i.ID_Order</td>
+                                                        <td>Tổng tiền đơn hàng:@total.ToString("N0")</td>
+                                                        <td></td>
+                                                        <td colspan="2"><div class="Received"><a href="#" data-id="@i.ID_Order">Đã nhận hàng</a></div></td>
+                                                        <td><div class="Detail"><a href="#" data-id="@i.ID_Order">Xem chi tiết</a></div></td>
+                                                        <td></td>
 
-                                                                                <td colspan="2">Khách Hàng:@i.Order.User.Name</td>
-                                                                                <td colspan="2">Tổng tiền đơn hàng:@total.ToString("N0")</td>
-                                                                                <td></td>
-                                                                                <td></td>
-                                                                               // <td><div class="ConfirmOrder"><a href="#" data-id="@i.ID_Order">Xác nhận</a></div></td>
-                                                                                //<td><div class="DeleteOrder"><a href="#" data-id="@i.ID_Order">Xóa</a></div></td>
-                                                                            }
+                                                    }
+                                                    else
+                                                    {
+
+                                                        <td colspan="3" style="text-align:center">
+                                                            ID đơn hàng:@i.ID_Order &nbsp;&nbsp;&nbsp;
+                                                            Khách Hàng:@i.Order.User.Name &nbsp; &nbsp; &nbsp;
+                                                            Tổng tiền đơn hàng:@total.ToString("N0") &nbsp; &nbsp; &nbsp;
+                                                        </td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td><div class="Detail"><a href="#" data-id="@i.ID_Order">Xem chi tiết</a></div></td>
+                                                        <td></td>
+                                                        // <td><div class="ConfirmOrder"><a href="#" data-id="@i.ID_Order">Xác nhận</a></div></td>
+                                                        //<td><div class="DeleteOrder"><a href="#" data-id="@i.ID_Order">Xóa</a></div></td>
+                                                    }
 
                                                 </tr>
                                                 k = i.ID_Order;
@@ -242,13 +248,32 @@
     </div>
 </div>
 <script>
-            $(document).ready(function () {
+    $('.Received').click(function (e) {
+        const current = e.currentTarget;
+        var r = confirm("Bạn có chắc chắn muốn xác nhận đã nhận đơn hàng này không?");
+        if (r == true) {
+            $.ajax({
+                data: { ID: current.children[0].dataset.id },
+                url: '/Shop/Received',
+                dataType: 'json',
+                type: 'POST',
+                success: function (res) {
+                    if (res.status == true) {
+                        window.location.href = "/Shop/Delivery";
+                    }
+                }
+            })
+        }
+    });
+</script>
+<script>
+    $(document).ready(function () {
 
-                $(".nav-item").click(function () {
-                    var x = $('.Active')
-                    $(this).addClass(' Active');
-                    x.removeClass();
-                    x.addClass('nav-item')
-                });
-            });
+        $(".nav-item").click(function () {
+            var x = $('.Active')
+            $(this).addClass(' Active');
+            x.removeClass();
+            x.addClass('nav-item')
+        });
+    });
 </script>

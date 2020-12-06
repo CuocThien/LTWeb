@@ -92,14 +92,14 @@
 <div class="home-Menu row">
     <div class="Cart-menu">
         <ul class="nav navbar-nav center_nav pull-right">
-            @{ 
+            @{
                 if (!(user is null) && user.isAdmin == false)
                 {
                     <li class="nav-item">
                         <a class="nav-link" href="/Shop/Cart">Giỏ Hàng</a>
                     </li>
                 }
-              }
+            }
             <li class="nav-item">
                 <a href="/Shop/Wait" class="nav-link">Chờ xác nhận</a>
             </li>
@@ -131,7 +131,7 @@
                     @{
                         if (Model.Count > 0)
                         {
-                          
+
                             <table class="table-cart">
                                 <thead>
                                     <tr></tr>
@@ -165,24 +165,28 @@
 
                                                 }
                                                 <tr>
-                                                    <td> ID đơn hàng:@i.ID_Order</td>
-                                                    <td></td>
                                                     @if (!(user is null) && user.isAdmin == false)
-                                                                            {
-                                                                                <td>Tổng tiền đơn hàng:@total.ToString("N0")</td>
-                                                                                <td></td>
-                                                                                <td></td>
-                                                                                <td></td>
-                                                                                <td></td>
-                                                                            }
-                                                                            else
-                                                                            {
+                                                    {
+                                                        <td> ID đơn hàng:@i.ID_Order</td>
+                                                        <td>Tổng tiền đơn hàng:@total.ToString("N0")</td>
+                                                        <td></td>
+                                                        <td colspan="2"></td>
+                                                        <td><div class="Detail"><a href="#" data-id="@i.ID_Order">Xem chi tiết</a></div></td>
+                                                        <td></td>
+                                                    }
+                                                    else
+                                                    {
 
-                                                                                <td colspan="2">Khách Hàng:@i.Order.User.Name</td>
-                                                                                <td colspan="2">Tổng tiền đơn hàng:@total.ToString("N0")</td>
-                                                                                <td></td>
-                                                                                <td></td>
-                                                                            }
+                                                         <td colspan="3" style="text-align:center">
+                                                            ID đơn hàng:@i.ID_Order &nbsp;&nbsp;&nbsp;
+                                                            Khách Hàng:@i.Order.User.Name &nbsp; &nbsp; &nbsp;
+                                                            Tổng tiền đơn hàng:@total.ToString("N0") &nbsp; &nbsp; &nbsp;
+                                                        </td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td><div class="Detail"><a href="#" data-id="@i.ID_Order">Xem chi tiết</a></div></td>
+                                                        <td></td>
+                                                    }
 
                                                 </tr>
                                                 k = i.ID_Order;
@@ -240,14 +244,14 @@
     </div>
 </div>
 <script>
-            $(document).ready(function () {
+    $(document).ready(function () {
 
-                $(".nav-item").click(function () {
-                    var x = $('.Active')
-                    $(this).addClass(' Active');
-                    x.removeClass();
-                    x.addClass('nav-item')
-                });
-            });
+        $(".nav-item").click(function () {
+            var x = $('.Active')
+            $(this).addClass(' Active');
+            x.removeClass();
+            x.addClass('nav-item')
+        });
+    });
 </script>
 

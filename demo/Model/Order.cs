@@ -27,6 +27,9 @@ namespace demo.Model
         public string shipMobile { get; set; }
         public string shipAddress { get; set; }
         public string status { get; set; }
+        public Nullable<System.DateTime> Date_delivery { get; set; }
+        public Nullable<System.DateTime> Date_Recived { get; set; }
+        public Nullable<System.DateTime> Date_Cancel { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }

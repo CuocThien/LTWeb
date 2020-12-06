@@ -22,6 +22,9 @@
     <EntitySetMapping Name="Orders">
       <EntityTypeMapping TypeName="shopModel.Order">
         <MappingFragment StoreEntitySet="Orders">
+          <ScalarProperty Name="Date_Cancel" ColumnName="Date_Cancel" />
+          <ScalarProperty Name="Date_Recived" ColumnName="Date_Recived" />
+          <ScalarProperty Name="Date_delivery" ColumnName="Date_delivery" />
           <ScalarProperty Name="status" ColumnName="status" />
           <ScalarProperty Name="shipAddress" ColumnName="shipAddress" />
           <ScalarProperty Name="shipMobile" ColumnName="shipMobile" />

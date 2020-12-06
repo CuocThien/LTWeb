@@ -164,27 +164,32 @@
 
 
                                                 }
-                                                                        <tr>
-                                                                            <td> ID đơn hàng:@i.ID_Order</td>
-                                                                            <td></td>
+                                                <tr>
 
-                                                                            @if (!(user is null) && user.isAdmin == false)
-                                                                            {
-                                                                                <td>Tổng tiền đơn hàng:@total.ToString("N0")</td>
-                                                                                <td></td>
-                                                                                <td></td>
-                                                                                <td></td>
-                                                                                <td><div class="DeleteOrder"><a href="#" data-id="@i.ID_Order">Xóa</a></div></td>
-                                                                            }
-                                                                            else
-                                                                            {
 
-                                                                                <td colspan="2">Khách Hàng:@i.Order.User.Name</td>
-                                                                                <td>Tổng tiền đơn hàng:@total.ToString("N0")</td>
-                                                                                <td><div class="ConfirmOrder"><a href="#" data-id="@i.ID_Order">Xác nhận</a></div></td>
-                                                                                <td><div class="DeleteOrder"><a href="#" data-id="@i.ID_Order">Xóa</a></div></td>
-                                                                            }
-                                                                        </tr>
+                                                    @if (!(user is null) && user.isAdmin == false)
+                                                    {
+                                                        <td colspan="4">
+                                                            ID đơn hàng:@i.ID_Order &nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;
+                                                            Tổng tiền đơn hàng:@total.ToString("N0")
+                                                        </td>
+                                                        <td style="text-align:center"> <div class="DeleteOrder"><a href="#" data-id="@i.ID_Order">Xóa</a></div></td>
+                                                        <td style="text-align:center"><div class="Detail"><a href="#" data-id="@i.ID_Order">Xem chi tiết</a></div></td>
+                                                        <td></td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td colspan="3" style="text-align:center">
+                                                            ID đơn hàng:@i.ID_Order &nbsp;&nbsp;&nbsp;
+                                                            Khách Hàng:@i.Order.User.Name &nbsp; &nbsp; &nbsp;
+                                                            Tổng tiền đơn hàng:@total.ToString("N0") &nbsp; &nbsp; &nbsp;
+                                                        </td>
+                                                        <td style="text-align:center"><div class="DeleteOrder"><a href="#" data-id="@i.ID_Order">Xóa</a></div></td>
+                                                        <td style="text-align:center"><div class="ConfirmOrder"><a href="#" data-id="@i.ID_Order">Xác nhận</a></div></td>
+                                                        <td colspan="2" style="text-align:center"><div class="Detail"><a href="~/Shop/Detail" data-id="@i.ID_Order">Xem chi tiết</a></div></td>
+
+                                                    }
+                                                </tr>
                                                 k = i.ID_Order;
 
                                                 foreach (var item in Model)
@@ -218,16 +223,9 @@
                             </p>
                         }
                     }
-
-
-                   
-                   
-                    
-
-
                     <div class="row">
 
-                       
+
                         <div class="col-md-12 col-sm-12  col-xs-12 continue-shop">
                             <a href="~/Shop/Home"><i class="fa fa-reply"></i>Tiếp tục mua hàng</a>
                         </div>
@@ -275,16 +273,29 @@
                 })
             }
         });
+        $('.Detail').click(function (e) {
+            const current = e.currentTarget;
+            $.ajax({
+                data: { ID: current.children[0].dataset.id },
+                url: '/Shop/Detail',
+                type: 'POST',
+                //success: function (res) {
+                //    if (res.status == true) {
+                //        window.location.href = "/Shop/Wait";
+                //    }
+                //}
+            })
+        });
     });
 </script>
 <script>
-            $(document).ready(function () {
+    $(document).ready(function () {
 
-                $(".nav-item").click(function () {
-                    var x = $('.Active')
-                    $(this).addClass(' Active');
-                    x.removeClass();
-                    x.addClass('nav-item')
-                });
-            });
+        $(".nav-item").click(function () {
+            var x = $('.Active')
+            $(this).addClass(' Active');
+            x.removeClass();
+            x.addClass('nav-item')
+        });
+    });
 </script>

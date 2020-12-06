@@ -55,6 +55,9 @@
     <Property Name="shipMobile" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
     <Property Name="shipAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="status" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Date_delivery" Type="DateTime" Precision="3" />
+    <Property Name="Date_Recived" Type="DateTime" Precision="3" />
+    <Property Name="Date_Cancel" Type="DateTime" Precision="3" />
     <NavigationProperty Name="OrderDetails" Relationship="shopModel.FK_OrderDetail_Orders" FromRole="Order" ToRole="OrderDetail" />
     <NavigationProperty Name="User" Relationship="shopModel.FK_Orders_User" FromRole="Order" ToRole="User" />
   </EntityType>
