@@ -22,9 +22,19 @@
     <div class="home-Menu row">
         <div class="home-Menu-left col-lg-6">
             <ul class="nav navbar-nav center_nav pull-right">
-                <li class="nav-item active" style="border-right:solid 2px black">
-                    <a class="nav-link" href="~/Shop/Home">TRANG CHỦ</a>
-                </li>
+                @{ if (user is null)
+                    {
+                        <li class="nav-item active" style="border-right:solid 2px black">
+                            <a class="nav-link" href="~/Shop/HomeGuest">TRANG CHỦ</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item active" style="border-right:solid 2px black">
+                            <a class="nav-link" href="~/Shop/Home">TRANG CHỦ</a>
+                        </li>
+                    }
+                }
                 <li class="nav-item submenu dropdown" style="border-right:solid 2px black">
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">PHÂN LOẠI</a>
                     <ul class="dropdown-menu" role="menu">
@@ -44,7 +54,7 @@
                             <a class="nav-link" href="/Shop/Brand?id=Rolex">ROLEX</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/Shop/Brand?id=DW">DW</a>
+                            <a class="nav-link" href="/Shop/Brand?id=Daniel Wellington">DW</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/Shop/Brand?id=Casio">CASIO</a>
@@ -64,50 +74,53 @@
 
         </div>
     </div>
+    <h2 style="text-align:center">
+        ĐỒNG HỒ @Model.FirstOrDefault().Brand1.Name.ToString().ToUpper()
+    </h2>
     <div class="container-fluid">
         <div id="loadProduct" class="products row">
             @{
                 string brand = Model[0].Brand.ToString();
             }
             @{Html.RenderAction("_Brand", "Shop", new { page = 1, brand });}
-           
+
             @*@if (!(Model is null))
-        {
-            foreach (var pro in Model.ToList())
-            {
+                {
+                    foreach (var pro in Model.ToList())
+                    {
 
-               //var id = pro.Brand;
-                <div class="total col-lg-3">
-                    <div class="product">
+                       //var id = pro.Brand;
+                        <div class="total col-lg-3">
+                            <div class="product">
 
-                        @Html.Image(pro.Image, "Alternate Text", "300", "250")
-                        <div class="overlay">
-                            <div class="text">@pro.Description</div>
+                                @Html.Image(pro.Image, "Alternate Text", "300", "250")
+                                <div class="overlay">
+                                    <div class="text">@pro.Description</div>
+                                </div>
+                            </div>
+                            <div class="detail">
+                                <span>@pro.Name</span>
+                                <span style="font-size:15px; color:blue">Giá tiền:</span>
+                                <br />
+
+                                <div class="price">@pro.Price</div>
+                                @{ if (user is null)
+                                    {
+                                        <div class="AddCart">
+                                            <h4><a href="/Shop/Login" id="buy">Chọn Mua</a></h4>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="AddCart">
+                                            <h4><a href="/Shop/Cart?ProductID=@pro.ID&quantity=1" id="buy">Chọn Mua</a></h4>
+                                        </div>
+                                    }
+                                }
+                            </div>
                         </div>
-                    </div>
-                    <div class="detail">
-                        <span>@pro.Name</span>
-                        <span style="font-size:15px; color:blue">Giá tiền:</span>
-                        <br />
-
-                        <div class="price">@pro.Price</div>
-                        @{ if (user is null)
-                            {
-                                <div class="AddCart">
-                                    <h4><a href="/Shop/Login" id="buy">Chọn Mua</a></h4>
-                                </div>
-                            }
-                            else
-                            {
-                                <div class="AddCart">
-                                    <h4><a href="/Shop/Cart?ProductID=@pro.ID&quantity=1" id="buy">Chọn Mua</a></h4>
-                                </div>
-                            }
-                        }
-                    </div>
-                </div>
-            }
-        }*@
+                    }
+                }*@
 
         </div>
         <ul class="pager">
@@ -122,8 +135,8 @@
 <script>
     var currentpage = 1;
     var max = 0;
-    var BR = @Model.FirstOrDefault().Brand.ToString();
-    console.log(BR);
+    var BR = '@Model.FirstOrDefault().Brand.ToString()';
+
     $(document).ready(function () {
 
         $('#previous').click(function () {
@@ -135,7 +148,7 @@
                 url: "/Shop/_Brand",
                 data: {
                     page: currentpage,
-                    brand:@Model[0].Brand.ToString()
+                    brand: BR
 
                 },
                 success: function (res) {
@@ -178,7 +191,7 @@
                 url: "/Shop/_Brand",
                 data: {
                     page: currentpage,
-                    brand:@Model[0].Brand.ToString()
+                    brand:BR
 
                 },
                 success: function (res) {
@@ -203,7 +216,7 @@
                 url: "/Shop/_Brand",
                 data: {
                     page: currentpage,
-                    brand:@Model[0].Brand.ToString()
+                    brand:BR
 
                 },
                 success: function (res) {

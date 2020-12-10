@@ -186,6 +186,9 @@
 
 
                                                 }
+                                                <tr class="line">
+                                                    <td colspan="7"></td>
+                                                </tr>
                                                 <tr>
                                                     @if (!(user is null) && user.isAdmin == false)
                                                     {
@@ -199,7 +202,7 @@
                                                     else
                                                     {
 
-                                                         <td colspan="3" style="text-align:center">
+                                                        <td colspan="3" style="text-align:center">
                                                             ID đơn hàng:@i.ID_Order &nbsp;&nbsp;&nbsp;
                                                             Khách Hàng:@i.Order.User.Name &nbsp; &nbsp; &nbsp;
                                                             Tổng tiền đơn hàng:@total.ToString("N0") &nbsp; &nbsp; &nbsp;
@@ -211,6 +214,7 @@
                                                     }
 
                                                 </tr>
+
                                                 k = i.ID_Order;
 
                                                 foreach (var item in Model)
@@ -226,7 +230,9 @@
                                                             <td style="width: 15%;text-align:center;" id="price">@(item.Product.Price.GetValueOrDefault(0).ToString("N0"))</td>
                                                             <td style="width: 15%;text-align:center;" id="totalprice">@(((float)temp).ToString("N0"))</td>
                                                         </tr>
+
                                                     }
+
 
                                                 }
                                             }

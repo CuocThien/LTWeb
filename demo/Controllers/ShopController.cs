@@ -849,23 +849,35 @@ namespace demo.Controllers
             list = (List<Product>)pro;
             return View(list);
         }
-        //public ActionResult Brand(int? page, string brand)
-        //{
-        //    int pagesize = 4;
-        //    int pageNumber = (page ?? 1);
-
-        //    var result = _db.Products.Where(x => x.Brand == brand).OrderBy(id => id.ID);
-        //    return PartialView(result.ToPagedList(pageNumber, pagesize));
-        //}
         
         [HttpGet]
         public ActionResult _Brand(int? page,string brand)
         {
             
             int pagesize = 4;
-            int pageNumber = (page ?? 1) ;
+            int pageNumber = (page ?? 1)      ;
             var result = _db.Products.Where(x=>x.Brand==brand).OrderBy(ID => ID.ID);
             return PartialView(result.ToPagedList(pageNumber, pagesize));
         }
+
+        //Loại đồng hồ
+        public ActionResult Style(string id)
+        {
+            var list = new List<Product>();
+            var pro = _db.Products.Where(x => x.Style == id).ToList();
+            list = (List<Product>)pro;
+            return View(list);
+        }
+
+        [HttpGet]
+        public ActionResult _Style(int? page, string style)
+        {
+
+            int pagesize = 4;
+            int pageNumber = (page ?? 1);
+            var result = _db.Products.Where(x => x.Style == style).OrderBy(ID => ID.ID);
+            return PartialView(result.ToPagedList(pageNumber, pagesize));
+        }
+
     }
 }

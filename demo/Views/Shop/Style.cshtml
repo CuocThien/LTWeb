@@ -1,10 +1,14 @@
-﻿@model PagedList.IPagedList<demo.Model.Product>
+﻿@model List<demo.Model.Product>
 @using PagedList.Mvc;
 @using demo.Model;
+@using Newtonsoft.Json
+
 @{
-    ViewBag.Title = "Home";
+    ViewBag.Title = "Style";
 }
+
 @using demo.Controllers;
+@{User user = Session["User"] as User; }
 <div>
     <div class="home-Contact">
         <span>Contact us: <a href="tel:#0708033730">0708033730</a></span>
@@ -18,9 +22,19 @@
     <div class="home-Menu row">
         <div class="home-Menu-left col-lg-6">
             <ul class="nav navbar-nav center_nav pull-right">
-                <li class="nav-item active" style="border-right:solid 2px black">
-                    <a class="nav-link" href="~/Shop/HomeGuest">TRANG CHỦ</a>
-                </li>
+                @{ if (user is null)
+                    {
+                        <li class="nav-item active" style="border-right:solid 2px black">
+                            <a class="nav-link" href="~/Shop/HomeGuest">TRANG CHỦ</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item active" style="border-right:solid 2px black">
+                            <a class="nav-link" href="~/Shop/Home">TRANG CHỦ</a>
+                        </li>
+                    }
+                }
                 <li class="nav-item submenu dropdown" style="border-right:solid 2px black">
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">PHÂN LOẠI</a>
                     <ul class="dropdown-menu" role="menu">
@@ -30,7 +44,6 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/Shop/Style?id=Đồng hồ nữ">ĐỒNG HỒ NỮ</a>
                         </li>
-
                     </ul>
                 </li>
                 <li class="nav-item submenu dropdown " style="border-right:solid 2px black">
@@ -57,12 +70,20 @@
 
         </div>
         <div class="home-Menu-right col-lg-6">
-            
+
         </div>
     </div>
+    <h2 style="text-align:center">
+        ĐỒNG HỒ @Model.FirstOrDefault().Style.ToString().ToUpper()
+    </h2>
     <div class="container-fluid">
         <div id="loadProduct" class="products row">
-            @{ Html.RenderAction("_Product", "Shop");}
+            @{
+                string style = Model[0].Style.ToString();
+            }
+            @{Html.RenderAction("_Style", "Shop", new { page = 1, style });}
+
+
         </div>
         <ul class="pager">
             <li><a id="minpage">|<<</a></li>
@@ -76,34 +97,37 @@
 <script>
     var currentpage = 1;
     var max = 0;
-    @{
-        shopEntities db = new shopEntities();
-    }
+    var Style = '@Model.FirstOrDefault().Style.ToString()';
+
     $(document).ready(function () {
+
         $('#previous').click(function () {
-            currentpage = currentpage - 1;
-            if (currentpage <= 0)
-                currentpage=1
+                currentpage = currentpage - 1;
+                if (currentpage <= 0)
+                    currentpage=1
             $.ajax({
                 type: "GET",
-                url: "/Shop/_Product",
+                url: "/Shop/_Style",
                 data: {
-                    page: currentpage
+                    page: currentpage,
+                    style: Style
+
                 },
                 success: function (res) {
                     $('#loadProduct').html(res)
                 }
             });
         });
-        $('#next').click(function () {
+           $('#next').click(function () {
+
             pagesize = 4;
             var max = 0;
-            var size = (@db.Products.Count()) / pagesize;
-            if ((@db.Products.Count()) % pagesize == 0) {
-                max = (@db.Products.Count()) / pagesize;
+            var size = (@Model.Count()) / pagesize;
+            if ((@Model.Count()) % pagesize == 0) {
+                max = (@Model.Count()) / pagesize;
             }
             else {
-                max = Math.floor(((@db.Products.Count()) / pagesize) + 1);
+                max = Math.floor(((@Model.Count()) / pagesize) + 1);
             }
             currentpage = currentpage + 1;
             if (currentpage > max)
@@ -112,9 +136,10 @@
                 currentpage = 1;
             $.ajax({
                 type: "GET",
-                url: "/Shop/_Product",
+                url: "/Shop/_Style",
                 data: {
-                    page: currentpage
+                    page: currentpage,
+                    style: Style
                 },
                 success: function (res) {
                     $('#loadProduct').html(res)
@@ -125,9 +150,11 @@
             currentpage = 1
             $.ajax({
                 type: "GET",
-                url: "/Shop/_Product",
+                url: "/Shop/_Style",
                 data: {
-                    page: currentpage
+                    page: currentpage,
+                    style:Style
+
                 },
                 success: function (res) {
                     $('#loadProduct').html(res)
@@ -137,20 +164,22 @@
         $('#maxpage').click(function () {
             pagesize = 4;
             var max = 0;
-            var size = (@db.Products.Count()) / pagesize;
-            if ((@db.Products.Count()) % pagesize == 0) {
-                max = (@db.Products.Count()) / pagesize;
+            var size = (@Model.Count()) / pagesize;
+            if ((@Model.Count()) % pagesize == 0) {
+                max = (@Model.Count()) / pagesize;
             }
             else {
-                max = Math.floor(((@db.Products.Count()) / pagesize) + 1);
+                max = Math.floor(((@Model.Count()) / pagesize) + 1);
             }
             console.log(max);
             currentpage = max;
             $.ajax({
                 type: "GET",
-                url: "/Shop/_Product",
+                url: "/Shop/_Style",
                 data: {
-                    page: currentpage
+                    page: currentpage,
+                    style:Style
+
                 },
                 success: function (res) {
                     $('#loadProduct').html(res)
@@ -160,3 +189,4 @@
     });
 
 </script>
+
