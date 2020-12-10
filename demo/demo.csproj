@@ -261,6 +261,9 @@
     <Content Include="Views\Shop\Finish.cshtml" />
     <Content Include="Views\Shop\Cancel.cshtml" />
     <Content Include="Views\Shop\Detail.cshtml" />
+    <Content Include="Views\Shop\Profile.cshtml" />
+    <Content Include="Views\Shop\Brand.cshtml" />
+    <Content Include="Views\Shop\_Brand.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

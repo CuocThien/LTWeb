@@ -1,20 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using demo.Model;
-using demo.Controllers;
-using System.Web.UI;
-using MailKit.Net.Smtp;
-using PagedList;
-using MimeKit;
-using MailKit;
-using MimeKit.Text;
-using MailKit.Security;
-using System.Data.Entity.Migrations;
+﻿using demo.Model;
 using Facebook;
+using MailKit.Net.Smtp;
+using MimeKit;
+using PagedList;
+using System;
+using System.Collections.Generic;
 using System.Configuration;
+using System.Data.Entity.Migrations;
+using System.Linq;
+using System.Web.Mvc;
 using System.Web.Script.Serialization;
 
 namespace demo.Controllers
@@ -618,6 +612,7 @@ namespace demo.Controllers
         //Xu ly san pham
         public ActionResult _Product(int? page)
         {
+            
             int pagesize = 4;
             int pageNumber = (page ?? 1);
             var result = _db.Products.OrderBy(id => id.ID);
@@ -816,7 +811,61 @@ namespace demo.Controllers
             }
         }
 
+        //Thông tin tài khoản
 
+        [HttpGet]
+        public ActionResult Profile()
+        {
+            return View();
+           // return View(pro);
+            //return View(list);
+           // return View(user);
+        }
 
+        [HttpPost]
+        public ActionResult Profile(FormCollection frm)
+        {
+            User user = Session["User"] as User;
+             var u = _db.Users.Find(user.Username);
+            u.Name = frm["Name"];
+            u.Phone = frm["Phone"];
+            u.Address = frm["Address"];
+            u.Email = frm["Email"];
+            u.Birthday =DateTime.Parse(frm["Birthday"]);
+           
+            _db.Users.AddOrUpdate(u);
+            _db.SaveChanges();
+           // return View();
+            return RedirectToAction("Profile", "Shop");
+        }
+
+        //hãng sản phẩm
+       //[HttpPost]
+        public ActionResult Brand(string id)
+        {
+            var brand = _db.Brands.Where(x => x.Name == id).SingleOrDefault();
+            var list = new List<Product>();
+            var pro = _db.Products.Where(x => x.Brand == brand.ID.ToString()).ToList();
+            list = (List<Product>)pro;
+            return View(list);
+        }
+        //public ActionResult Brand(int? page, string brand)
+        //{
+        //    int pagesize = 4;
+        //    int pageNumber = (page ?? 1);
+
+        //    var result = _db.Products.Where(x => x.Brand == brand).OrderBy(id => id.ID);
+        //    return PartialView(result.ToPagedList(pageNumber, pagesize));
+        //}
+        
+        [HttpGet]
+        public ActionResult _Brand(int? page,string brand)
+        {
+            
+            int pagesize = 4;
+            int pageNumber = (page ?? 1) ;
+            var result = _db.Products.Where(x=>x.Brand==brand).OrderBy(ID => ID.ID);
+            return PartialView(result.ToPagedList(pageNumber, pagesize));
+        }
     }
 }

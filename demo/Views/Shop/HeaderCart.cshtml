@@ -4,7 +4,10 @@
 @using demo.Controllers;
 
 
- @{User user = Session["User"] as User; }
+ @{
+
+         User user = Session["User"] as User;
+ }
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <li class="nav-item submenu dropdown " style="border-right:solid 2px black">
     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="glyphicon glyphicon-shopping-cart"></i>Giỏ hàng:@Model.Count sản phẩm</a>

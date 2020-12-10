@@ -7,13 +7,13 @@
 @if (!(Model is null))
 {
     foreach (var pro in Model.ToList())
-    {
+    { 
         <div class="total col-lg-3">
             <div class="product">
 
                 @Html.Image(pro.Image, "Alternate Text", "300", "250")
                 <div class="overlay">
-                    <div class="text">@pro.Description</div>
+                    <di class="text">@pro.Description</di>
                 </div>
             </div>
             <div class="detail">
@@ -31,7 +31,7 @@
                     else
                     {
                         <div class="AddCart">
-                            <h4><a href="/Shop/Cart?ProductID=@pro.ID&quantity=1",id="buy">Chọn Mua</a></h4>
+                            <h4><a href="/Shop/Cart?ProductID=@pro.ID&quantity=1" id="buy">Chọn Mua</a></h4>
                         </div>
                     }
                 }

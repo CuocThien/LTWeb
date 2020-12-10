@@ -8,13 +8,12 @@
 @using demo.Controllers;
 
 
-<div class="home-Contact">
+<div class="home-Contact " style="align-items:center">
     <span>Contact us: <a href="tel:#0708033730">0708033730</a></span>
     <hr>
     @{
 
         var user = Session["User"] as User;
-        var c = user.Orders.Where(t => t.ID_Customer == user.Name).ToList().Count();
         if (Session["User"] != null)
         {
             string temp = user.Username;
@@ -28,11 +27,34 @@
             }
 
             <div class="after-login">
-                <a href="#" id="user">@temp</a>
-                <hr>
-                <SPAN><a href="~/Shop/HomeGuest" id="Logout">ĐĂNG XUẤT</a></SPAN>
+                <ul class="nav navbar-nav center_nav pull-right">
+                    <li class="nav-item submenu dropdown">
+                        <a href="#" style="padding:0!important" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="user">@temp</a>
+                        <ul class="dropdown-menu">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Shop/Profile">Tài khoản của tôi</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Shop/Cart">Đơn mua</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="~/Shop/HomeGuest" id="Logout">Đăng xuất</a>
+                            </li>
+
+                        </ul>
+                    </li>
+                </ul>
             </div>
 
+        }
+        else
+        {
+
+            <div class="Before-login">
+                <span><a href="~/Shop/Register">ĐĂNG KÝ</a></span>
+                <hr>
+                <SPAN><a href="~/Shop/Login">ĐĂNG NHẬP</a></SPAN>
+            </div>
         }
     }
 </div>

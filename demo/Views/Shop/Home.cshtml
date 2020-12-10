@@ -5,8 +5,8 @@
     ViewBag.Title = "Home";
 }
 @using demo.Controllers;
-
-<div class="home-Contact">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<div class="home-Contact " style="align-items:center">
     <span>Contact us: <a href="tel:#0708033730">0708033730</a></span>
     <hr>
     @{
@@ -23,16 +23,31 @@
             {
                 temp = user.Username;
             }
+           
+        <div class="after-login">
+                <ul class="nav navbar-nav center_nav pull-right">
+                    <li class="nav-item submenu dropdown">
+                        <a href="#" style="padding:0!important" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="user">@temp</a>
+                        <ul class="dropdown-menu">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Shop/Profile">Tài khoản của tôi</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Shop/Cart">Đơn mua</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="~/Shop/HomeGuest" id="Logout">Đăng xuất</a>
+                            </li>
 
-            <div class="after-login">
-                <a href="#" id="user">@temp</a>
-                <hr>
-                <SPAN><a href="~/Shop/HomeGuest" id="Logout">ĐĂNG XUẤT</a></SPAN>
-            </div>
+                        </ul>
+                    </li>
+                </ul>
+        </div>
 
         }
         else
         {
+
             <div class="Before-login">
                 <span><a href="~/Shop/Register">ĐĂNG KÝ</a></span>
                 <hr>
@@ -64,13 +79,13 @@
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">HÃNG</a>
                 <ul class="dropdown-menu">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">ROLEX</a>
+                        <a class="nav-link" href="/Shop/Brand?id=Rolex">ROLEX</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">DW</a>
+                        <a class="nav-link" href="/Shop/Brand?id=DW">DW</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">CASIO</a>
+                        <a class="nav-link" href="/Shop/Brand?id=Casio">CASIO</a>
                     </li>
                 </ul>
             </li>
@@ -84,7 +99,6 @@
                     <a class="nav-link" id=" Cart" href="/Shop/Cart">GIỎ HÀNG</a>
                 </li>*@
         </ul>
-
     </div>
     <div class="home-Menu-right col-lg-6">
         @{
@@ -102,34 +116,17 @@
             }
         }
     </div>
+
+    <div class="Search" style="display:block; margin-left:50px">
+        <input class="" style="border: 1px solid #ffca28;" type="text" placeholder="Search" aria-label="Search">
+        <a href="#">
+            <i class="glyphicon glyphicon-search"></i>
+        </a>
+    </div>
 </div>
 <div class="container-fluid">
     <div id="loadProduct" class="products row">
-        @if (!(Model is null))
-        {
-            foreach (var pro in Model.ToList())
-            {
-                <div class="total col-lg-3">
-                    <div class="product">
-
-                        @Html.Image(pro.Image, "Alternate Text", "300", "250")
-                        <div class="overlay">
-                            <di class="text">@pro.Description</di>
-                        </div>
-                    </div>
-                    <div class="detail">
-                        <span id="product">@pro.Name</span>
-                        <span style="font-size:15px; color:blue">Giá tiền:</span>
-                        <br />
-                        <div class="price">@pro.Price</div>
-                        <div class="AddCart">
-                            <h4><a href="/Shop/Cart?ProductID=@pro.ID&quantity=1" id="buy">Chọn Mua</a></h4>
-
-                        </div>
-                    </div>
-                </div>
-            }
-        }
+        @{ Html.RenderAction("_Product", "Shop");}
     </div>
     <ul class="pager">
         <li><a id="minpage">|<<</a></li>

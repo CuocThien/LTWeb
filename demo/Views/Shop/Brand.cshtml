@@ -1,10 +1,14 @@
-﻿@model PagedList.IPagedList<demo.Model.Product>
+﻿@model List<demo.Model.Product>
 @using PagedList.Mvc;
 @using demo.Model;
+@using Newtonsoft.Json
+
 @{
-    ViewBag.Title = "Home";
+    ViewBag.Title = "Brand";
 }
+
 @using demo.Controllers;
+@{User user = Session["User"] as User; }
 <div>
     <div class="home-Contact">
         <span>Contact us: <a href="tel:#0708033730">0708033730</a></span>
@@ -57,12 +61,54 @@
 
         </div>
         <div class="home-Menu-right col-lg-6">
-            
+
         </div>
     </div>
     <div class="container-fluid">
         <div id="loadProduct" class="products row">
-            @{ Html.RenderAction("_Product", "Shop");}
+            @{
+                string brand = Model[0].Brand.ToString();
+            }
+            @{Html.RenderAction("_Brand", "Shop", new { page = 1, brand });}
+           
+            @*@if (!(Model is null))
+        {
+            foreach (var pro in Model.ToList())
+            {
+
+               //var id = pro.Brand;
+                <div class="total col-lg-3">
+                    <div class="product">
+
+                        @Html.Image(pro.Image, "Alternate Text", "300", "250")
+                        <div class="overlay">
+                            <div class="text">@pro.Description</div>
+                        </div>
+                    </div>
+                    <div class="detail">
+                        <span>@pro.Name</span>
+                        <span style="font-size:15px; color:blue">Giá tiền:</span>
+                        <br />
+
+                        <div class="price">@pro.Price</div>
+                        @{ if (user is null)
+                            {
+                                <div class="AddCart">
+                                    <h4><a href="/Shop/Login" id="buy">Chọn Mua</a></h4>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="AddCart">
+                                    <h4><a href="/Shop/Cart?ProductID=@pro.ID&quantity=1" id="buy">Chọn Mua</a></h4>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            }
+        }*@
+
         </div>
         <ul class="pager">
             <li><a id="minpage">|<<</a></li>
@@ -76,34 +122,37 @@
 <script>
     var currentpage = 1;
     var max = 0;
-    @{
-        shopEntities db = new shopEntities();
-    }
+    var BR = @Model.FirstOrDefault().Brand.ToString();
+    console.log(BR);
     $(document).ready(function () {
+
         $('#previous').click(function () {
-            currentpage = currentpage - 1;
-            if (currentpage <= 0)
-                currentpage=1
+                currentpage = currentpage - 1;
+                if (currentpage <= 0)
+                    currentpage=1
             $.ajax({
                 type: "GET",
-                url: "/Shop/_Product",
+                url: "/Shop/_Brand",
                 data: {
-                    page: currentpage
+                    page: currentpage,
+                    brand:@Model[0].Brand.ToString()
+
                 },
                 success: function (res) {
                     $('#loadProduct').html(res)
                 }
             });
         });
-        $('#next').click(function () {
+           $('#next').click(function () {
+
             pagesize = 4;
             var max = 0;
-            var size = (@db.Products.Count()) / pagesize;
-            if ((@db.Products.Count()) % pagesize == 0) {
-                max = (@db.Products.Count()) / pagesize;
+            var size = (@Model.Count()) / pagesize;
+            if ((@Model.Count()) % pagesize == 0) {
+                max = (@Model.Count()) / pagesize;
             }
             else {
-                max = Math.floor(((@db.Products.Count()) / pagesize) + 1);
+                max = Math.floor(((@Model.Count()) / pagesize) + 1);
             }
             currentpage = currentpage + 1;
             if (currentpage > max)
@@ -112,9 +161,10 @@
                 currentpage = 1;
             $.ajax({
                 type: "GET",
-                url: "/Shop/_Product",
+                url: "/Shop/_Brand",
                 data: {
-                    page: currentpage
+                    page: currentpage,
+                    brand: BR
                 },
                 success: function (res) {
                     $('#loadProduct').html(res)
@@ -125,9 +175,11 @@
             currentpage = 1
             $.ajax({
                 type: "GET",
-                url: "/Shop/_Product",
+                url: "/Shop/_Brand",
                 data: {
-                    page: currentpage
+                    page: currentpage,
+                    brand:@Model[0].Brand.ToString()
+
                 },
                 success: function (res) {
                     $('#loadProduct').html(res)
@@ -137,20 +189,22 @@
         $('#maxpage').click(function () {
             pagesize = 4;
             var max = 0;
-            var size = (@db.Products.Count()) / pagesize;
-            if ((@db.Products.Count()) % pagesize == 0) {
-                max = (@db.Products.Count()) / pagesize;
+            var size = (@Model.Count()) / pagesize;
+            if ((@Model.Count()) % pagesize == 0) {
+                max = (@Model.Count()) / pagesize;
             }
             else {
-                max = Math.floor(((@db.Products.Count()) / pagesize) + 1);
+                max = Math.floor(((@Model.Count()) / pagesize) + 1);
             }
             console.log(max);
             currentpage = max;
             $.ajax({
                 type: "GET",
-                url: "/Shop/_Product",
+                url: "/Shop/_Brand",
                 data: {
-                    page: currentpage
+                    page: currentpage,
+                    brand:@Model[0].Brand.ToString()
+
                 },
                 success: function (res) {
                     $('#loadProduct').html(res)
