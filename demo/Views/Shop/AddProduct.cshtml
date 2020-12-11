@@ -18,38 +18,41 @@
 
         </div>
         <div class="content-left col-lg-7" style="border-left: 2px solid black; padding-left:50px">
-                <span>Tên sản phẩm</span>
-                <input type="text" id="Pro_name" class="ip-text-Pro" name="" value="" />
+            <span>Tên sản phẩm</span>
+            <input type="text" id="Pro_name" class="ip-text-Pro" name="" value="" />
 
-                <span>Hãng</span>
-                <select id="brand">
-                    <option value="DW">DW</option>
-                    <option value="CS">CASIO</option>
-                    <option value="RL">ROLEX</option>
-                </select>
-                <br />
+            <span>Hãng</span>
+            <select id="brand">
+                <option value="DW">DW</option>
+                <option value="CS">CASIO</option>
+                <option value="RL">ROLEX</option>
+            </select>
+            <br />
 
-                <span>Bảo hành (tháng):</span>
-                <input type="number" id="warranty" class="ip-number-Pro" name="" value="" />
+            <span>Bảo hành (tháng):</span>
+            <input type="number" id="warranty" class="ip-number-Pro" name="" value="" />
 
-                <span>Loại đồng hồ:</span>
-                <select id="style">
-                    <option value="ĐỒng hồ nam">Đồng hồ Nam</option>
-                    <option value="Đồng hồ nữ">Đồng hồ Nữ</option>
-                </select>
-                <br />
+            <span>Loại đồng hồ:</span>
+            <select id="style">
+                <option value="ĐỒng hồ nam">Đồng hồ Nam</option>
+                <option value="Đồng hồ nữ">Đồng hồ Nữ</option>
+            </select>
+            <br />
 
-                <span>Năm sản xuất</span>
-                <input type="date" id="yearOfManufacturing" class="ip-date-Pro" name="" value="" />
+            <span>Năm sản xuất</span>
+            <input type="date" id="yearOfManufacturing" class="ip-date-Pro" name="" value="" />
 
-                <span>Giá tiền</span>
-                <input type="number" id="price" class="ip-number-Pro" name="" value="" />
+            <span>Giá tiền</span>
+            <input type="number" id="price" class="ip-number-Pro" name="" value="" />
 
-                <span>Nước sản xuất</span>
-                <input type="text" id="country" class="ip-text-Pro" name="" value="" />
+            <span>Nước sản xuất</span>
+            <input type="text" id="country" class="ip-text-Pro" name="" value="" />
 
-                <span>Mô tả</span>
-                <textarea id="Description" rows="10" cols="70" style="max-width:500px; max-height:300px;" placeholder="Nhập mô tả sản phẩm"></textarea>
+            <span>Mô tả</span>
+
+            <textarea id="Description" rows="10" cols="70" style="max-width:500px; max-height:300px;" placeholder="Nhập mô tả sản phẩm"></textarea>
+            <script>CKEDITOR.replace('Description');</script>
+            
                 <div type="submit" id="add" class="ip-submit-Pro" name="name" value="THÊM" style="margin-left:130px;text-align:center;">THÊM</div>
 
 
@@ -57,7 +60,7 @@
     </form>
 </div>
 <script>
-    
+
     $(document).ready(function () {
         $("#link").change(function () {
             if (this.files && this.files[0]) {
@@ -68,12 +71,15 @@
                 reader.readAsDataURL(this.files[0]);
             }
         });
-        
+
     });
 </script>
 <script>
     $(document).ready(function () {
         $("#add").click(function () {
+            var oEditor = CKEDITOR.instances.Description;
+            var noidung = oEditor.getData();
+
             let Pro_name = $("#Pro_name")[0].value;
             let yearOfManufacturing = $("#yearOfManufacturing")[0].value;
             let price = $("#price")[0].value;
@@ -84,6 +90,7 @@
             style = style.value;
             var img = document.getElementById("loadImg");
             img = img.src;
+
             let warranty = $("#warranty")[0].value;
             var description = document.getElementById("Description");
             description = description.value;
@@ -97,7 +104,7 @@
                     Price: price,
                     Warranty: warranty,
                     DateCreate: yearOfManufacturing,
-                    Description: description,
+                    Description: noidung,
                     Style: style,
                     Country: country,
                     Brand: brand
@@ -108,7 +115,7 @@
                     }
                     else {
                         alert("Nhập sản phẩm thành công")
-                        $("#loadBody").html(res)
+                        window.location.href = "/Shop/Home";
                     }
                 }
             });

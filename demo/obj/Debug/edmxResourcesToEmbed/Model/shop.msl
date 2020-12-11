@@ -38,6 +38,7 @@
     <EntitySetMapping Name="Products">
       <EntityTypeMapping TypeName="shopModel.Product">
         <MappingFragment StoreEntitySet="Products">
+          <ScalarProperty Name="Image" ColumnName="Image" />
           <ScalarProperty Name="Country" ColumnName="Country" />
           <ScalarProperty Name="Brand" ColumnName="Brand" />
           <ScalarProperty Name="Style" ColumnName="Style" />
@@ -48,9 +49,19 @@
           <ScalarProperty Name="Warranty" ColumnName="Warranty" />
           <ScalarProperty Name="Quantity" ColumnName="Quantity" />
           <ScalarProperty Name="Price" ColumnName="Price" />
-          <ScalarProperty Name="Image" ColumnName="Image" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="shopModel.sysdiagram">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="definition" ColumnName="definition" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="name" ColumnName="name" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

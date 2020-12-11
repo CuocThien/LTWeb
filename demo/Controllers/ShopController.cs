@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data.Entity.Migrations;
 using System.Linq;
+using System.Text;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 
@@ -618,6 +619,8 @@ namespace demo.Controllers
             var result = _db.Products.OrderBy(id => id.ID);
             return PartialView(result.ToPagedList(pageNumber, pagesize));
         }
+        
+        [ValidateInput(false)]
         [HttpPost]
         public ActionResult AddProduct(FormCollection pro)
 
@@ -641,7 +644,8 @@ namespace demo.Controllers
                 product.Country = pro["Country"];
                 product.DateCreate = DateTime.Parse(pro["DateCreate"]);
                 product.Description = pro["Description"];
-                product.Image = pro["Image"];
+                byte[] image = Encoding.ASCII.GetBytes(pro["Image"]);
+                product.Image = image;
                 var x = product.Image.Length;
                 product.Name = pro["Name"];
                 product.Price = float.Parse(pro["Price"]);
@@ -656,6 +660,7 @@ namespace demo.Controllers
                 return Content("false");
             }
         }
+    
 
         //Trang chu
         [HttpGet]
@@ -878,6 +883,10 @@ namespace demo.Controllers
             var result = _db.Products.Where(x => x.Style == style).OrderBy(ID => ID.ID);
             return PartialView(result.ToPagedList(pageNumber, pagesize));
         }
-
+        public ActionResult ProDetail(string id)
+        {
+            
+            return View();
+        }
     }
 }

@@ -3,6 +3,7 @@
 @using PagedList.Mvc;
 @using demo.Model;
 
+
 @{ User user = Session["User"] as User;}
 @if (!(Model is null))
 {
@@ -10,10 +11,13 @@
     {
         <div class="total col-lg-3">
             <div class="product">
-
-                @Html.Image(pro.Image, "Alternate Text", "300", "250")
+                @{
+                    byte[] imgBytes = pro.Image;
+                    string image = System.Text.Encoding.ASCII.GetString(imgBytes);
+                }
+                @Html.Image(image, "Alternate Text", "300", "250")
                 <div class="overlay">
-                    <div class="text">@pro.Description</div>
+                    <div class="text">@Html.Raw(pro.Description)</div>
                 </div>
             </div>
             <div class="detail">
@@ -35,8 +39,6 @@
                         </div>
                     }
                 }
-
-
             </div>
         </div>
     }

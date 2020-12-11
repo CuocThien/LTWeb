@@ -226,7 +226,12 @@
                                                     {
                                                         var temp = (item.Product.Price.GetValueOrDefault(0) * item.Quantity);
                                                         <tr>
-                                                            <td style="width: 15%;text-align:center; padding-top:10px">@Html.Image(item.Product.Image, "Alternate Text", "100", "150")</td>
+                                                            @{
+                                                                byte[] imgBytes = item.Product.Image;
+                                                                string image = System.Text.Encoding.ASCII.GetString(imgBytes);
+                                                            }
+
+                                                            <td style="width: 15%;text-align:center;">@Html.Image(image, "Alternate Text", "100", "150")</td>
                                                             <td style="width:5% ;text-align:center;">@item.Product.ID</td>
                                                             <td style="width: 40%;text-align:center;">@item.Product.Name</td>
                                                             <td style="width: 5%;"><input style="border:none;text-align:center;" type="number" min="0" max="@item.Product.Quantity" class="txtquantity" id="sl" data-id="@item.Product.ID" value="@item.Quantity" onchange="changeHandler()" /></td>

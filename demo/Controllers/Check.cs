@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
@@ -33,7 +34,8 @@ namespace demo.Controllers
             product.Country = pro["Country"];
             product.DateCreate = DateTime.Parse(pro["DateCreate"]);
             product.Description = pro["Description"];
-            product.Image = pro["Image"];
+            byte[] image = Encoding.ASCII.GetBytes(pro["Image"]);
+            product.Image = image;
             product.Name = pro["Name"];
             product.Price = int.Parse(pro["Price"]);
             product.Style = pro["Style"];

@@ -22,7 +22,6 @@ namespace demo.Model
     
         public string ID { get; set; }
         public string Name { get; set; }
-        public string Image { get; set; }
         public Nullable<double> Price { get; set; }
         public Nullable<int> Quantity { get; set; }
         public Nullable<int> Warranty { get; set; }
@@ -33,6 +32,7 @@ namespace demo.Model
         public string Style { get; set; }
         public string Brand { get; set; }
         public string Country { get; set; }
+        public byte[] Image { get; set; }
     
         public virtual Brand Brand1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

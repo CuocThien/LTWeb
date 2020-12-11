@@ -539,8 +539,9 @@ D:\vy\study\HK1-20-21\Lập trình Web\new\newnew\LTWeb\demo\bin\System.Web.WebP
 D:\vy\study\HK1-20-21\Lập trình Web\new\newnew\LTWeb\demo\bin\System.Web.WebPages.Deployment.xml
 D:\vy\study\HK1-20-21\Lập trình Web\new\newnew\LTWeb\demo\bin\System.Web.WebPages.Razor.xml
 D:\vy\study\HK1-20-21\Lập trình Web\new\newnew\LTWeb\demo\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-D:\vy\study\HK1-20-21\Lập trình Web\new\newnew\LTWeb\demo\obj\Debug\demo.csprojAssemblyReference.cache
 D:\vy\study\HK1-20-21\Lập trình Web\new\newnew\LTWeb\demo\obj\Debug\demo.csproj.CoreCompileInputs.cache
 D:\vy\study\HK1-20-21\Lập trình Web\new\newnew\LTWeb\demo\obj\Debug\demo.csproj.CopyComplete
 D:\vy\study\HK1-20-21\Lập trình Web\new\newnew\LTWeb\demo\obj\Debug\demo.dll
 D:\vy\study\HK1-20-21\Lập trình Web\new\newnew\LTWeb\demo\obj\Debug\demo.pdb
+D:\vy\study\HK1-20-21\Lập trình Web\new\newnew\LTWeb\demo\obj\Debug\demo.csprojAssemblyReference.cache
+D:\vy\study\HK1-20-21\Lập trình Web\new\newnew\LTWeb\demo\bin\CKEditor.NET.dll

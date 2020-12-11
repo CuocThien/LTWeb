@@ -4,10 +4,10 @@
 @using demo.Controllers;
 
 
- @{
+@{
 
-         User user = Session["User"] as User;
- }
+    User user = Session["User"] as User;
+}
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <li class="nav-item submenu dropdown " style="border-right:solid 2px black">
     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="glyphicon glyphicon-shopping-cart"></i>Giỏ hàng:@Model.Count sản phẩm</a>
@@ -23,7 +23,11 @@
                         <a class="nav-link" href="#" style="width:300px">
                             <table>
                                 <tr>
-                                    <td style="width:15%; display:inline-block;">@Html.Image(item.Product.Image, "Alternate Text", "50", "80")</td>
+                                    @{
+                                        byte[] imgBytes = item.Product.Image;
+                                        string image = System.Text.Encoding.ASCII.GetString(imgBytes);
+                                    }
+                                    <td style="width:15%; display:inline-block;">@Html.Image(image, "Alternate Text", "50", "80")</td>
                                     <td style="width:50%; display:inline-block;text-overflow:ellipsis;overflow:hidden">@item.Product.Name</td>
                                     <td style="width:25%;margin-left:5%; display:inline-block;font-size:12px;">@(((float)temp).ToString("N0"))</td>
                                 </tr>
