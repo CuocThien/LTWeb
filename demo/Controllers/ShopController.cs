@@ -249,38 +249,18 @@ namespace demo.Controllers
             return View(list);
         }
 
-        [HttpPost]
-        public ActionResult Payment(FormCollection frm)
-        {
-
-            User user = Session["User"] as User;
-            var ID = _db.Orders.Where(o => o.ID_Customer == user.Username && o.status == "Cart").SingleOrDefault();
-            // var order = new Order();
-            ID.Date_Create = DateTime.Now;
-            ID.shipAddress = frm["address"];
-            ID.shipMobile = frm["mobile"];
-            ID.shipName = frm["shipName"];
-            ID.status = "Wait";
-            _db.Orders.AddOrUpdate(ID);
-            _db.SaveChanges();
-            return RedirectToAction("Cart", "Shop");
-            //var cart = (List<OrderDetail>)Session[CartSession];
-            //return RedirectToAction("Success", "Shop");
-            //return Redirect("/Shop/Success");
-        }
-
-        public ActionResult Wait()
+        public ActionResult CartStatus(string status)
         {
             var ID = _db.Orders.ToList();
             User user = Session["User"] as User;
             if (user.isAdmin == true)
             {
-                ID = _db.Orders.Where(x => x.status == "Wait").ToList();
+                ID = _db.Orders.Where(x => x.status == status).ToList();
             }
             else
             {
                 // Session[CartSession] = null;
-                ID = _db.Orders.Where(o => o.ID_Customer == user.Username && o.status == "Wait").ToList();
+                ID = _db.Orders.Where(o => o.ID_Customer == user.Username && o.status == status).ToList();
             }
             List<OrderDetail> pro = new List<OrderDetail>();
             if (!(ID is null))
@@ -299,6 +279,36 @@ namespace demo.Controllers
             var l = new List<OrderDetail>();
             l = (List<OrderDetail>)cart;
             return View(l);
+        }
+
+        //hiển thị sản phẩm trong giỏ hàng
+        public ActionResult _Table()
+        {
+            User user = Session["User"] as User;
+            var ID = _db.Orders.Where(o => o.ID_Customer == user.Username && o.status == "Cart").SingleOrDefault();
+            var cart = Session[CartSession];
+            var list = new List<OrderDetail>();
+            if (cart != null)
+            {
+                list = (List<OrderDetail>)cart;
+            }
+            return View(list);
+        }
+        [HttpPost]
+        public ActionResult Payment(FormCollection frm)
+        {
+
+            User user = Session["User"] as User;
+            var ID = _db.Orders.Where(o => o.ID_Customer == user.Username && o.status == "Cart").SingleOrDefault();
+            // var order = new Order();
+            ID.Date_Create = DateTime.Now;
+            ID.shipAddress = frm["address"];
+            ID.shipMobile = frm["mobile"];
+            ID.shipName = frm["shipName"];
+            ID.status = "Wait";
+            _db.Orders.AddOrUpdate(ID);
+            _db.SaveChanges();
+            return RedirectToAction("Cart", "Shop");
         }
 
         public JsonResult DeleteOrder(long id)
@@ -393,102 +403,7 @@ namespace demo.Controllers
                 status = true
             });
         }
-        public ActionResult Delivery()
-        {
-            var ID = _db.Orders.ToList();
-            User user = Session["User"] as User;
-            if (user.isAdmin == true)
-            {
-                ID = _db.Orders.Where(x => x.status == "Delivery").ToList();
-            }
-            else
-            {
-                // Session[CartSession] = null;
-                ID = _db.Orders.Where(o => o.ID_Customer == user.Username && o.status == "Delivery").ToList();
-            }
-            List<OrderDetail> pro = new List<OrderDetail>();
-            if (!(ID is null))
-            {
-                foreach (var item in ID)
-                {
-                    var Pro = _db.OrderDetails.Where(x => x.ID_Order == item.ID_Order).ToList();
-                    pro.AddRange(Pro);
 
-                }
-                Session[CartSession] = pro;
-            }
-            //Hien len view
-            var cart = Session[CartSession];
-            var l = new List<OrderDetail>();
-            l = (List<OrderDetail>)cart;
-            return View(l);
-        }
-
-        public ActionResult Finish()
-        {
-            var ID = _db.Orders.ToList();
-            User user = Session["User"] as User;
-            if (user.isAdmin == true)
-            {
-                ID = _db.Orders.Where(x => x.status == "Finish").ToList();
-            }
-            else
-            {
-                // Session[CartSession] = null;
-                ID = _db.Orders.Where(o => o.ID_Customer == user.Username && o.status == "Finish").ToList();
-            }
-            List<OrderDetail> pro = new List<OrderDetail>();
-            if (!(ID is null))
-            {
-                foreach (var item in ID)
-                {
-                    var Pro = _db.OrderDetails.Where(x => x.ID_Order == item.ID_Order).ToList();
-                    pro.AddRange(Pro);
-
-                }
-                Session[CartSession] = pro;
-            }
-
-            //Hien len view
-            var cart = Session[CartSession];
-            var l = new List<OrderDetail>();
-            l = (List<OrderDetail>)cart;
-            return View(l);
-        }
-
-        public ActionResult Cancel()
-        {
-            var ID = _db.Orders.ToList();
-            User user = Session["User"] as User;
-            if (user.isAdmin == true)
-            {
-                ID = _db.Orders.Where(x => x.status == "Cancel").ToList();
-            }
-            else
-            {
-                // Session[CartSession] = null;
-                ID = _db.Orders.Where(o => o.ID_Customer == user.Username && o.status == "Cancel").ToList();
-            }
-            List<OrderDetail> pro = new List<OrderDetail>();
-            if (!(ID is null))
-            {
-                foreach (var item in ID)
-                {
-                    var Pro = _db.OrderDetails.Where(x => x.ID_Order == item.ID_Order).ToList();
-                    pro.AddRange(Pro);
-
-                }
-                Session[CartSession] = pro;
-            }
-
-            //Hien len view
-            var cart = Session[CartSession];
-            var l = new List<OrderDetail>();
-            l = (List<OrderDetail>)cart;
-            return View(l);
-        }
-
-       
         public ActionResult Detail(string id)
         {
             string Id = id.ToString();
@@ -660,9 +575,13 @@ namespace demo.Controllers
                 return Content("false");
             }
         }
-    
+
 
         //Trang chu
+        public ActionResult HeaderMenu()
+        {
+            return View();
+        }
         [HttpGet]
         [AuthorizeController]
         public ActionResult Home(int? page)
@@ -672,6 +591,12 @@ namespace demo.Controllers
             var result = _db.Products.OrderBy(id => id.ID);
             return View(result.ToPagedList(pageNumber, pagesize));
         }
+
+        public ActionResult HeaderMenuGuest()
+        {
+            return View();
+        }
+
         [HttpGet]
         public ActionResult HomeGuest(int? page)
         {

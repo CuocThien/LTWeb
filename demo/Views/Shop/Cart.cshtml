@@ -7,110 +7,9 @@
 
 @using demo.Controllers;
 
+@{ var user = Session["User"] as User; }
 
-<div class="home-Contact " style="align-items:center">
-    <span>Contact us: <a href="tel:#0708033730">0708033730</a></span>
-    <hr>
-    @{
-
-        var user = Session["User"] as User;
-        if (Session["User"] != null)
-        {
-            string temp = user.Username;
-            if (user.Name != null)
-            {
-                temp = user.Name;
-            }
-            else
-            {
-                temp = user.Username;
-            }
-
-            <div class="after-login">
-                <ul class="nav navbar-nav center_nav pull-right">
-                    <li class="nav-item submenu dropdown">
-                        <a href="#" style="padding:0!important" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="user">@temp</a>
-                        <ul class="dropdown-menu">
-                            <li class="nav-item">
-                                <a class="nav-link" href="/Shop/Profile">Tài khoản của tôi</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/Shop/Cart">Đơn mua</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="~/Shop/HomeGuest" id="Logout">Đăng xuất</a>
-                            </li>
-
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-
-        }
-        else
-        {
-
-            <div class="Before-login">
-                <span><a href="~/Shop/Register">ĐĂNG KÝ</a></span>
-                <hr>
-                <SPAN><a href="~/Shop/Login">ĐĂNG NHẬP</a></SPAN>
-            </div>
-        }
-    }
-</div>
-<div class="home-Menu row">
-    <div class="home-Menu-left col-lg-6">
-        <ul class="nav navbar-nav center_nav pull-right">
-            <li class="nav-item active" style="border-right:solid 2px black">
-                <a class="nav-link" href="~/Shop/Home">TRANG CHỦ</a>
-            </li>
-            <li class="nav-item submenu dropdown" style="border-right:solid 2px black">
-                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">PHÂN LOẠI</a>
-                <ul class="dropdown-menu">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">ĐỒNG HỒ NAM</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">ĐỒNG HỒ NỮ</a>
-                    </li>
-
-                </ul>
-            </li>
-            <li class="nav-item submenu dropdown " style="border-right:solid 2px black">
-                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">HÃNG</a>
-                <ul class="dropdown-menu">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">ROLEX</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">DW</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">CASIO</a>
-                    </li>
-                </ul>
-            </li>
-            @{ Html.RenderAction("HeaderCart", "Shop");}
-        </ul>
-
-    </div>
-    <div class="home-Menu-right col-lg-6">
-        @{
-
-            if (!(user is null) && user.isAdmin == true)
-            {
-                <ul id="admin" class="nav navbar-nav center_nav pull-right">
-                    <li class="nav-item">
-                        <a class="nav-link" href="~/Shop/AddProduct">THÊM SẢN PHẨM</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">CHỈNH SỬA SẢN PHẨM</a>
-                    </li>
-                </ul>
-            }
-        }
-    </div>
-</div>
+@{ Html.RenderAction("HeaderMenu", "Shop");}
 <div class="home-Menu row">
     <div class="Cart-menu">
         <ul class="nav navbar-nav center_nav pull-right">
@@ -123,16 +22,16 @@
                 }
             }
             <li class="nav-item">
-                <a href="/Shop/Wait" class="nav-link">Chờ xác nhận</a>
+                <a href="/Shop/CartStatus?status=Wait" class="nav-link">Chờ xác nhận</a>
             </li>
             <li class="nav-item">
-                <a href="/Shop/Delivery" class="nav-link">Đang giao</a>
+                <a href="/Shop/CartStatus?status=Delivery" class="nav-link">Đang giao</a>
             </li>
             <li class="nav-item">
-                <a href="/Shop/Finish" class="nav-link">Đã giao</a>
+                <a href="/Shop/CartStatus?status=Finish" class="nav-link">Đã giao</a>
             </li>
             <li class="nav-item">
-                <a href="/Shop/Cancel" class="nav-link">Đã hủy</a>
+                <a href="/Shop/CartStatus?status=Cancel" class="nav-link">Đã hủy</a>
             </li>
         </ul>
 
@@ -150,50 +49,14 @@
                         </h1>
                     </span>
 
-                    @{
-                        if (Model.Count > 0)
-                        {
-                            <table class="table-cart">
 
-                                <thead>
-                                    <tr>
-                                        <th style="text-align: center;">Ảnh SP</th>
-                                        <th style="text-align: center;">Mã SP</th>
-                                        <th style="text-align: center;">Tên SP</th>
-                                        <th style="text-align: center;">Số lượng</th>
-                                        <th style="text-align: center;">Đơn giá</th>
-                                        <th style="text-align: center;">Thành tiền</th>
-                                        <th style="text-align: center;"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var item in Model)
-                                    {
-                                        var temp = (item.Product.Price.GetValueOrDefault(0) * item.Quantity);
-                                        <tr>
-                                            @{
-                                                byte[] imgBytes = item.Product.Image;
-                                                string image = System.Text.Encoding.ASCII.GetString(imgBytes);
-                                            }
 
-                                            <td style="width: 15%;text-align:center;">@Html.Image(image, "Alternate Text", "100", "150")</td>
-                                            <td style="width:5% ;text-align:center;">@item.Product.ID</td>
-                                            <td style="width: 40%;text-align:center;">@item.Product.Name</td>
-                                            <td style="width: 5%;"><input style="border:none;text-align:center;" type="number" min="1" max="@item.Product.Quantity" class="txtquantity" id="sl" data-id="@item.Product.ID" value="@item.Quantity" onchange="changeHandler()" /></td>
-                                            <td style="width: 15%;text-align:center;" id="price">@(item.Product.Price.GetValueOrDefault(0).ToString("N0"))</td>
-                                            <td style="width: 15%;text-align:center;" id="totalprice">@(((float)temp).ToString("N0"))</td>
-                                            <td style="width: 5%;text-align:center;"><div class="Deletepro"><a href="#" data-id="@item.Product.ID">Xóa</a></div></td>
-                                        </tr>
+                    @{ Html.RenderAction("_Table", "Shop");}
 
-                                    }
-                                </tbody>
-                            </table>
-
-                        }
-                        else
+                    @{if (Model.Count == 0)
                         {
                             <p class="text-center">
-                                Không có sản phẩm nào trong giỏ hàng!
+                            Không có sản phẩm nào trong giỏ hàng!
                             </p>
                         }
                     }

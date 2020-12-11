@@ -1,0 +1,240 @@
+﻿@model List<demo.Model.OrderDetail>
+@using PagedList.Mvc;
+@using demo.Model;
+@{
+    ViewBag.Title = "Wait";
+}
+
+@using demo.Controllers;
+
+@{ var user = Session["User"] as User;}
+
+@{ Html.RenderAction("HeaderMenu", "Shop");}
+<div class="home-Menu row">
+    <div class="Cart-menu">
+        <ul class="nav navbar-nav center_nav pull-right">
+            @{
+                if (!(user is null) && user.isAdmin == false)
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Shop/Cart">Giỏ Hàng</a>
+                    </li>
+                }
+            }
+            <li class="nav-item">
+                <a href="/Shop/CartStatus?status=Wait" class="nav-link">Chờ xác nhận</a>
+            </li>
+            <li class="nav-item">
+                <a href="/Shop/CartStatus?status=Delivery" class="nav-link">Đang giao</a>
+            </li>
+            <li class="nav-item">
+                <a href="/Shop/CartStatus?status=Finish" class="nav-link">Đã giao</a>
+            </li>
+            <li class="nav-item">
+                <a href="/Shop/CartStatus?status=Cancel" class="nav-link">Đã hủy</a>
+            </li>
+        </ul>
+
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div id="cart" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <!-- Begin empty cart -->
+            <div class="row">
+                <div id="layout-page" class="col-md-12 col-sm-12 col-xs-12" margin-left:10px">
+                    <span class="header-page clearfix">
+                        <h1 style="color:black">
+                            Giỏ hàng
+                        </h1>
+                    </span>
+
+                    @{
+                        if (Model.Count > 0)
+                        {
+                            string brand = Model[0].Order.status.ToString();
+                            <table class="table-cart">
+
+                                <thead>
+                                    <tr></tr>
+                                    <tr>
+                                        <th style="text-align: center;">Ảnh SP</th>
+                                        <th style="text-align: center;">Mã SP</th>
+                                        <th style="text-align: center;">Tên SP</th>
+                                        <th style="text-align: center;">Số lượng</th>
+                                        <th style="text-align: center;">Đơn giá</th>
+                                        <th style="text-align: center;">Thành tiền</th>
+                                        <th style="text-align: center;"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        string k = "";
+                                        foreach (var i in Model)
+                                        {
+
+
+                                            if (@i.ID_Order != k)
+                                            {
+                                                float total = 0;
+                                                foreach (var row in Model)
+                                                {
+                                                    if (row.ID_Order == i.ID_Order)
+                                                    {
+                                                        total += (float)(row.Product.Price.GetValueOrDefault(0) * row.Quantity);
+                                                    }
+
+
+                                                }
+                                                <tr class="line">
+                                                    <td colspan="7"></td>
+                                                </tr>
+
+                                                <tr>
+
+
+                                                    @if (!(user is null) && user.isAdmin == false)
+                                                    {
+                                                        <td> ID đơn hàng:@i.ID_Order</td>
+                                                        <td></td>
+                                                        <td>Tổng tiền đơn hàng:@total.ToString("N0")</td>
+                                                        if (brand == "Wait")
+                                                        {
+                                                            <td></td>
+                                                            <td style="text-align:center"> <div class="DeleteOrder"><a href="#" data-id="@i.ID_Order">Xóa</a></div></td>
+                                                        }
+                                                        else if (brand == "Delivery")
+                                                        {
+                                                            <td colspan="2"><div class="Received"><a href="#" data-id="@i.ID_Order">Đã nhận hàng</a></div></td>
+                                                        }
+
+                                                        else
+                                                        {
+                                                            <td colspan="2"></td>
+                                                        }
+                                                        <td style="text-align:center"><div class="Detail"><a href="~/Shop/Detail?ID=@i.ID_Order" data-id="@i.ID_Order">Xem chi tiết</a></div></td>
+                                                        <td></td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td colspan="3" style="text-align:center">
+                                                            ID đơn hàng:@i.ID_Order &nbsp;&nbsp;&nbsp;
+                                                            Khách Hàng:@i.Order.User.Name &nbsp; &nbsp; &nbsp;
+                                                            Tổng tiền đơn hàng:@total.ToString("N0") &nbsp; &nbsp; &nbsp;
+                                                        </td>
+                                                        if (brand == "Wait")
+                                                        {
+                                                            <td style="text-align:center"><div class="DeleteOrder"><a href="#" data-id="@i.ID_Order">Xóa</a></div></td>
+                                                            <td style="text-align:center"><div class="ConfirmOrder"><a href="#" data-id="@i.ID_Order">Xác nhận</a></div></td>
+                                                            <td colspan="2" style="text-align:center"><div class="Detail"><a href="~/Shop/Detail?ID=@i.ID_Order" data-id="@i.ID_Order">Xem chi tiết</a></div></td>
+                                                        }
+                                                        else
+                                                        {
+
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td><div class="Detail"><a href="~/Shop/Detail?ID=@i.ID_Order" data-id="@i.ID_Order">Xem chi tiết</a></div></td>
+                                                            <td></td>
+                                                        }
+                                                    }
+                                                </tr>
+                                                k = i.ID_Order;
+
+                                                { Html.RenderAction("_Table", "Shop"); }
+                                            }
+
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+
+                        }
+                        else
+                        {
+
+                            <p class="text-center">
+                                Hiện tại không có đơn hàng nào!
+                            </p>
+                        }
+                    }
+                    <div class="row">
+
+
+                        <div class="col-md-12 col-sm-12  col-xs-12 continue-shop">
+                            <a href="~/Shop/Home"><i class="fa fa-reply"></i>Tiếp tục mua hàng</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- End cart -->
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('.DeleteOrder').click(function (e) {
+            const current = e.currentTarget;
+            var r = confirm("Bạn có chắc chắn muốn xóa đơn hàng này không?");
+            if (r == true) {
+                $.ajax({
+                    data: { ID: current.children[0].dataset.id },
+                    url: '/Shop/DeleteOrder',
+                    dataType: 'json',
+                    type: 'POST',
+                    success: function (res) {
+                        if (res.status == true) {
+                            window.location.href = "/Shop/Wait";
+                        }
+                    }
+                })
+            }
+        });
+        $('.ConfirmOrder').click(function (e) {
+            const current = e.currentTarget;
+            var r = confirm("Bạn có chắc chắn muốn xác nhận đơn hàng này không?");
+            if (r == true) {
+                $.ajax({
+                    data: { ID: current.children[0].dataset.id },
+                    url: '/Shop/Confirm',
+                    dataType: 'json',
+                    type: 'POST',
+                    success: function (res) {
+                        if (res.status == true) {
+                            window.location.href = "/Shop/Wait";
+                        }
+                    }
+                })
+            }
+        });
+        $('.Received').click(function (e) {
+            const current = e.currentTarget;
+            var r = confirm("Bạn có chắc chắn muốn xác nhận đã nhận đơn hàng này không?");
+            if (r == true) {
+                $.ajax({
+                    data: { ID: current.children[0].dataset.id },
+                    url: '/Shop/Received',
+                    dataType: 'json',
+                    type: 'POST',
+                    success: function (res) {
+                        if (res.status == true) {
+                            window.location.href = "/Shop/Delivery";
+                        }
+                    }
+                })
+            }
+        });
+        
+    });
+</script>
+<script>
+    $(document).ready(function () {
+
+        $(".nav-item").click(function () {
+            var x = $('.Active')
+            $(this).addClass(' Active');
+            x.removeClass();
+            x.addClass('nav-item')
+        });
+    });
+</script>

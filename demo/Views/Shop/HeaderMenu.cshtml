@@ -1,0 +1,125 @@
+﻿@using PagedList.Mvc;
+@using demo.Model;
+@using demo.Controllers;
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<div class="home-Contact " style="align-items:center">
+    <span>Contact us: <a href="tel:#0708033730">0708033730</a></span>
+    <hr>
+    @{
+
+        var user = Session["User"] as User;
+        if (Session["User"] != null)
+        {
+            string temp = user.Username;
+            if (user.Name != null)
+            {
+                temp = user.Name;
+            }
+            else
+            {
+                temp = user.Username;
+            }
+
+            <div class="after-login">
+                <ul class="nav navbar-nav center_nav pull-right">
+                    <li class="nav-item submenu dropdown">
+                        <a href="#" style="padding:0!important" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="user">@temp</a>
+                        <ul class="dropdown-menu">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Shop/Profile">Tài khoản của tôi</a>
+                            </li>
+                            <li class="nav-item Active">
+                                <a class="nav-link" href="/Shop/Cart">Đơn mua</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="~/Shop/HomeGuest" id="Logout">Đăng xuất</a>
+                            </li>
+
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+        }
+        else
+        {
+
+            <div class="Before-login">
+                <span><a href="~/Shop/Register">ĐĂNG KÝ</a></span>
+                <hr>
+                <SPAN><a href="~/Shop/Login">ĐĂNG NHẬP</a></SPAN>
+            </div>
+        }
+    }
+</div>
+<div class="home-Menu row">
+    <div class="home-Menu-left col-lg-6">
+        <ul class="nav navbar-nav center_nav pull-right">
+            <li class="nav-item active" style="border-right:solid 2px black">
+                <a class="nav-link" href="~/Shop/Home">TRANG CHỦ</a>
+            </li>
+            <li class="nav-item submenu dropdown" style="border-right:solid 2px black">
+                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">PHÂN LOẠI</a>
+                <ul class="dropdown-menu">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Shop/Style?id=Đồng hồ nam">ĐỒNG HỒ NAM</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Shop/Style?id=Đồng hồ nữ">ĐỒNG HỒ NỮ</a>
+                    </li>
+
+                </ul>
+            </li>
+            <li class="nav-item submenu dropdown " style="border-right:solid 2px black">
+                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">HÃNG</a>
+                <ul class="dropdown-menu">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Shop/Brand?id=Rolex">ROLEX</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Shop/Brand?id=Daniel Wellington">DW</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Shop/Brand?id=Casio">CASIO</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Shop/Brand?id=Dior">DIOR</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Shop/Brand?id=Apple">APPLE</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Shop/Brand?id=Jacques Lemans">JACQUES LEMANS</a>
+                    </li>
+                </ul>
+            </li>
+            @{ Html.RenderAction("HeaderCart", "Shop");}
+        </ul>
+    </div>
+
+
+    <div class="home-Menu-right col-lg-6">
+        @{
+
+            if (!(user is null) && user.isAdmin == true)
+            {
+                <ul id="admin" class="nav navbar-nav center_nav pull-right">
+                    <li class="nav-item">
+                        <a class="nav-link" href="~/Shop/AddProduct">THÊM SẢN PHẨM</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">CHỈNH SỬA SẢN PHẨM</a>
+                    </li>
+                </ul>
+            }
+        }
+    </div>
+
+    @*<div class="Search" style="display:block; margin-left:50px">
+            <input class="" style="border: 1px solid #ffca28;" type="text" placeholder="Search" aria-label="Search">
+            <a href="#">
+                <i class="glyphicon glyphicon-search"></i>
+            </a>
+        </div>*@
+</div>

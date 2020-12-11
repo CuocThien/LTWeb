@@ -7,110 +7,9 @@
 
 @using demo.Controllers;
 
+@{var user = Session["User"] as User;}
 
-<div class="home-Contact " style="align-items:center">
-    <span>Contact us: <a href="tel:#0708033730">0708033730</a></span>
-    <hr>
-    @{
-
-        var user = Session["User"] as User;
-        if (Session["User"] != null)
-        {
-            string temp = user.Username;
-            if (user.Name != null)
-            {
-                temp = user.Name;
-            }
-            else
-            {
-                temp = user.Username;
-            }
-
-            <div class="after-login">
-                <ul class="nav navbar-nav center_nav pull-right">
-                    <li class="nav-item submenu dropdown">
-                        <a href="#" style="padding:0!important" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="user">@temp</a>
-                        <ul class="dropdown-menu">
-                            <li class="nav-item">
-                                <a class="nav-link" href="/Shop/Profile">Tài khoản của tôi</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/Shop/Cart">Đơn mua</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="~/Shop/HomeGuest" id="Logout">Đăng xuất</a>
-                            </li>
-
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-
-        }
-        else
-        {
-
-            <div class="Before-login">
-                <span><a href="~/Shop/Register">ĐĂNG KÝ</a></span>
-                <hr>
-                <SPAN><a href="~/Shop/Login">ĐĂNG NHẬP</a></SPAN>
-            </div>
-        }
-    }
-</div>
-<div class="home-Menu row">
-    <div class="home-Menu-left col-lg-6">
-        <ul class="nav navbar-nav center_nav pull-right">
-            <li class="nav-item active" style="border-right:solid 2px black">
-                <a class="nav-link" href="~/Shop/Home">TRANG CHỦ</a>
-            </li>
-            <li class="nav-item submenu dropdown" style="border-right:solid 2px black">
-                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">PHÂN LOẠI</a>
-                <ul class="dropdown-menu">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">ĐỒNG HỒ NAM</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">ĐỒNG HỒ NỮ</a>
-                    </li>
-
-                </ul>
-            </li>
-            <li class="nav-item submenu dropdown " style="border-right:solid 2px black">
-                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">HÃNG</a>
-                <ul class="dropdown-menu">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">ROLEX</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">DW</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">CASIO</a>
-                    </li>
-                </ul>
-            </li>
-            @{ Html.RenderAction("HeaderCart", "Shop");}
-        </ul>
-
-    </div>
-    <div class="home-Menu-right col-lg-6">
-        @{
-
-            if (!(user is null) && user.isAdmin == true)
-            {
-                <ul id="admin" class="nav navbar-nav center_nav pull-right">
-                    <li class="nav-item">
-                        <a class="nav-link" href="~/Shop/AddProduct">THÊM SẢN PHẨM</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">CHỈNH SỬA SẢN PHẨM</a>
-                    </li>
-                </ul>
-            }
-        }
-    </div>
-</div>
+@{ Html.RenderAction("HeaderMenu", "Shop");}
 
 <div class="container">
     <div class="row">
@@ -125,49 +24,49 @@
                         if (!(user is null))
                         {
 
-                           // var item = Model.Find(user.Username);
+                            // var item = Model.Find(user.Username);
                             shopEntities _db = new shopEntities();
                             var item = _db.Users.Find(user.Username);
                             // var password = user.Password;
-                                <div class="form-group row">
-                                    <label for="Username" class="col-sm-2 col-form-label">Tên đăng nhập</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" style="border:none" readonly class="form-control-plaintext" id="Username" value="@item.Username">
-                                    </div>
+                            <div class="form-group row">
+                                <label for="Username" class="col-sm-2 col-form-label">Tên đăng nhập</label>
+                                <div class="col-sm-10">
+                                    <input type="text" style="border:none" readonly class="form-control-plaintext" id="Username" value="@item.Username">
                                 </div>
-                                <div class="form-group row">
-                                    <label for="Name" class="col-sm-2 col-form-label">Tên</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="Name" value="@item.Name">
-                                    </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="Name" class="col-sm-2 col-form-label">Tên</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="Name" value="@item.Name">
                                 </div>
-                                <div class="form-group row">
-                                    <label for="Email" class="col-sm-2 col-form-label">Email</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="Email" value="@item.Email">
-                                    </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="Email" class="col-sm-2 col-form-label">Email</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="Email" value="@item.Email">
                                 </div>
-                                <div class="form-group row">
-                                    <label for="Phone" class="col-sm-2 col-form-label">Số điện thoại</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="Phone" value="@item.Phone">
-                                    </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="Phone" class="col-sm-2 col-form-label">Số điện thoại</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="Phone" value="@item.Phone">
                                 </div>
-                                <div class="form-group row">
-                                    <label for="Address" class="col-sm-2 col-form-label">Địa chỉ</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="Address" value="@item.Address">
-                                    </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="Address" class="col-sm-2 col-form-label">Địa chỉ</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="Address" value="@item.Address">
                                 </div>
-                                <div class="form-group row">
-                                    <label for="Birthday" class="col-sm-2 col-form-label">Ngày sinh</label>
-                                    <div class="col-sm-10">
-                                        @{var date = item.Birthday.Value.ToString("yyyy-MM-dd");}
-                                        <input type="date" class="form-control" id="Birthday" value="@date">
-                                    </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="Birthday" class="col-sm-2 col-form-label">Ngày sinh</label>
+                                <div class="col-sm-10">
+                                    @{var date = item.Birthday.Value.ToString("yyyy-MM-dd");}
+                                    <input type="date" class="form-control" id="Birthday" value="@date">
                                 </div>
-                                <button type="submit" id="save" class="btn" style=" margin-top: 50px; width: 8%; height: 40px;">Lưu</button>
-                            
+                            </div>
+                            <button type="submit" id="save" class="btn" style=" margin-top: 50px; width: 8%; height: 40px;">Lưu</button>
+
                         }
                     }
 

@@ -931,10 +931,6 @@
     <Content Include="Views\Shop\Cart.cshtml" />
     <Content Include="Views\Shop\HeaderCart.cshtml" />
     <Content Include="Views\Shop\Payment.cshtml" />
-    <Content Include="Views\Shop\Wait.cshtml" />
-    <Content Include="Views\Shop\Delivery.cshtml" />
-    <Content Include="Views\Shop\Finish.cshtml" />
-    <Content Include="Views\Shop\Cancel.cshtml" />
     <Content Include="Views\Shop\Detail.cshtml" />
     <Content Include="Views\Shop\Profile.cshtml" />
     <Content Include="Views\Shop\Brand.cshtml" />
@@ -959,6 +955,10 @@
     <Content Include="Themes\ckeditor\samples\toolbarconfigurator\font\fontello.woff" />
     <Content Include="Themes\ckeditor\samples\toolbarconfigurator\lib\codemirror\LICENSE" />
     <Content Include="Themes\ckeditor\skins\moono-lisa\readme.md" />
+    <Content Include="Views\Shop\HeaderMenu.cshtml" />
+    <Content Include="Views\Shop\HeaderMenuGuest.cshtml" />
+    <Content Include="Views\Shop\_Table.cshtml" />
+    <Content Include="Views\Shop\CartStatus.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
