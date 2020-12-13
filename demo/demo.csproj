@@ -957,7 +957,6 @@
     <Content Include="Themes\ckeditor\skins\moono-lisa\readme.md" />
     <Content Include="Views\Shop\HeaderMenu.cshtml" />
     <Content Include="Views\Shop\HeaderMenuGuest.cshtml" />
-    <Content Include="Views\Shop\_Table.cshtml" />
     <Content Include="Views\Shop\CartStatus.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

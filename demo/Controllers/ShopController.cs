@@ -282,18 +282,7 @@ namespace demo.Controllers
         }
 
         //hiển thị sản phẩm trong giỏ hàng
-        public ActionResult _Table()
-        {
-            User user = Session["User"] as User;
-            var ID = _db.Orders.Where(o => o.ID_Customer == user.Username && o.status == "Cart").SingleOrDefault();
-            var cart = Session[CartSession];
-            var list = new List<OrderDetail>();
-            if (cart != null)
-            {
-                list = (List<OrderDetail>)cart;
-            }
-            return View(list);
-        }
+      
         [HttpPost]
         public ActionResult Payment(FormCollection frm)
         {

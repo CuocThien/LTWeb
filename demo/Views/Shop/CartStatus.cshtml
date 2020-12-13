@@ -16,7 +16,7 @@
             @{
                 if (!(user is null) && user.isAdmin == false)
                 {
-                    <li class="nav-item">
+                    <li class="nav-item Active">
                         <a class="nav-link" href="/Shop/Cart">Giỏ Hàng</a>
                     </li>
                 }
@@ -51,9 +51,9 @@
                     </span>
 
                     @{
-                        if (!(Model is null))
+                        if (Model.Count > 0)
                         {
-                            string brand = Model[0].Order.status.ToString();
+                            string status = Model[0].Order.status.ToString();
                             <table class="table-cart">
 
                                 <thead>
@@ -72,21 +72,21 @@
 
                                     @{string k = ""; }
                                     @foreach (var i in Model)
+                                    {
+
+
+                                        if (@i.ID_Order != k)
                                         {
-
-
-                                            if (@i.ID_Order != k)
+                                            float total = 0;
+                                            foreach (var row in Model)
                                             {
-                                                float total = 0;
-                                                foreach (var row in Model)
+                                                if (row.ID_Order == i.ID_Order)
                                                 {
-                                                    if (row.ID_Order == i.ID_Order)
-                                                    {
-                                                        total += (float)(row.Product.Price.GetValueOrDefault(0) * row.Quantity);
-                                                    }
-
-
+                                                    total += (float)(row.Product.Price.GetValueOrDefault(0) * row.Quantity);
                                                 }
+
+
+                                            }
                                             <tr class="line">
                                                 <td colspan="7"></td>
                                             </tr>
@@ -99,12 +99,12 @@
                                                     <td> ID đơn hàng:@i.ID_Order</td>
                                                     <td></td>
                                                     <td>Tổng tiền đơn hàng:@total.ToString("N0")</td>
-                                                    if (brand == "Wait")
+                                                    if (status == "Wait")
                                                     {
                                                         <td></td>
                                                         <td style="text-align:center"> <div class="DeleteOrder"><a href="#" data-id="@i.ID_Order">Xóa</a></div></td>
                                                     }
-                                                    else if (brand == "Delivery")
+                                                    else if (status == "Delivery")
                                                     {
                                                         <td colspan="2"><div class="Received"><a href="#" data-id="@i.ID_Order">Đã nhận hàng</a></div></td>
                                                     }
@@ -123,7 +123,7 @@
                                                         Khách Hàng:@i.Order.User.Name &nbsp; &nbsp; &nbsp;
                                                         Tổng tiền đơn hàng:@total.ToString("N0") &nbsp; &nbsp; &nbsp;
                                                     </td>
-                                                    if (brand == "Wait")
+                                                    if (status == "Wait")
                                                     {
                                                         <td style="text-align:center"><div class="DeleteOrder"><a href="#" data-id="@i.ID_Order">Xóa</a></div></td>
                                                         <td style="text-align:center"><div class="ConfirmOrder"><a href="#" data-id="@i.ID_Order">Xác nhận</a></div></td>
@@ -142,9 +142,28 @@
 
 
                                             k = i.ID_Order;
+
+                                            foreach (var item in Model)
+                                            {
+                                                var temp = (item.Product.Price.GetValueOrDefault(0) * item.Quantity);
+                                                <tr>
+                                                    @{
+                                                        byte[] imgBytes = item.Product.Image;
+                                                        string image = System.Text.Encoding.ASCII.GetString(imgBytes);
+                                                    }
+
+                                                    <td style="width: 15%;text-align:center;">@Html.Image(image, "Alternate Text", "100", "150")</td>
+                                                    <td style="width:5% ;text-align:center;">@item.Product.ID</td>
+                                                    <td style="width: 40%;text-align:center;">@item.Product.Name</td>
+                                                    <td style="width: 5%;"><input style="border:none;text-align:center;" type="number" min="1" max="@item.Product.Quantity" class="txtquantity" id="sl" data-id="@item.Product.ID" value="@item.Quantity" onchange="changeHandler()" /></td>
+                                                    <td style="width: 15%;text-align:center;" id="price">@(item.Product.Price.GetValueOrDefault(0).ToString("N0"))</td>
+                                                    <td style="width: 15%;text-align:center;" id="totalprice">@(((float)temp).ToString("N0"))</td>
+                                                    <td style="width: 5%;text-align:center;"><div class="Deletepro"><a href="#" data-id="@item.Product.ID">Xóa</a></div></td>
+                                                </tr>
+
+                                            }
                                         }
-                                       
-                                        {Html.RenderAction("_Table", "Shop");}
+
                                     }
 
 
@@ -177,6 +196,12 @@
 </div>
 <script>
     $(document).ready(function () {
+        $('.nav-item').click(function () {
+            var x = $('.Active')
+            x.removeClass();
+            x.addClass('nav-item')
+            $(this).addClass('Active');
+        });
         $('.DeleteOrder').click(function (e) {
             const current = e.currentTarget;
             var r = confirm("Bạn có chắc chắn muốn xóa đơn hàng này không?");
@@ -231,14 +256,4 @@
 
     });
 </script>
-<script>
-    $(document).ready(function () {
-        $('.nav-item').click(function () {
-            var x = $('.Active')
-            x.removeClass();
-            x.addClass('nav-item')
-            $(this).addClass(' Active');
-        });
 
-    });
-</script>
