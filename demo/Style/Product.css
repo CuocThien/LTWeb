@@ -20,18 +20,21 @@ h2{
     display: block;
     justify-content: center;
     align-items: center;
-    border: 2px solid red;
+    text-align: center;
+    box-shadow: 10px 5px 5px rgb(123, 137, 234);
+    border: 1px solid rgb(155, 161, 209);
     border-radius: 2px;
     padding: 10px;
     margin: 20px 0;
     margin-left: 60px;
     max-width: 350px;
-    height: 304px;
+    height: 315px;
 }
 
 .ip-text-Pro {
     outline: none;
-    border: 2px solid black;
+    border:none;
+    border-bottom: 2px solid rgb(196, 108, 208);
     padding: 12px 13px 12px 12px;
     max-width: 500px;
     margin: 10px 0 15px;
@@ -42,13 +45,18 @@ h2{
     height: 50px;
     font-size: 20px;
 }
-.ip-text-Pro:focus {
-    border-color: aqua;
+    .ip-text-Pro:focus {
+    border-bottom:2px solid dodgerBlue;
     box-shadow: 0 0 8px 0 dodgerBlue;
-}
+    }
+    .ip-text-Pro:hover {
+        border-bottom: 2px solid dodgerBlue;
+        box-shadow: 0 0 8px 0 dodgerBlue;
+    }
 .ip-date-Pro {
     outline: none;
-    border: 2px solid black;
+    border: none;
+    border-bottom: 2px solid rgb(196, 108, 208);
     padding: 12px 13px 12px 12px;
     max-width: 500px;
     margin: 10px 0 15px;
@@ -61,12 +69,17 @@ h2{
 }
 
     .ip-date-Pro:focus {
-        border-color: aqua;
+        border-bottom: 2px solid dodgerBlue;
+        box-shadow: 0 0 8px 0 dodgerBlue;
+    }
+    .ip-date-Pro:hover {
+        border-bottom: 2px solid dodgerBlue;
         box-shadow: 0 0 8px 0 dodgerBlue;
     }
 .ip-number-Pro {
     outline: none;
-    border: 2px solid black;
+    border: none;
+    border-bottom: 2px solid rgb(196, 108, 208);
     padding: 12px 13px 12px 12px;
     max-width: 500px;
     margin: 10px 0 15px;
@@ -79,12 +92,17 @@ h2{
 }
 
     .ip-number-Pro:focus {
-        border-color: aqua;
+        border-bottom: 2px solid dodgerBlue;
+        box-shadow: 0 0 8px 0 dodgerBlue;
+    }
+    .ip-number-Pro:hover {
+        border-bottom: 2px solid dodgerBlue;
         box-shadow: 0 0 8px 0 dodgerBlue;
     }
 select {
     outline: none;
-    border: 2px solid black;
+    border: none;
+    border-bottom: 2px solid rgb(196, 108, 208);
     padding: 12px 13px 12px 12px;
     max-width: 300px;
     margin: 10px 0 15px;
@@ -95,10 +113,13 @@ select {
     height: 50px;
     font-size: 20px;
 }
+    select:focus {
+        border-bottom: 2px solid dodgerBlue;
+        box-shadow: 0 0 8px 0 dodgerBlue;
+    }
 input[type=file] {
-    
     outline: none;
-    border: 2px solid black;
+    border-bottom: 2px solid rgb(196, 108, 208);
     padding: 12px 13px 12px 12px;
     max-width: 400px;
     margin: 10px 0 15px;
@@ -111,13 +132,17 @@ input[type=file] {
 }
 
     input[type=file]:hover {
-        border-color: aqua;
+        border-bottom: 2px solid dodgerBlue;
+        box-shadow: 0 0 8px 0 dodgerBlue;
+    }
+    input[type=file]:focus {
+        border-bottom: 2px solid dodgerBlue;
         box-shadow: 0 0 8px 0 dodgerBlue;
     }
 .ip-submit-Pro {
-    background-color: antiquewhite;
+    background: linear-gradient(to right, #fc00ff, #00dbde);
     outline: none;
-    border: 2px solid black;
+    border:none;
     padding: 12px 13px 12px 12px;
     max-width: 200px;
     margin: 10px 0 15px;
@@ -130,12 +155,14 @@ input[type=file] {
 }
 
     .ip-submit-Pro:hover {
-        border-color: aqua;
+        border:none;
         box-shadow: 0 0 8px 0 dodgerBlue;
-        background-color: burlywood;
+        background: linear-gradient(to right, #fc466b, #3f5efb);
     }
-span{
-    display:block;
-    font-size:20px;
-    color:red;
+.pro-span {
+    display: block;
+    font-size: 20px;
+    background: -webkit-linear-gradient(90deg,#eee, #001dff,#00d8ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }

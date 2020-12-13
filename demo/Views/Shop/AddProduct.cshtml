@@ -1,61 +1,72 @@
-﻿
+﻿@using demo.Controllers
 @{
     ViewBag.Title = "AddProduct";
 }
 
 <div>
     <div class="title">
-        <h2>THÊM SẢN PHẨM</h2>
+        <h2 style="text-transform: uppercase;
+        background: -webkit-linear-gradient(90deg,#eee, #f806f7,#8e03fb);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    ">THÊM SẢN PHẨM</h2>
     </div>
     <form>
-        <div class="col-lg-5">
-            <div class="content-right">
-                <div class="product-img">
-                    <img src="" id="loadImg" alt="Alternate Text" />
+        <div class="container-fluid" style="margin:10px; box-shadow: 0 0 8px 0 dodgerBlue; padding:0px!important">
+            <div class="col-lg-5">
+                <div class="content-right">
+                    <div class="product-img">
+                        <img src="" id="loadImg" alt="Alternate Text" height="300" width="250"/>
+                    </div>
+                    <input type="file" id="link" name="name" accept="image/*" style="padding-left:50px;margin-left:33px;" />
                 </div>
-                <input type="file" id="link" name="name" accept="image/*" style="padding-left:50px;margin-left:33px;" />
+
             </div>
+            <div class="content-left col-lg-7" style=" box-shadow: -3px 0px 3px 0px #8d8585;">
+                <span class="pro-span">Tên sản phẩm</span>
+                <input type="text" id="Pro_name" class="ip-text-Pro" name="" value="" />
 
-        </div>
-        <div class="content-left col-lg-7" style="border-left: 2px solid black; padding-left:50px">
-            <span>Tên sản phẩm</span>
-            <input type="text" id="Pro_name" class="ip-text-Pro" name="" value="" />
+                <span class="pro-span">Hãng</span>
+                <select id="brand">
+                    <option value="DW">DANIEL WELLINGTON</option>
+                    <option value="CS">CASIO</option>
+                    <option value="RL">ROLEX</option>
+                    <option value="D">DIOR</option>
+                    <option value="AP">APPLE</option>
+                    <option value="JL">JACQUES LEMANS</option>
+                </select>
+                <br />
 
-            <span>Hãng</span>
-            <select id="brand">
-                <option value="DW">DW</option>
-                <option value="CS">CASIO</option>
-                <option value="RL">ROLEX</option>
-            </select>
-            <br />
+                <span class="pro-span">Bảo hành (tháng):</span>
+                <input type="number" id="warranty" class="ip-number-Pro" name="" value="" />
 
-            <span>Bảo hành (tháng):</span>
-            <input type="number" id="warranty" class="ip-number-Pro" name="" value="" />
+                <span class="pro-span">Loại đồng hồ:</span>
+                <select id="style">
+                    <option value="ĐỒng hồ nam">Đồng hồ Nam</option>
+                    <option value="Đồng hồ nữ">Đồng hồ Nữ</option>
+                </select>
+                <br />
 
-            <span>Loại đồng hồ:</span>
-            <select id="style">
-                <option value="ĐỒng hồ nam">Đồng hồ Nam</option>
-                <option value="Đồng hồ nữ">Đồng hồ Nữ</option>
-            </select>
-            <br />
+                <span class="pro-span">Năm sản xuất: </span>
+                <input type="date" id="yearOfManufacturing" class="ip-date-Pro" name="" value="" />
 
-            <span>Năm sản xuất</span>
-            <input type="date" id="yearOfManufacturing" class="ip-date-Pro" name="" value="" />
+                <span class="pro-span">Giá tiền: </span>
+                <input type="number" id="price" class="ip-number-Pro" name="" value="" />
 
-            <span>Giá tiền</span>
-            <input type="number" id="price" class="ip-number-Pro" name="" value="" />
+                <span class="pro-span">Số lượng: </span>
+                <input type="number" id="warranty" class="ip-number-Pro" name="" value="" />
 
-            <span>Nước sản xuất</span>
-            <input type="text" id="country" class="ip-text-Pro" name="" value="" />
+                <span class="pro-span">Nước sản xuất</span>
+                <input type="text" id="country" class="ip-text-Pro" name="" value="" />
 
-            <span>Mô tả</span>
+                <span class="pro-span">Mô tả</span>
 
-            <textarea id="Description" rows="10" cols="70" style="max-width:500px; max-height:300px;" placeholder="Nhập mô tả sản phẩm"></textarea>
-            <script>CKEDITOR.replace('Description');</script>
-            
+                <textarea id="Description" rows="10" cols="70" style="max-width:500px; max-height:300px;" placeholder="Nhập mô tả sản phẩm"></textarea>
+                <script>CKEDITOR.replace('Description');</script>
+
                 <div type="submit" id="add" class="ip-submit-Pro" name="name" value="THÊM" style="margin-left:130px;text-align:center;">THÊM</div>
 
-
+            </div>
         </div>
     </form>
 </div>
@@ -63,10 +74,12 @@
 
     $(document).ready(function () {
         $("#link").change(function () {
+            var src = "";
             if (this.files && this.files[0]) {
                 var reader = new FileReader();
                 reader.onload = function (e) {
                     $('#loadImg').attr('src', e.target.result);
+                    src = e.target.result;
                 }
                 reader.readAsDataURL(this.files[0]);
             }
