@@ -18,59 +18,96 @@
                     <h1 style="margin-bottom:10px;text-align: center; font-size: -webkit-xxx-large; font-style: italic; font-family: ui-sans-serif; font-weight: bolder; color: darkmagenta;">
                         Chi tiết đơn hàng
                     </h1>
-                    @{
-                        if (Model.Count > 0)
+
+                    @if (Model.Count > 0)
+                    {
+
+
                         {
-                            <div>
+                            var count = 0;
+                            foreach (var item in Model)
+                            {
+                                var temp = (item.Product.Price.GetValueOrDefault(0) * item.Quantity);
+                                if (count == 0)
+                                {
+                                    <h2>Địa chỉ nhận hàng</h2>
+                                    <div class="content">
 
-
-                                @{var count = 0;
-                                    foreach (var item in Model)
-                                    {
-                                        var temp = (item.Product.Price.GetValueOrDefault(0) * item.Quantity);
-                                        if (count == 0)
+                                        <p><b>Tên người nhận:</b> &emsp;&emsp;&emsp;&emsp;&emsp;@item.Order.shipName</p>
+                                        <p><b>Số điện thoại người nhận:</b>&ensp; @item.Order.shipMobile</p>
+                                        <p><b>Địa chỉ nhận hàng:</b>&emsp;&emsp;&emsp;&emsp; @item.Order.shipAddress</p>
+                                    </div>
+                                    <div class="line"></div>
+                                    <div class="content">
+                                        <p><b>Đơn hàng:</b> @item.ID_Order</p>
+                                        <p><b>Trạng thái:</b> @item.Order.status</p>
+                                        @if (item.Order.status == "Wait")
                                         {
-                                            <h2>Địa chỉ nhận hàng</h2>
-                                            <div class="content">
-
-                                                <p><b>Tên người nhận:</b> &emsp;&emsp;&emsp;&emsp;&emsp;@item.Order.shipName</p>
-                                                <p><b>Số điện thoại người nhận:</b>&ensp; @item.Order.shipMobile</p>
-                                                <p><b>Địa chỉ nhận hàng:</b>&emsp;&emsp;&emsp;&emsp; @item.Order.shipAddress</p>
-                                            </div>
-                                            <div class="line"></div>
-                                            <div class="content">
-                                                <p><b>Đơn hàng:</b> @item.ID_Order</p>
-                                                <p><b>Trạng thái:</b> @item.Order.status</p>
-                                                @if (item.Order.status == "Wait")
-                                                {
-                                                    <p>@item.Order.Date_Create: Tạo đơn hàng</p>
-                                                }
-                                                @if (item.Order.status == "Delivery")
-                                                {
-                                                    <p>@item.Order.Date_Create: Tạo đơn hàng</p>
-                                                    <p>@item.Order.Date_delivery: Đang giao hàng</p>
-                                                }
-                                                @if (item.Order.status == "Finish")
-                                                {
-                                                    <p>@item.Order.Date_Create: Tạo đơn hàng</p>
-                                                    <p>@item.Order.Date_delivery: Đang giao hàng</p>
-                                                    <p>@item.Order.Date_Recived: Giao hàng thành công</p>
-                                                }
-                                                @if (item.Order.status == "Cancel")
-                                                {
-                                                    <p>@item.Order.Date_Create: Tạo đơn hàng</p>
-                                                    <p>@item.Order.Date_Cancel: Hủy đơn hàng</p>
-                                                }
-                                            </div>
-                                            <div class="line"></div>
-                                            count = count + 1;
+                                            <p>@item.Order.Date_Create: Tạo đơn hàng</p>
                                         }
-                            <div>
-                                @{Html.RenderAction("_Table", "Shop"); }
-                            </div>
-                                    }
+                                        @if (item.Order.status == "Delivery")
+                                        {
+                                            <p>@item.Order.Date_Create: Tạo đơn hàng</p>
+                                            <p>@item.Order.Date_delivery: Đang giao hàng</p>
+                                        }
+                                        @if (item.Order.status == "Finish")
+                                        {
+                                            <p>@item.Order.Date_Create: Tạo đơn hàng</p>
+                                            <p>@item.Order.Date_delivery: Đang giao hàng</p>
+                                            <p>@item.Order.Date_Recived: Giao hàng thành công</p>
+                                        }
+                                        @if (item.Order.status == "Cancel")
+                                        {
+                                            <p>@item.Order.Date_Create: Tạo đơn hàng</p>
+                                            <p>@item.Order.Date_Cancel: Hủy đơn hàng</p>
+                                        }
+                                    </div>
+                                    <div class="line"></div>
+                                    count = count + 1;
                                 }
-                            </div>
+
+                                if (Model.Count > 0)
+                                {
+                                    <table class="table-cart">
+
+                                        <thead>
+                                            <tr>
+                                                <th style="text-align: center;">Ảnh SP</th>
+                                                <th style="text-align: center;">Mã SP</th>
+                                                <th style="text-align: center;">Tên SP</th>
+                                                <th style="text-align: center;">Số lượng</th>
+                                                <th style="text-align: center;">Đơn giá</th>
+                                                <th style="text-align: center;">Thành tiền</th>
+                                                <th style="text-align: center;"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var row in Model)
+                                            {
+                                                var Temp = (row.Product.Price.GetValueOrDefault(0) * row.Quantity);
+                                                <tr>
+                                                    @{
+                                                        byte[] imgBytes = row.Product.Image;
+                                                        string image = System.Text.Encoding.ASCII.GetString(imgBytes);
+                                                    }
+
+                                                    <td style="width: 15%;text-align:center;">@Html.Image(image, "Alternate Text", "100", "150")</td>
+                                                    <td style="width:5% ;text-align:center;">@row.Product.ID</td>
+                                                    <td style="width: 40%;text-align:center;">@row.Product.Name</td>
+                                                    <td style="width: 5%;"><input style="border:none;text-align:center;" type="number" min="1" max="@row.Product.Quantity" class="txtquantity" id="sl" data-id="@row.Product.ID" value="@row.Quantity" onchange="changeHandler()" /></td>
+                                                    <td style="width: 15%;text-align:center;" id="price">@(row.Product.Price.GetValueOrDefault(0).ToString("N0"))</td>
+                                                    <td style="width: 15%;text-align:center;" id="totalprice">@(((float)Temp).ToString("N0"))</td>
+                                                    <td style="width: 5%;text-align:center;"><div class="Deletepro"><a href="#" data-id="@row.Product.ID">Xóa</a></div></td>
+                                                </tr>
+
+                                            }
+                                        </tbody>
+                                    </table>
+
+                                }
+
+                            }
+
                         }
                     }
                     <div class="row" style="margin-top:20px;text-align:right;">

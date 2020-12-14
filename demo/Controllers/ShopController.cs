@@ -534,7 +534,7 @@ namespace demo.Controllers
             Product product = new Product();
             if (Check.CheckProduct(pro) == true)
             {
-                int i = 1;
+                int i = 0;
                 var p = _db.Products.ToList();
                 foreach (var item in p)
                 {
@@ -556,6 +556,7 @@ namespace demo.Controllers
                 product.Price = float.Parse(pro["Price"]);
                 product.Style = pro["Style"];
                 product.Warranty = int.Parse(pro["Warranty"]);
+                product.Quantity = int.Parse(pro["Quantity"]);
                 _db.Products.Add(product);
                 _db.SaveChanges();
                 return View("AddProduct");
