@@ -239,7 +239,7 @@ namespace demo.Controllers
         public ActionResult Payment()
         {
             User user = Session["User"] as User;
-            var ID = _db.Orders.Where(o => o.ID_Customer == user.Username && o.status == "Cart").SingleOrDefault();
+            //var ID = _db.Orders.Where(o => o.ID_Customer == user.Username && o.status == "Cart").SingleOrDefault();
             var cart = Session[CartSession];
             var list = new List<OrderDetail>();
             if (cart != null)
@@ -458,8 +458,8 @@ namespace demo.Controllers
         //Dang ky, dang nhap, dang xuat
         [HttpPost]
         public ActionResult Login(User user)
-
         {
+            
             Session["Is Login"] = 0;
             Session["User"] = null;
             //Kiểm tra User có tồn tại trong database hay không
@@ -473,10 +473,11 @@ namespace demo.Controllers
                 {
                     Session["Is Login"] = 1;
                     Session["User"] = u;
+                    //return Redirect(Request.UrlReferrer.ToString());
+                    //return Request.UrlReferrer;
                     return RedirectToAction("Home", "Shop");
                 }
             }
-
             return Content("false");
         }
 
@@ -736,9 +737,6 @@ namespace demo.Controllers
         public ActionResult Profile()
         {
             return View();
-           // return View(pro);
-            //return View(list);
-           // return View(user);
         }
 
         [HttpPost]
@@ -799,8 +797,8 @@ namespace demo.Controllers
         }
         public ActionResult ProDetail(string id)
         {
-            
-            return View();
+            var pro = _db.Products.Where(x => x.ID == id).ToList();
+            return View(pro);
         }
     }
 }

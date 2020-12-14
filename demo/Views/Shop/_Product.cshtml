@@ -16,12 +16,12 @@
                     string image = System.Text.Encoding.ASCII.GetString(imgBytes);
                 }
                 @Html.Image(image, "Alternate Text", "300", "250")
-                <div class="overlay">
+                @*<div class="overlay">
                     <div class="text">@Html.Raw(pro.Description)</div>
-                </div>
+                </div>*@
             </div>
             <div class="detail">
-                <span class="name_pro">@pro.Name</span>
+                <span class="name_pro"><a href="/Shop/ProDetail?id=@pro.ID">@pro.Name</a></span>
                 <span style="font-size:15px; color:blue">Giá tiền:</span>
                 <br />
                 <div class="price">@pro.Price</div>
