@@ -934,9 +934,7 @@
     <Content Include="Views\Shop\Detail.cshtml" />
     <Content Include="Views\Shop\Profile.cshtml" />
     <Content Include="Views\Shop\Brand.cshtml" />
-    <Content Include="Views\Shop\_Brand.cshtml" />
     <Content Include="Views\Shop\Style.cshtml" />
-    <Content Include="Views\Shop\_Style.cshtml" />
     <Content Include="Views\Shop\ProDetail.cshtml" />
     <Content Include="Themes\.vs\ProjectSettings.json" />
     <Content Include="Themes\.vs\slnx.sqlite" />

@@ -11,14 +11,15 @@
     {
         <div class="total col-lg-3">
             <div class="product">
+                <p><a class="glyphicon glyphicon-pencil"></a><a class="glyphicon glyphicon-trash"></a></p>
                 @{
                     byte[] imgBytes = pro.Image;
                     string image = System.Text.Encoding.ASCII.GetString(imgBytes);
                 }
                 @Html.Image(image, "Alternate Text", "300", "250")
-                <div class="overlay">
+                @*<div class="overlay">
                         <div class="text">Hết Hàng</div>
-                    </div>
+                    </div>*@
             </div>
             <div class="detail">
                 <span class="name_pro"><a href="/Shop/ProDetail?id=@pro.ID">@pro.Name</a></span>
@@ -51,4 +52,8 @@
             </div>
         </div>
     }
+}
+else
+{
+<h2>Không có sản phẩm nào!</h2>
 }

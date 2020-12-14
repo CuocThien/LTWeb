@@ -10,7 +10,9 @@
 
 <div class="container-fluid">
     <div id="loadProduct" class="products row">
-        @{ Html.RenderAction("_Product", "Shop");}
+       @{ string brand = "all";
+          string id = "product";}
+        @{Html.RenderAction("_Product", "Shop", new { page = 1, brand,id});}
     </div>
     <ul class="pager">
         <li><a id="minpage">|<<</a></li>

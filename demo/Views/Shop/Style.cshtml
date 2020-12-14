@@ -16,28 +16,36 @@
         else
         { Html.RenderAction("HeaderMenu", "Shop"); }
     }
-    <h2 style="text-align:center">
-        ĐỒNG HỒ @Model.FirstOrDefault().Style.ToString().ToUpper()
-    </h2>
-    <div class="container-fluid">
-        <div id="loadProduct" class="products row">
-            @{
-                string style = Model[0].Style.ToString();
-            }
-            @{Html.RenderAction("_Style", "Shop", new { page = 1, style });}
-
-
+    @if (Model.Count > 0)
+    {
+        <h2 style="text-align:center">
+            ĐỒNG HỒ @Model[0].Style.ToString().ToUpper()
+        </h2>
+        <div class="container-fluid">
+            <div id="loadProduct" class="products row">
+                @{
+                    string brand = Model.FirstOrDefault().Style.ToString();
+                    string id = "style";
+                }
+                @{Html.RenderAction("_Product", "Shop", new { page = 1, brand, id });}
+            </div>
+            <ul class="pager">
+                <li><a id="minpage">|<<</a></li>
+                <li><a id="previous"><<</a></li>
+                <li><a id="next">>></a></li>
+                <li><a id="maxpage">>>|</a></li>
+            </ul>
         </div>
-        <ul class="pager">
-            <li><a id="minpage">|<<</a></li>
-            <li><a id="previous"><<</a></li>
-            <li><a id="next">>></a></li>
-            <li><a id="maxpage">>>|</a></li>
-        </ul>
-    </div>
+    }
+    else
+    {
+        <p>Không có sản phẩm nào !</p>
+    }
 </div>
 
-<script>
+@if (Model.Count > 0)
+{
+    <script>
     var currentpage = 1;
     var max = 0;
     var Style = '@Model.FirstOrDefault().Style.ToString()';
@@ -131,5 +139,6 @@
         });
     });
 
-</script>
+    </script>
+}
 

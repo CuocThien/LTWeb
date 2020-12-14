@@ -282,7 +282,7 @@ namespace demo.Controllers
         }
 
         //hiển thị sản phẩm trong giỏ hàng
-      
+
         [HttpPost]
         public ActionResult Payment(FormCollection frm)
         {
@@ -459,7 +459,7 @@ namespace demo.Controllers
         [HttpPost]
         public ActionResult Login(User user)
         {
-            
+
             Session["Is Login"] = 0;
             Session["User"] = null;
             //Kiểm tra User có tồn tại trong database hay không
@@ -516,15 +516,32 @@ namespace demo.Controllers
         }
 
         //Xu ly san pham
-        public ActionResult _Product(int? page)
+        public ActionResult _Product(int? page, string brand, string id)
         {
-            
-            int pagesize = 4;
-            int pageNumber = (page ?? 1);
-            var result = _db.Products.OrderBy(id => id.ID);
-            return PartialView(result.ToPagedList(pageNumber, pagesize));
+            if (id == "product")
+            {
+                int pagesize = 4;
+                int pageNumber = (page ?? 1);
+                var result = _db.Products.OrderBy(x => x.ID);
+                return PartialView(result.ToPagedList(pageNumber, pagesize));
+            }
+            else if (id == "brand")
+            {
+                int pagesize = 4;
+                int pageNumber = (page ?? 1);
+                var result = _db.Products.Where(x => x.Brand == brand).OrderBy(ID => ID.ID);
+                return PartialView(result.ToPagedList(pageNumber, pagesize));
+            }
+            else if (id == "style")
+            {
+                int pagesize = 4;
+                int pageNumber = (page ?? 1);
+                var result = _db.Products.Where(x => x.Style == brand).OrderBy(ID => ID.ID);
+                return PartialView(result.ToPagedList(pageNumber, pagesize));
+            }
+            return View();
         }
-        
+
         [ValidateInput(false)]
         [HttpPost]
         public ActionResult AddProduct(FormCollection pro)
@@ -744,39 +761,32 @@ namespace demo.Controllers
         public ActionResult Profile(FormCollection frm)
         {
             User user = Session["User"] as User;
-             var u = _db.Users.Find(user.Username);
+            var u = _db.Users.Find(user.Username);
             u.Name = frm["Name"];
             u.Phone = frm["Phone"];
             u.Address = frm["Address"];
             u.Email = frm["Email"];
-            u.Birthday =DateTime.Parse(frm["Birthday"]);
-           
+            u.Birthday = DateTime.Parse(frm["Birthday"]);
+
             _db.Users.AddOrUpdate(u);
             _db.SaveChanges();
-           // return View();
+            // return View();
             return RedirectToAction("Profile", "Shop");
         }
 
         //hãng sản phẩm
-       //[HttpPost]
+        //[HttpPost]
         public ActionResult Brand(string id)
         {
+
             var brand = _db.Brands.Where(x => x.Name == id).SingleOrDefault();
             var list = new List<Product>();
             var pro = _db.Products.Where(x => x.Brand == brand.ID.ToString()).ToList();
             list = (List<Product>)pro;
             return View(list);
         }
-        
-        [HttpGet]
-        public ActionResult _Brand(int? page,string brand)
-        {
-            
-            int pagesize = 4;
-            int pageNumber = (page ?? 1)      ;
-            var result = _db.Products.Where(x=>x.Brand==brand).OrderBy(ID => ID.ID);
-            return PartialView(result.ToPagedList(pageNumber, pagesize));
-        }
+
+
 
         //Loại đồng hồ
         public ActionResult Style(string id)
@@ -787,15 +797,7 @@ namespace demo.Controllers
             return View(list);
         }
 
-        [HttpGet]
-        public ActionResult _Style(int? page, string style)
-        {
 
-            int pagesize = 4;
-            int pageNumber = (page ?? 1);
-            var result = _db.Products.Where(x => x.Style == style).OrderBy(ID => ID.ID);
-            return PartialView(result.ToPagedList(pageNumber, pagesize));
-        }
         public ActionResult ProDetail(string id)
         {
             var pro = _db.Products.Where(x => x.ID == id).ToList();
