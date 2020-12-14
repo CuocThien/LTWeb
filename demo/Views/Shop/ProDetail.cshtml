@@ -16,58 +16,74 @@
         else
         { Html.RenderAction("HeaderMenu", "Shop"); }
     }
-    
+
     <div class="container-fluid">
-            @if (!(Model is null))
-            {
-                var pro = Model.FirstOrDefault();
-        <div class="product" style="display:inline-block">
-            <div class="col-lg-4">
-                @{
-                    byte[] imgBytes = pro.Image;
-                    string image = System.Text.Encoding.ASCII.GetString(imgBytes);
-                }
-                @Html.Image(image, "Alternate Text", "300", "250")
-            </div>
-            <div class="col-lg-7">
-                <ul>
-                    <h2> ĐỒNG HỒ @pro.Name.ToUpper()</h2>
-                    <li>Mã sản phẩm:@pro.ID</li>
-                    <li>Giá tiền:@pro.Price</li>
-                    <li>Số Lượng:@pro.Quantity sản phẩm có sẵn</li>
-                    @{ if (user is null)
+        @if (!(Model is null))
+        {
+            var pro = Model.FirstOrDefault();
+            <div class="product" style="display:inline-block">
+                <div class="col-lg-4">
+                    @{
+                        byte[] imgBytes = pro.Image;
+                        string image = System.Text.Encoding.ASCII.GetString(imgBytes);
+                    }
+                    @Html.Image(image, "Alternate Text", "300", "250")
+                </div>
+                <div class="col-lg-7">
+                    <ul>
+                        <h2> ĐỒNG HỒ @pro.Name.ToUpper()</h2>
+                        <li>Mã sản phẩm:@pro.ID</li>
+                        <li>Giá tiền:@pro.Price</li>
+                        @if (pro.Quantity == 0 || pro.Quantity == null)
                         {
-                            <div class="AddCart">
-                                <h4><a href="/Shop/Login" id="buy">Chọn Mua</a></h4>
-                            </div>
+                    <li>Số Lượng:&emsp;<input style="border:none;text-align:center;width:70px;" type="number" min="0" max="0" value="0" onchange="changeHandler()" size="5" /> &emsp;sản phẩm có sẵn</li>
                         }
                         else
                         {
-                            <div class="AddCart">
-                                <h4><a href="/Shop/Cart?ProductID=@pro.ID&quantity=1" ,id="buy">Chọn Mua</a></h4>
-                            </div>
+                    <li>Số Lượng:&emsp;<input style="border:none;text-align:center;width:70px;" type="number" min="1" max="@pro.Quantity" value="@pro.Quantity" onchange="changeHandler()" />&emsp; sản phẩm có sẵn</li>
                         }
-                    }
-                </ul>
-            </div>
-        </div>
-                <div>
-                    <ul>
-                        <h2>Chi tiết sản phẩm</h2>
-                        <li>Kiểu: @pro.Style</li>
-                        <li>Thương hiệu:@pro.Brand1.Name</li>
-                        <li>Bảo hành @pro.Warranty tháng</li>
-                        <li>Nước sản xuất: @pro.Country</li>
+                        @{ if (user is null)
+                            {
+                                <div class="AddCart">
+                                    <h4><a href="/Shop/Login" id="buy">Chọn Mua</a></h4>
+                                </div>
+                            }
+                            else
+                            {
+                                if (pro.Quantity > 0)
+                                {
+                                    <div class="AddCart">
+                                        <h4><a href="/Shop/Cart?ProductID=@pro.ID&quantity=1" ,id="buy">Chọn Mua</a></h4>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="AddCart">
+                                        <h4><a href="#" style="pointer-events:none;color:gray">Chọn Mua</a></h4>
+                                    </div>
+                                }
+                            }
+                        }
                     </ul>
                 </div>
-                <div>
-                    <h2>Mô tả sản phẩm</h2>
-                    <span style="color:black">@Html.Raw(pro.Description)</span>
-                </div>
-              <div>
-                  <h2>Đánh giá sản phẩm</h2>
-              </div>
-            }
+            </div>
+            <div>
+                <ul>
+                    <h2>Chi tiết sản phẩm</h2>
+                    <li>Kiểu: @pro.Style</li>
+                    <li>Thương hiệu:@pro.Brand1.Name</li>
+                    <li>Bảo hành @pro.Warranty tháng</li>
+                    <li>Nước sản xuất: @pro.Country</li>
+                </ul>
+            </div>
+            <div>
+                <h2>Mô tả sản phẩm</h2>
+                <span style="color:black">@Html.Raw(pro.Description)</span>
+            </div>
+            <div>
+                <h2>Đánh giá sản phẩm</h2>
+            </div>
+        }
 
         <ul class="pager">
             <li><a id="minpage">|<<</a></li>
