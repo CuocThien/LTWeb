@@ -10,9 +10,9 @@
 
 <div class="container-fluid">
     <div id="loadProduct" class="products row">
-       @{ string brand = "all";
-          string id = "product";}
-        @{Html.RenderAction("_Product", "Shop", new { page = 1, brand,id});}
+        @{ string brand = "all";
+            string id = "home";}
+        @{Html.RenderAction("_Product", "Shop", new { page = 1, brand, id });}
     </div>
     <ul class="pager">
         <li><a id="minpage">|<<</a></li>
@@ -24,6 +24,8 @@
 <script>
     var currentpage = 1;
     var max = 0;
+    var Brand = 'all';
+    var ID = 'home';
     @{
         shopEntities db = new shopEntities();
     }
@@ -36,7 +38,9 @@
                 type: "GET",
                 url: "/Shop/_Product",
                 data: {
-                    page: currentpage
+                    page: currentpage,
+                    brand: Brand,
+                    id: ID
                 },
                 success: function (res) {
                     $('#loadProduct').html(res)
@@ -60,7 +64,9 @@
                 type: "GET",
                 url: "/Shop/_Product",
                 data: {
-                    page: currentpage
+                    page: currentpage,
+                    brand: Brand,
+                    id: ID
                 },
                 success: function (res) {
                     $('#loadProduct').html(res)
@@ -73,7 +79,9 @@
                 type: "GET",
                 url: "/Shop/_Product",
                 data: {
-                    page: currentpage
+                    page: currentpage,
+                    brand: Brand,
+                    id: ID
                 },
                 success: function (res) {
                     $('#loadProduct').html(res)
@@ -95,7 +103,9 @@
                 type: "GET",
                 url: "/Shop/_Product",
                 data: {
-                    page: currentpage
+                    page: currentpage,
+                    brand: Brand,
+                    id: ID
                 },
                 success: function (res) {
                     $('#loadProduct').html(res)

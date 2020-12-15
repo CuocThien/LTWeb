@@ -518,7 +518,7 @@ namespace demo.Controllers
         //Xu ly san pham
         public ActionResult _Product(int? page, string brand, string id)
         {
-            if (id == "product")
+            if (id == "home")
             {
                 int pagesize = 4;
                 int pageNumber = (page ?? 1);

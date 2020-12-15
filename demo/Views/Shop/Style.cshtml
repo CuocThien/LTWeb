@@ -49,7 +49,7 @@
     var currentpage = 1;
     var max = 0;
     var Style = '@Model.FirstOrDefault().Style.ToString()';
-
+        var ID = 'style';
     $(document).ready(function () {
 
         $('#previous').click(function () {
@@ -58,11 +58,11 @@
                     currentpage=1
             $.ajax({
                 type: "GET",
-                url: "/Shop/_Style",
+                url: "/Shop/_Product",
                 data: {
                     page: currentpage,
-                    style: Style
-
+                    brand: Style
+                    , id: ID
                 },
                 success: function (res) {
                     $('#loadProduct').html(res)
@@ -87,10 +87,11 @@
                 currentpage = 1;
             $.ajax({
                 type: "GET",
-                url: "/Shop/_Style",
+                url: "/Shop/_Product",
                 data: {
                     page: currentpage,
-                    style: Style
+                    brand: Style,
+                    id: ID
                 },
                 success: function (res) {
                     $('#loadProduct').html(res)
@@ -101,11 +102,11 @@
             currentpage = 1
             $.ajax({
                 type: "GET",
-                url: "/Shop/_Style",
+                url: "/Shop/_Product",
                 data: {
                     page: currentpage,
-                    style:Style
-
+                    brand: Style
+                    , id: ID
                 },
                 success: function (res) {
                     $('#loadProduct').html(res)
@@ -126,11 +127,11 @@
             currentpage = max;
             $.ajax({
                 type: "GET",
-                url: "/Shop/_Style",
+                url: "/Shop/_Product",
                 data: {
                     page: currentpage,
-                    style:Style
-
+                    brand: Style
+                    , id: ID
                 },
                 success: function (res) {
                     $('#loadProduct').html(res)
