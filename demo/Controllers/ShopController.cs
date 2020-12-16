@@ -520,21 +520,21 @@ namespace demo.Controllers
         {
             if (id == "home")
             {
-                int pagesize = 4;
+                int pagesize = 8;
                 int pageNumber = (page ?? 1);
                 var result = _db.Products.OrderBy(x => x.ID);
                 return PartialView(result.ToPagedList(pageNumber, pagesize));
             }
             else if (id == "brand")
             {
-                int pagesize = 4;
+                int pagesize = 8;
                 int pageNumber = (page ?? 1);
                 var result = _db.Products.Where(x => x.Brand == brand).OrderBy(ID => ID.ID);
                 return PartialView(result.ToPagedList(pageNumber, pagesize));
             }
             else if (id == "style")
             {
-                int pagesize = 4;
+                int pagesize = 8;
                 int pageNumber = (page ?? 1);
                 var result = _db.Products.Where(x => x.Style == brand).OrderBy(ID => ID.ID);
                 return PartialView(result.ToPagedList(pageNumber, pagesize));
@@ -594,7 +594,7 @@ namespace demo.Controllers
         [AuthorizeController]
         public ActionResult Home(int? page)
         {
-            int pagesize = 4;
+            int pagesize = 8;
             int pageNumber = (page ?? 1);
             var result = _db.Products.OrderBy(id => id.ID);
             return View(result.ToPagedList(pageNumber, pagesize));
@@ -608,7 +608,7 @@ namespace demo.Controllers
         [HttpGet]
         public ActionResult HomeGuest(int? page)
         {
-            int pagesize = 4;
+            int pagesize = 8;
             int pageNumber = (page ?? 1);
             var result = _db.Products.OrderBy(id => id.ID);
             return View(result.ToPagedList(pageNumber, pagesize));
