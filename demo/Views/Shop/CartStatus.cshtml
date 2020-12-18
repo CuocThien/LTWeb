@@ -196,12 +196,6 @@
 </div>
 <script>
     $(document).ready(function () {
-        $('.nav-item').click(function () {
-            var x = $('.Active')
-            x.removeClass();
-            x.addClass('nav-item')
-            $(this).addClass('Active');
-        });
         $('.DeleteOrder').click(function (e) {
             const current = e.currentTarget;
             var r = confirm("Bạn có chắc chắn muốn xóa đơn hàng này không?");

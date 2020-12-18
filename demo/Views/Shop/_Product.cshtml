@@ -10,45 +10,47 @@
     foreach (var pro in Model.ToList())
     {
         <div class="total col-lg-3">
-            <div class="product">
-                <p class="overlay"><a class="glyphicon glyphicon-pencil"></a><a class="glyphicon glyphicon-trash"></a></p>
-                @{
-                    byte[] imgBytes = pro.Image;
-                    string image = System.Text.Encoding.ASCII.GetString(imgBytes);
-                }
-                @Html.Image(image, "Alternate Text", "300", "250")
-                @*<div class="overlay">
-                        <div class="text">Hết Hàng</div>
-                    </div>*@
-            </div>
-            <div class="detail">
-                <span class="name_pro"><a href="/Shop/ProDetail?id=@pro.ID">@pro.Name</a></span>
-                <span style="font-size:15px; color:blue">Giá tiền:</span>
-                <br />
-                <div class="price">@pro.Price</div>
-
-                @{ if (user is null)
-                    {
-                        <div class="AddCart">
-                            <h4><a href="/Shop/Login" id="buy">Chọn Mua</a></h4>
-                        </div>
+            <div class="product-detail">
+                <div class="product">
+                    <p class="overlay"><a class="glyphicon glyphicon-pencil"></a><a class="glyphicon glyphicon-trash"></a></p>
+                    @{
+                        byte[] imgBytes = pro.Image;
+                        string image = System.Text.Encoding.ASCII.GetString(imgBytes);
                     }
-                    else
-                    {
-                        if (pro.Quantity > 0)
+                    @Html.Image(image, "Alternate Text", "300", "250")
+                    @*<div class="overlay">
+                <div class="text">Hết Hàng</div>
+            </div>*@
+                </div>
+                <div class="detail">
+                    <span class="name_pro"><a href="/Shop/ProDetail?id=@pro.ID">@pro.Name</a></span>
+                    <span style="font-size:15px; color:blue">Giá tiền:</span>
+                    <br />
+                    <div class="price">@(((float)pro.Price).ToString("N0")) đ</div>
+
+                    @{ if (user is null)
                         {
                             <div class="AddCart">
-                                <h4><a href="/Shop/Cart?ProductID=@pro.ID&quantity=1" ,id="buy">Chọn Mua</a></h4>
+                                <h4><a href="/Shop/Login" id="buy">Chọn Mua</a></h4>
                             </div>
                         }
                         else
                         {
-                            <div class="AddCart">
-                                <h4><a href="#" style="pointer-events:none;color:gray">Chọn Mua</a></h4>
-                            </div>
+                            if (pro.Quantity > 0)
+                            {
+                                <div class="AddCart">
+                                    <h4><a href="/Shop/Cart?ProductID=@pro.ID&quantity=1" ,id="buy">Chọn Mua</a></h4>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="AddCart">
+                                    <h4><a href="#" style="pointer-events:none;color:gray">Chọn Mua</a></h4>
+                                </div>
+                            }
                         }
                     }
-                }
+                </div>
             </div>
         </div>
     }

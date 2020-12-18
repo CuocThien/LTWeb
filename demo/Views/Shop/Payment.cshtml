@@ -20,107 +20,107 @@
                 <div class="content" style="display:flex">
                     <span class="Address" id="name">@ID.User.Name &ensp;</span>
                     <span class="Address" id="phone"> @ID.User.Phone&ensp;</span>
-                    <span  class="Address" id="address">@ID.User.Address</span>
+                    <span class="Address" id="address">@ID.User.Address</span>
                     <a href="#" data-id="">Sửa</a>
                 </div>
-                }
-                <!-- Begin empty cart -->
-                @*<div class="row">
-                    <div class="section group">
-                        <form>
-                            <div class="col-md-6">*@
+            }
+            <!-- Begin empty cart -->
+            @*<div class="row">
+                <div class="section group">
+                    <form>
+                        <div class="col-md-6">*@
 
 
-                                @*using (Html.BeginForm("Payment", "Shop", FormMethod.Post))
-                            {
-                                var Name = ID.User.Name;
-                                var Mobile = ID.User.Phone;
-                                var Address = ID.User.Address;
-                                <div class="form-group">
-                                    <label>Người nhận</label>
-                                    <input name="shipName" id="name" class="form-control" value="@Name" />
-                                </div>
-                                <div class="form-group">
-                                    <label>Điện thoại</label>
-                                    <input name="mobile" id="phone" class="form-control" value="@Mobile" />
-                                </div>
-                                <div class="form-group">
-                                    <label>Địa chỉ</label>
-                                    <input name="address" id="address" class="form-control" value="@Address" />
-                                </div>
+            @*using (Html.BeginForm("Payment", "Shop", FormMethod.Post))
+                {
+                    var Name = ID.User.Name;
+                    var Mobile = ID.User.Phone;
+                    var Address = ID.User.Address;
+                    <div class="form-group">
+                        <label>Người nhận</label>
+                        <input name="shipName" id="name" class="form-control" value="@Name" />
+                    </div>
+                    <div class="form-group">
+                        <label>Điện thoại</label>
+                        <input name="mobile" id="phone" class="form-control" value="@Mobile" />
+                    </div>
+                    <div class="form-group">
+                        <label>Địa chỉ</label>
+                        <input name="address" id="address" class="form-control" value="@Address" />
+                    </div>
 
-                            }*@
-                                
+                }*@
 
-                            @*</div>
-                        </form>
-                    </div>*@
 
-                    <div id="layout-page" class="col-md-12 col-sm-12 col-xs-12" margin-left:10px">
+            @*</div>
+                    </form>
+                </div>*@
 
-                        @{
-                            if (Model.Count > 0)
+            <div id="layout-page" class="col-md-12 col-sm-12 col-xs-12" margin-left:10px">
 
-                            {
-                                <table class="table-cart">
+                @{
+                    if (Model.Count > 0)
 
-                                    <thead>
-                                        <tr>
-                                            <th style="text-align: center;">Ảnh SP</th>
-                                            <th style="text-align: center;">Mã SP</th>
-                                            <th style="text-align: center;">Tên SP</th>
-                                            <th style="text-align: center;">Số lượng</th>
-                                            <th style="text-align: center;">Đơn giá</th>
-                                            <th style="text-align: center;">Thành tiền</th>
-                                            <th style="text-align: center;"></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach (var item in Model)
-                                        {
-                                            var temp = (item.Product.Price.GetValueOrDefault(0) * item.Quantity);
-                                            <tr>
-                                                @{
-                                                    byte[] imgBytes = item.Product.Image;
-                                                    string image = System.Text.Encoding.ASCII.GetString(imgBytes);
-                                                }
+                    {
+                        <table class="table-cart">
 
-                                                <td style="width: 15%;text-align:center;">@Html.Image(image, "Alternate Text", "100", "150")</td>
-                                                <td style="width:5% ;text-align:center;">@item.Product.ID</td>
-                                                <td style="width: 40%;text-align:center;">@item.Product.Name</td>
-                                                <td style="width: 5%;"><input style="border:none;text-align:center;" type="number" min="0" max="@item.Product.Quantity" class="txtquantity" id="sl" data-id="@item.Product.ID" value="@item.Quantity" onchange="changeHandler()" /></td>
-                                                <td style="width: 15%;text-align:center;" id="price">@(item.Product.Price.GetValueOrDefault(0).ToString("N0"))</td>
-                                                <td style="width: 15%;text-align:center;" id="totalprice">@(((float)temp).ToString("N0"))</td>
-                                            </tr>
-
+                            <thead>
+                                <tr>
+                                    <th style="text-align: center;">Ảnh SP</th>
+                                    <th style="text-align: center;">Mã SP</th>
+                                    <th style="text-align: center;">Tên SP</th>
+                                    <th style="text-align: center;">Số lượng</th>
+                                    <th style="text-align: center;">Đơn giá</th>
+                                    <th style="text-align: center;">Thành tiền</th>
+                                    <th style="text-align: center;"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    var temp = (item.Product.Price.GetValueOrDefault(0) * item.Quantity);
+                                    <tr>
+                                        @{
+                                            byte[] imgBytes = item.Product.Image;
+                                            string image = System.Text.Encoding.ASCII.GetString(imgBytes);
                                         }
-                                    </tbody>
-                                </table>
 
-                            }
-                        }
-                        @{float total = 0; }
-                        @foreach (var item in Model)
-                        {
-                            total += (float)(item.Product.Price.GetValueOrDefault(0) * item.Quantity);
+                                        <td style="width: 15%;text-align:center;">@Html.Image(image, "Alternate Text", "100", "150")</td>
+                                        <td style="width:5% ;text-align:center;">@item.Product.ID</td>
+                                        <td style="width: 40%;text-align:center;">@item.Product.Name</td>
+                                        <td style="width: 5%;"><input style="border:none;text-align:center;" type="number" min="0" max="@item.Product.Quantity" class="txtquantity" id="sl" data-id="@item.Product.ID" value="@item.Quantity" onchange="changeHandler()" /></td>
+                                        <td style="width: 15%;text-align:center;" id="price">@(item.Product.Price.GetValueOrDefault(0).ToString("N0"))</td>
+                                        <td style="width: 15%;text-align:center;" id="totalprice">@(((float)temp).ToString("N0"))</td>
+                                    </tr>
+
+                                }
+                            </tbody>
+                        </table>
+
+                    }
+                }
+                @{float total = 0; }
+                @foreach (var item in Model)
+                {
+                    total += (float)(item.Product.Price.GetValueOrDefault(0) * item.Quantity);
 
 
-                        }
-                        <div>Tổng tiền hàng : @total.ToString("N0") đ</b></div>
+                }
+                <div>Tổng tiền hàng : @total.ToString("N0") đ</div>
 
-                        <button type="submit" id="send" class="btn" style=" margin-left: 50px; margin-top: 50px; float: right; width: 12%; height: 40px;">Thanh toán</button>
-                        <div class="row">
-                            <div class="col-md-12 col-sm-12  col-xs-12 continue-shop">
-                                <a href="~/Shop/Home"><i class="fa fa-reply"></i>Tiếp tục mua hàng</a>
-                            </div>
-                        </div>
-
+                <button type="submit" id="send" class="btn" style=" margin-left: 50px; margin-top: 50px; float: right; width: 12%; height: 40px;">Thanh toán</button>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12  col-xs-12 continue-shop">
+                        <a href="~/Shop/Home"><i class="fa fa-reply"></i>Tiếp tục mua hàng</a>
                     </div>
                 </div>
-                <!-- End cart -->
+
             </div>
+        </div>
+        <!-- End cart -->
     </div>
 </div>
+
 
 
 <script>

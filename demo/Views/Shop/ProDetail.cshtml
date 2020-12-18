@@ -40,7 +40,7 @@
                         }
                         else
                         {
-                    <li>Số Lượng:&emsp;<input style="border:none;text-align:center;width:70px;" type="number" min="1" max="@pro.Quantity" value="@pro.Quantity" onchange="changeHandler()" />&emsp; sản phẩm có sẵn</li>
+                    <li>Số Lượng:&emsp;<input id="quantity" style="border:none;text-align:center;width:70px;" type="number" min="1" max="@pro.Quantity" value="@pro.Quantity" onchange="changeHandler()" />&emsp; sản phẩm có sẵn</li>
                         }
                         @{ if (user is null)
                             {
@@ -93,99 +93,17 @@
         </ul>
     </div>
 </div>
-
+@* Đánh giá sản phẩm (phân trang) *@
 <script>
-    var currentpage = 1;
-    var max = 0;
-    var BR = '@Model.FirstOrDefault().Brand.ToString()';
-
     $(document).ready(function () {
-
-        $('#previous').click(function () {
-                currentpage = currentpage - 1;
-                if (currentpage <= 0)
-                    currentpage=1
-            $.ajax({
-                type: "GET",
-                url: "/Shop/_Brand",
-                data: {
-                    page: currentpage,
-                    brand: BR
-
-                },
-                success: function (res) {
-                    $('#loadProduct').html(res)
-                }
-            });
-        });
-           $('#next').click(function () {
-
-            pagesize = 4;
-            var max = 0;
-            var size = (@Model.Count()) / pagesize;
-            if ((@Model.Count()) % pagesize == 0) {
-                max = (@Model.Count()) / pagesize;
-            }
-            else {
-                max = Math.floor(((@Model.Count()) / pagesize) + 1);
-            }
-            currentpage = currentpage + 1;
-            if (currentpage > max)
-                currentpage = max;
-            if (max == 1)
-                currentpage = 1;
-            $.ajax({
-                type: "GET",
-                url: "/Shop/_Brand",
-                data: {
-                    page: currentpage,
-                    brand: BR
-                },
-                success: function (res) {
-                    $('#loadProduct').html(res)
-                }
-            });
-        });
-        $('#minpage').click(function () {
-            currentpage = 1
-            $.ajax({
-                type: "GET",
-                url: "/Shop/_Brand",
-                data: {
-                    page: currentpage,
-                    brand:BR
-
-                },
-                success: function (res) {
-                    $('#loadProduct').html(res)
-                }
-            });
-        });
-        $('#maxpage').click(function () {
-            pagesize = 4;
-            var max = 0;
-            var size = (@Model.Count()) / pagesize;
-            if ((@Model.Count()) % pagesize == 0) {
-                max = (@Model.Count()) / pagesize;
-            }
-            else {
-                max = Math.floor(((@Model.Count()) / pagesize) + 1);
-            }
-            console.log(max);
-            currentpage = max;
-            $.ajax({
-                type: "GET",
-                url: "/Shop/_Brand",
-                data: {
-                    page: currentpage,
-                    brand:BR
-
-                },
-                success: function (res) {
-                    $('#loadProduct').html(res)
-                }
-            });
+        $("#quantity").keyup(function () {
+            var sl =@Model.FirstOrDefault().Quantity;
+            var x = document.getElementById("quantity");
+            x = x.valueAsNumber;
+            if (sl < x)
+                $(this).val(sl);
+            if (x < 0)
+                $(this).val(0);
         });
     });
-
 </script>

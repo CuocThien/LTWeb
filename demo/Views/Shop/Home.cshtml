@@ -48,7 +48,7 @@
             });
         });
         $('#next').click(function () {
-            pagesize = 4;
+            pagesize = 8;
             var max = 0;
             var size = (@db.Products.Count()) / pagesize;
             if ((@db.Products.Count()) % pagesize == 0) {
@@ -89,7 +89,7 @@
             });
         });
         $('#maxpage').click(function () {
-            pagesize = 4;
+            pagesize = 8;
             var max = 0;
             var size = (@db.Products.Count()) / pagesize;
             if ((@db.Products.Count()) % pagesize == 0) {
