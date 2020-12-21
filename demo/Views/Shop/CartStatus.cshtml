@@ -163,7 +163,6 @@
                                                         <td style="width: 5%;"><input style="border:none;text-align:center;" type="number" min="1" max="@item.Product.Quantity" class="txtquantity" id="sl" data-id="@item.Product.ID" value="@item.Quantity" onchange="changeHandler()" /></td>
                                                         <td style="width: 15%;text-align:center;" id="price">@(item.Product.Price.GetValueOrDefault(0).ToString("N0"))</td>
                                                         <td style="width: 15%;text-align:center;" id="totalprice">@(((float)temp).ToString("N0"))</td>
-                                                        <td style="width: 5%;text-align:center;"><div class="Deletepro"><a href="#" data-id="@item.Product.ID">Xóa</a></div></td>
                                                     </tr>
                                                 }
                                             }
@@ -178,11 +177,13 @@
 
                                     }
 
-
-
                                 </tbody>
-                            </table>
 
+                            </table>
+                            if (status == "Finish" && user.isAdmin == true)
+                            {
+                                <a href="@Url.Action("DownloadExcel","Shop")">Download Excel Order</a>
+                            }
                         }
                         else
                         {

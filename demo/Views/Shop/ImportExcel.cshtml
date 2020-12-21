@@ -1,0 +1,31 @@
+﻿<style>
+    #viewContent {
+        border-top: solid 2px #CCC;
+    }
+
+        #viewContent > form > span {
+            display: block;
+            color: red;
+        }
+
+        #viewContent h3 {
+            border-bottom: none;
+        }
+</style>
+@using PagedList.Mvc;
+@using demo.Model;
+@model demo.Model.ImportExcel
+@{ ViewBag.Title = "ImportExcel";}
+@using demo.Controllers;
+
+@*@{ Html.RenderAction("HeaderMenu", "Shop");}*@
+<h1>Import Excel File </h1>
+<div id="viewContent">
+    <h3>@ViewBag.Result</h3>
+    @using (Html.BeginForm("ImportExcel", "Shop", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.TextBoxFor(m => m.file, new { type = "file" })
+        <button id="submitButton" type="submit">Submit</button>
+        @Html.ValidationMessageFor(model => model.file)
+    }
+</div>

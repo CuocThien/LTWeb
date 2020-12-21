@@ -2,11 +2,16 @@
 using Facebook;
 using MailKit.Net.Smtp;
 using MimeKit;
+using MongoDB.Bson;
+using MongoDB.Driver;
+using OfficeOpenXml;
 using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.Entity.Migrations;
+using System.Data.OleDb;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Web.Mvc;
@@ -819,6 +824,99 @@ namespace demo.Controllers
         {
             var pro = _db.Products.Where(x => x.ID == id).ToList();
             return View(pro);
+        }
+
+        public ActionResult ImportExcel(demo.Model.ImportExcel importExcel)
+        {
+            if (ModelState.IsValid)
+            {
+                string path = Server.MapPath("~/Import/" + importExcel.file.FileName);
+                importExcel.file.SaveAs(path);
+
+                string excelConnectionString = @"Provider='Microsoft.ACE.OLEDB.12.0';Data Source='" + path + "';Extended Properties='Excel 12.0 Xml;IMEX=1'";
+                OleDbConnection excelConnection = new OleDbConnection(excelConnectionString);
+
+                //Sheet Name
+                excelConnection.Open();
+                string tableName = excelConnection.GetSchema("Tables").Rows[0]["TABLE_NAME"].ToString();
+                excelConnection.Close();
+                //End
+
+                OleDbCommand cmd = new OleDbCommand("Select * from [" + tableName + "]", excelConnection);
+
+                excelConnection.Open();
+
+                OleDbDataReader dReader;
+                dReader = cmd.ExecuteReader();
+
+                string conString = "data source=.;initial catalog=shop;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework&quot;";
+                SqlConnection con = new SqlConnection(conString);
+                SqlBulkCopy sqlBulk = new SqlBulkCopy(con);
+
+                //Give your Destination table name
+                sqlBulk.DestinationTableName = "Products";
+
+                //Mappings
+
+                sqlBulk.ColumnMappings.Add("ID", "ID");
+                sqlBulk.ColumnMappings.Add("Name", "Name");
+                sqlBulk.ColumnMappings.Add("Price", "Price");
+                sqlBulk.ColumnMappings.Add("Quantity", "Quantity");
+                sqlBulk.ColumnMappings.Add("Warranty", "Warranty");
+                sqlBulk.ColumnMappings.Add("Price_New", "Price_New");
+                sqlBulk.ColumnMappings.Add("TopHot", "TopHot");
+                sqlBulk.ColumnMappings.Add("DateCreate", "DateCreate");
+                sqlBulk.ColumnMappings.Add("Description", "Description");
+                sqlBulk.ColumnMappings.Add("Style", "Style");
+                sqlBulk.ColumnMappings.Add("Brand", "Brand");
+                sqlBulk.ColumnMappings.Add("Country", "Country");
+                sqlBulk.ColumnMappings.Add("Image", "Image");
+                con.Open();
+                sqlBulk.WriteToServer(dReader);
+                con.Close();
+                excelConnection.Close();
+
+                ViewBag.Result = "Successfully Imported";
+                return RedirectToAction("Home", "Shop");
+            }
+            return View();
+        }
+
+        public void DownloadExcel()
+        {
+            var collection = _db.OrderDetails.ToList();
+            ExcelPackage.LicenseContext = LicenseContext.Commercial;
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            // var collection= db.
+
+            ExcelPackage Ep = new ExcelPackage();
+            ExcelWorksheet Sheet = Ep.Workbook.Worksheets.Add("ReportOrder");
+            Sheet.Cells["A1"].Value = "ID_Order";
+            Sheet.Cells["B1"].Value = "Name";
+            Sheet.Cells["C1"].Value = "ID_Product";
+            Sheet.Cells["D1"].Value = "Product_Name";
+            Sheet.Cells["E1"].Value = "Quantity";
+            Sheet.Cells["F1"].Value = "Price";
+            int row = 2;
+            foreach (var item in collection)
+            {
+
+                Sheet.Cells[string.Format("A{0}", row)].Value = item.ID_Order;
+                Sheet.Cells[string.Format("B{0}", row)].Value = item.Order.User.Name;
+                Sheet.Cells[string.Format("C{0}", row)].Value = item.ID_Product;
+                Sheet.Cells[string.Format("D{0}", row)].Value = item.Product.Name;
+                Sheet.Cells[string.Format("E{0}", row)].Value = item.Quantity;
+                Sheet.Cells[string.Format("F{0}", row)].Value = item.Price;
+                row++;
+            }
+
+
+            Sheet.Cells["A:AZ"].AutoFitColumns();
+            Response.Clear();
+            Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+            Response.AddHeader("content-disposition", "attachment: filename=" + "ReportOrder.xlsx");
+            Response.BinaryWrite(Ep.GetAsByteArray());
+            Response.End();
         }
     }
 }
