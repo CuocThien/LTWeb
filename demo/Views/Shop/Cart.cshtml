@@ -54,7 +54,7 @@
                     @{
                         if (Model.Count > 0)
                         {
-                            <table class="table-cart">
+                            <table id="tb1" class="table-cart">
 
                                 <thead>
                                     <tr>
@@ -71,7 +71,7 @@
                                     @foreach (var item in Model)
                                     {
                                         var temp = (item.Product.Price.GetValueOrDefault(0) * item.Quantity);
-                                        <tr>
+                                        <tr class="onRow">
                                             @{
                                                 byte[] imgBytes = item.Product.Image;
                                                 string image = System.Text.Encoding.ASCII.GetString(imgBytes);
@@ -80,25 +80,25 @@
                                             <td style="width: 15%;text-align:center;">@Html.Image(image, "Alternate Text", "100", "150")</td>
                                             <td style="width:5% ;text-align:center;">@item.Product.ID</td>
                                             <td style="width: 40%;text-align:center;">@item.Product.Name</td>
-                                            <td style="width: 5%;"><input style="border:none;text-align:center;" type="number" min="1" max="@item.Product.Quantity" class="txtquantity" id="sl" data-id="@item.Product.ID" value="@item.Quantity" onchange="changeHandler()" /></td>
+                                            <td style="width: 5%;"><input style="border:none;text-align:center;" type="number" min="1" max="@item.Product.Quantity" class="txtquantity" id="quantity" data-id="@item.Product.ID" value="@item.Quantity" onchange="changeHandler()" /></td>
                                             <td style="width: 15%;text-align:center;" id="price">@(item.Product.Price.GetValueOrDefault(0).ToString("N0"))</td>
                                             <td style="width: 15%;text-align:center;" id="totalprice">@(((float)temp).ToString("N0"))</td>
                                             <td style="width: 5%;text-align:center;"><div class="Deletepro"><a href="#" data-id="@item.Product.ID">Xóa</a></div></td>
                                         </tr>
 
-                                    }
+                                                }
                                 </tbody>
                             </table>
 
-                        }
-                        else
-                        {
-                            {
+                                                }
+                                                else
+                                                {
+                                                    {
                                 <p class="text-center">
                                     Không có sản phẩm nào trong giỏ hàng!
                                 </p>
-                            }
-                        }
+                                                    }
+                                                }
                     }
 
 
@@ -133,14 +133,14 @@
 <script>
             $(document).ready(function () {
                 @{shopEntities _db = new shopEntities(); }
-
+              
                 $('.Deletepro').click(function (e)
                 {
-                        const current = e.currentTarget;
-                        var r = confirm("Bạn có chắc chắn muốn xóa sản phẩm này không?");
-                        if (r == true) {
+                       const current = e.currentTarget;
+                       var r = confirm("Bạn có chắc chắn muốn xóa sản phẩm này không?");
+                       if (r == true) {
                         $.ajax({
-                            data: { ID: current.children[0].dataset.id },
+                           data: { ID: current.children[0].dataset.id },
                             url: '/Shop/Delete',
                             dataType: 'json',
                             type: 'POST',
@@ -196,7 +196,15 @@
                 $('#btnPayment').click(function () {
 
                         window.location.href = "/Shop/Payment";
-                    });
+                });
+                //$('#tb1 tr').click(function (e) {
+                //    var pro = $(this).closest('.onRow').find('td:nth-child(2)').text();
+                //        alert(pro);
+                //    $('#quantity').keyup(function () {
+                //        alert(product);
+                //        });
+
+                //});
 
             });
 

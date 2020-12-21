@@ -87,8 +87,9 @@
 
 
                                             }
-                                            <tr class="line">
-                                                <td colspan="7"></td>
+
+                                            <tr>
+                                                <td colspan="7"><br /><br /><br /></td>
                                             </tr>
 
                                             <tr>
@@ -139,29 +140,40 @@
                                                     }
                                                 }
                                             </tr>
-
+                                            <tr>
+                                                <td colspan="7"><br /></td>
+                                            </tr>
 
                                             k = i.ID_Order;
 
                                             foreach (var item in Model)
                                             {
-                                                var temp = (item.Product.Price.GetValueOrDefault(0) * item.Quantity);
-                                                <tr>
-                                                    @{
-                                                        byte[] imgBytes = item.Product.Image;
-                                                        string image = System.Text.Encoding.ASCII.GetString(imgBytes);
-                                                    }
+                                                if (k == item.ID_Order)
+                                                {
+                                                    var temp = (item.Product.Price.GetValueOrDefault(0) * item.Quantity);
+                                                    <tr>
+                                                        @{
+                                                            byte[] imgBytes = item.Product.Image;
+                                                            string image = System.Text.Encoding.ASCII.GetString(imgBytes);
+                                                        }
 
-                                                    <td style="width: 15%;text-align:center;">@Html.Image(image, "Alternate Text", "100", "150")</td>
-                                                    <td style="width:5% ;text-align:center;">@item.Product.ID</td>
-                                                    <td style="width: 40%;text-align:center;">@item.Product.Name</td>
-                                                    <td style="width: 5%;"><input style="border:none;text-align:center;" type="number" min="1" max="@item.Product.Quantity" class="txtquantity" id="sl" data-id="@item.Product.ID" value="@item.Quantity" onchange="changeHandler()" /></td>
-                                                    <td style="width: 15%;text-align:center;" id="price">@(item.Product.Price.GetValueOrDefault(0).ToString("N0"))</td>
-                                                    <td style="width: 15%;text-align:center;" id="totalprice">@(((float)temp).ToString("N0"))</td>
-                                                    <td style="width: 5%;text-align:center;"><div class="Deletepro"><a href="#" data-id="@item.Product.ID">Xóa</a></div></td>
-                                                </tr>
-
+                                                        <td style="width: 15%;text-align:center;">@Html.Image(image, "Alternate Text", "100", "150")</td>
+                                                        <td style="width:5% ;text-align:center;">@item.Product.ID</td>
+                                                        <td style="width: 40%;text-align:center;">@item.Product.Name</td>
+                                                        <td style="width: 5%;"><input style="border:none;text-align:center;" type="number" min="1" max="@item.Product.Quantity" class="txtquantity" id="sl" data-id="@item.Product.ID" value="@item.Quantity" onchange="changeHandler()" /></td>
+                                                        <td style="width: 15%;text-align:center;" id="price">@(item.Product.Price.GetValueOrDefault(0).ToString("N0"))</td>
+                                                        <td style="width: 15%;text-align:center;" id="totalprice">@(((float)temp).ToString("N0"))</td>
+                                                        <td style="width: 5%;text-align:center;"><div class="Deletepro"><a href="#" data-id="@item.Product.ID">Xóa</a></div></td>
+                                                    </tr>
+                                                }
                                             }
+                                            <tr>
+                                                <td colspan="7"><br /><br /><br /></td>
+                                            </tr>
+                                            <tr class="line">
+                                                <td colspan="7"></td>
+                                            </tr>
+
                                         }
 
                                     }
@@ -207,7 +219,7 @@
                     type: 'POST',
                     success: function (res) {
                         if (res.status == true) {
-                            window.location.href = "/Shop/Wait";
+                            window.location.href = "/Shop/CartStatus?status=wait";
                         }
                     }
                 })
@@ -224,7 +236,7 @@
                     type: 'POST',
                     success: function (res) {
                         if (res.status == true) {
-                            window.location.href = "/Shop/Wait";
+                            window.location.href = "/Shop/CartStatus?status=wait";
                         }
                     }
                 })
@@ -241,7 +253,7 @@
                     type: 'POST',
                     success: function (res) {
                         if (res.status == true) {
-                            window.location.href = "/Shop/Delivery";
+                            window.location.href = "/Shop/CartStatus?status=delivery";
                         }
                     }
                 })

@@ -291,9 +291,9 @@ namespace demo.Controllers
             var ID = _db.Orders.Where(o => o.ID_Customer == user.Username && o.status == "Cart").SingleOrDefault();
             // var order = new Order();
             ID.Date_Create = DateTime.Now;
-            ID.shipAddress = frm["address"];
-            ID.shipMobile = frm["mobile"];
-            ID.shipName = frm["shipName"];
+            ID.shipAddress = frm["address"].Trim();
+            ID.shipMobile = frm["mobile"].Trim();
+            ID.shipName = frm["shipName"].Trim();
             ID.status = "Wait";
             _db.Orders.AddOrUpdate(ID);
             _db.SaveChanges();
@@ -343,6 +343,14 @@ namespace demo.Controllers
             var ID = _db.Orders.Where(o => o.ID_Order == Id).SingleOrDefault();
             ID.status = "Delivery";
             ID.Date_delivery = DateTime.Now;
+            var pros = _db.OrderDetails.Where(p => p.ID_Order == ID.ID_Order).ToList();
+            foreach (var pro in pros)
+            {
+                var tmp = _db.Products.Where(x => x.ID == pro.ID_Product).SingleOrDefault();
+                var count = tmp.Quantity;
+                count=count-pro.Quantity;
+                tmp.Quantity = count;
+            }
             _db.Orders.AddOrUpdate(ID);
             _db.SaveChanges();
             if (user.isAdmin == true)
@@ -373,6 +381,14 @@ namespace demo.Controllers
             var ID = _db.Orders.Where(o => o.ID_Order == Id).SingleOrDefault();
             ID.status = "Finish";
             ID.Date_Recived = DateTime.Now;
+            var pros = _db.OrderDetails.Where(p => p.ID_Order == ID.ID_Order).ToList();
+            foreach (var pro in pros)
+            {
+                var tmp = _db.Products.Where(x => x.ID == pro.ID_Product).SingleOrDefault();
+                var count = int.Parse(tmp.TopHot);
+                count=count+int.Parse(pro.Quantity.ToString());
+                tmp.TopHot = count.ToString();
+            }
             _db.Orders.AddOrUpdate(ID);
             _db.SaveChanges();
             var dh = _db.Orders.Where(o => o.status == "Delivery").ToList();
@@ -574,6 +590,7 @@ namespace demo.Controllers
                 product.Style = pro["Style"];
                 product.Warranty = int.Parse(pro["Warranty"]);
                 product.Quantity = int.Parse(pro["Quantity"]);
+                product.TopHot = "0";
                 _db.Products.Add(product);
                 _db.SaveChanges();
                 return View("AddProduct");

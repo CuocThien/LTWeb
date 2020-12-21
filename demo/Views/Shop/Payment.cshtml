@@ -18,8 +18,8 @@
                 <h2>Địa chỉ nhận hàng</h2>
 
                 <div class="content" style="display:flex">
-                    <span class="Address" id="name">@ID.User.Name &ensp;</span>
-                    <span class="Address" id="phone"> @ID.User.Phone&ensp;</span>
+                    <span class="Address" id="name">@ID.User.Name</span>&ensp;
+                    <span class="Address" id="phone"> @ID.User.Phone</span>&ensp;
                     <span class="Address" id="address">@ID.User.Address</span>
                     <a href="#" data-id="">Sửa</a>
                 </div>
@@ -126,9 +126,9 @@
 <script>
     $(document).ready(function () {
         $("#send").click(function () {
-            var name = $('#name').val();
-            var phone = $('#phone').val();
-            var address = $('#address').val();
+            var name = $('#name')[0].textContent;
+            var phone = $('#phone')[0].textContent;
+            var address = $('#address')[0].textContent;
             $.ajax({
                 url: "/Shop/Payment",
                 type: "POST",
