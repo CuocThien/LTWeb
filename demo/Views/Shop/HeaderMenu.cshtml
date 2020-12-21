@@ -29,7 +29,7 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="/Shop/Profile">Tài khoản của tôi</a>
                             </li>
-                            <li class="nav-item Active">
+                            <li class="nav-item">
                                 <a class="nav-link" href="/Shop/Cart">Đơn mua</a>
                             </li>
                             <li class="nav-item">
@@ -105,21 +105,33 @@
             if (!(user is null) && user.isAdmin == true)
             {
                 <ul id="admin" class="nav navbar-nav center_nav pull-right">
+                    <li class="nav-item submenu dropdown ">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">THỐNG KÊ</a>
+                        <ul class="dropdown-menu">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Chart/Chart?chart=prochart">SẢN PHẨM</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Chart/Chart?chart=revenue">TỔNG DOANH THU</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Chart/Chart?chart=topcustomers">TOP 3 KHÁCH HÀNG</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Chart/Chart?chart=topproducts">TOP 20 SẢN PHẨM</a>
+                            </li>
+                        </ul>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="~/Shop/AddProduct">THÊM SẢN PHẨM</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">CHỈNH SỬA SẢN PHẨM</a>
                     </li>
+
                 </ul>
             }
         }
     </div>
 
-    @*<div class="Search" style="display:block; margin-left:50px">
-            <input class="" style="border: 1px solid #ffca28;" type="text" placeholder="Search" aria-label="Search">
-            <a href="#">
-                <i class="glyphicon glyphicon-search"></i>
-            </a>
-        </div>*@
 </div>

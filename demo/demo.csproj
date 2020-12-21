@@ -863,6 +863,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ChartController.cs" />
     <Compile Include="Controllers\Check.cs" />
     <Compile Include="Controllers\FormatIMG.cs" />
     <Compile Include="Controllers\ShopController.cs" />
@@ -873,6 +874,7 @@
     <Compile Include="Model\Brand.cs">
       <DependentUpon>shop.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\DataPoint.cs" />
     <Compile Include="Model\Order.cs">
       <DependentUpon>shop.tt</DependentUpon>
     </Compile>
@@ -956,6 +958,7 @@
     <Content Include="Views\Shop\HeaderMenu.cshtml" />
     <Content Include="Views\Shop\HeaderMenuGuest.cshtml" />
     <Content Include="Views\Shop\CartStatus.cshtml" />
+    <Content Include="Views\Chart\Chart.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

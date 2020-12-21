@@ -1,0 +1,97 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE HTML>
+<html>
+<head>
+
+    <script>
+
+		let m ="@Html.Raw(ViewBag.Message)"
+		window.onload = function () {
+			if (m == "prochart") {
+				var chart = new CanvasJS.Chart("chartContainer", {
+					theme: "light1", // "light1", "light2", "dark1", "dark2"
+					exportEnabled: true,
+					animationEnabled: true,
+					title: {
+						text: "Tổng số lượng sản phẩm theo từng hãng",
+						fontFamily: "arial",
+						fontSize: 50,
+						fontWeight: "bold", fontColor: "red"
+					},
+					data: [{
+						type: "pie",
+						startAngle: 180,
+						toolTipContent: "<b>{label}</b>: {y}%",
+						showInLegend: "true",
+						legendText: "{label}",
+						indexLabel: "{label} - {y}%",
+						dataPoints: @Html.Raw(ViewBag.DataPoints)}]
+				});
+				chart.render();
+			}
+			else if (m == "revenue") {
+				var chart = new CanvasJS.Chart("chartContainer", {
+					animationEnabled: true,
+                    title: {
+                        text: "Doanh thu", fontFamily: "arial",
+                        fontSize: 50,
+                        fontWeight: "bold", fontColor: "red"},
+					axisX: {valueFormatString: "DD MMM"},
+					axisY: {
+						title: "Tổng tiền",
+						prefix: "VNĐ"},
+					data: [{
+						type: "spline",
+						xValueType: "dateTime",
+						xValueFormatString: "DD MMM",
+						yValueFormatString: "$#,###",
+						dataPoints: @Html.Raw(ViewBag.DataPoints)}]
+					});
+					chart.render();
+			}
+			else if (m == "topcustomers") {
+				var chart = new CanvasJS.Chart("chartContainer", {
+				animationEnabled: true,
+				theme: "light2", // "light1", "light2", "dark1", "dark2"
+				title: {
+                    text: "Top 3 Khách hàng", fontFamily: "arial",
+                    fontSize: 50,
+                    fontWeight: "bold", fontColor: "red"
+				},
+				data: [{
+					type: "column",
+					dataPoints: @Html.Raw(ViewBag.DataPoints)}]
+				});
+				chart.render();
+
+			}
+			else if (m == "topproducts") {
+				var chart = new CanvasJS.Chart("chartContainer", {
+				animationEnabled: true,
+				theme: "light2", // "light1", "light2", "dark1", "dark2"
+				title: {
+                    text: "Top 20 sản phẩm bán chạy nhất", fontFamily: "arial",
+                    fontSize: 50,
+                    fontWeight: "bold", fontColor: "red"
+				},
+				data: [{
+					type: "column",
+					dataPoints: @Html.Raw(ViewBag.DataPoints)}]
+				});
+				chart.render();
+
+			}
+
+}
+    </script>
+</head>
+<body>
+
+    @{ Html.RenderAction("HeaderMenu", "Shop");}
+
+    <div id="chartContainer" style="height: 800px; width: 100%; margin-top:10px;"></div>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+</body>
+</html>
