@@ -1,16 +1,19 @@
 ﻿<style>
     #viewContent {
         border-top: solid 2px #CCC;
+        display: flex;
+        flex-flow: column;
+        box-shadow: 1px 2px 8px 1px indigo;
+        margin: 55px 380px;
+        padding: 60px 0px;
+        padding-left: 64px;
     }
 
-        #viewContent > form > span {
-            display: block;
-            color: red;
+        #viewContent button {
+            margin-top: 20px;
+            margin-left: 140px;
         }
 
-        #viewContent h3 {
-            border-bottom: none;
-        }
 </style>
 @using PagedList.Mvc;
 @using demo.Model;
@@ -19,9 +22,8 @@
 @using demo.Controllers;
 
 @{Html.RenderAction("headermenu", "shop");}
-<h1>Import Excel File </h1>
-<div id="viewContent">
-    <h3>@ViewBag.Result</h3>
+<h1 style="text-align: center;font-family:Optima;color:indigo">Import Excel File </h1>
+<div id="viewContent" style="">
     @using (Html.BeginForm("ImportExcel", "Shop", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         @Html.TextBoxFor(m => m.file, new { type = "file" })

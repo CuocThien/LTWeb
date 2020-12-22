@@ -860,3 +860,27 @@ D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\MongoDB.Bson.x
 D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\MongoDB.Driver.xml
 D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\MongoDB.Driver.Core.xml
 D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\System.Buffers.xml
+E:\LTWeb\demo\bin\mongocrypt.dll
+E:\LTWeb\demo\bin\snappy32.dll
+E:\LTWeb\demo\bin\snappy64.dll
+E:\LTWeb\demo\bin\libzstd.dll
+E:\LTWeb\demo\bin\CKEditor.NET.dll
+E:\LTWeb\demo\bin\DnsClient.dll
+E:\LTWeb\demo\bin\EPPlus.dll
+E:\LTWeb\demo\bin\Facebook.dll
+E:\LTWeb\demo\bin\Microsoft.IO.RecyclableMemoryStream.dll
+E:\LTWeb\demo\bin\MongoDB.Bson.dll
+E:\LTWeb\demo\bin\MongoDB.Driver.Core.dll
+E:\LTWeb\demo\bin\MongoDB.Driver.dll
+E:\LTWeb\demo\bin\MongoDB.Libmongocrypt.dll
+E:\LTWeb\demo\bin\SharpCompress.dll
+E:\LTWeb\demo\bin\System.Buffers.dll
+E:\LTWeb\demo\bin\System.ComponentModel.Annotations.dll
+E:\LTWeb\demo\bin\DnsClient.xml
+E:\LTWeb\demo\bin\EPPlus.xml
+E:\LTWeb\demo\bin\Facebook.xml
+E:\LTWeb\demo\bin\Microsoft.IO.RecyclableMemoryStream.xml
+E:\LTWeb\demo\bin\MongoDB.Bson.xml
+E:\LTWeb\demo\bin\MongoDB.Driver.xml
+E:\LTWeb\demo\bin\MongoDB.Driver.Core.xml
+E:\LTWeb\demo\bin\System.Buffers.xml
