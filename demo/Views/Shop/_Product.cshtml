@@ -13,9 +13,12 @@
             <div class="product-detail">
                 <div class="product">
                     <p class="overlay"><a class="glyphicon glyphicon-pencil"></a><a class="glyphicon glyphicon-trash"></a></p>
-                    @{
-                        byte[] imgBytes = pro.Image;
-                        string image = System.Text.Encoding.ASCII.GetString(imgBytes);
+                    @{ string image = "";}
+                    @{if (!(pro.Image is null))
+                        {
+                            byte[] imgBytes = pro.Image;
+                           image = System.Text.Encoding.ASCII.GetString(imgBytes);
+                        }
                     }
                     @Html.Image(image, "Alternate Text", "300", "250")
                     @*<div class="overlay">
