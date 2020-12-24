@@ -12,18 +12,26 @@
         <div class="total col-lg-3">
             <div class="product-detail">
                 <div class="product">
-                    <p class="overlay"><a class="glyphicon glyphicon-pencil"></a><a class="glyphicon glyphicon-trash"></a></p>
+                    @if (!(user is null))
+                    {
+                        if (user.isAdmin == true)
+                        {
+                    <p class="overlay">
+                        <a href="/Shop/EditProduct?id=@pro.ID" class="glyphicon glyphicon-pencil"></a>
+                        <span class="Deletepro"> <a href="#" id="Deletepro" class="glyphicon glyphicon-trash" data-id="@pro.ID"></a></span></p>
+                        }
+                    }
                     @{ string image = "";}
                     @{if (!(pro.Image is null))
                         {
                             byte[] imgBytes = pro.Image;
-                           image = System.Text.Encoding.ASCII.GetString(imgBytes);
+                            image = System.Text.Encoding.ASCII.GetString(imgBytes);
                         }
                     }
                     @Html.Image(image, "Alternate Text", "300", "250")
                     @*<div class="overlay">
-                <div class="text">Hết Hàng</div>
-            </div>*@
+                            <div class="text">Hết Hàng</div>
+                        </div>*@
                 </div>
                 <div class="detail">
                     <span class="name_pro"><a href="/Shop/ProDetail?id=@pro.ID">@pro.Name</a></span>
@@ -60,5 +68,27 @@
 }
 else
 {
-<h2>Không có sản phẩm nào!</h2>
+    <h2>Không có sản phẩm nào!</h2>
 }
+<script>
+    $(document).ready(function () {
+        $('.Deletepro').click(function (e) {
+            const current = e.currentTarget;
+            var r = confirm("Bạn có chắc chắn muốn xóa sản phẩm này không?");
+            if (r == true) {
+                $.ajax({
+                    data: { id: current.children[0].dataset.id },
+                    url: '/Shop/DeletePro',
+                    dataType: 'json',
+                    type: 'POST',
+                    success: function (res) {
+                        if (res.status == true) {
+                            window.location.href = "/Shop/Home";
+                        }
+                    }
+                })
+            }
+        });
+    });
+
+</script>

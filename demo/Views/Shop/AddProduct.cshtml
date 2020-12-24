@@ -1,22 +1,27 @@
 ﻿@using demo.Controllers
+@using demo.Model;
+@model List<demo.Model.Product>
 @{
     ViewBag.Title = "AddProduct";
 }
 
+@{ Html.RenderAction("HeaderMenu", "Shop");}
 <div>
     <div class="title">
         <h2 style="text-transform: uppercase;
         background: -webkit-linear-gradient(90deg,#eee, #f806f7,#8e03fb);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-    ">THÊM SẢN PHẨM</h2>
+    ">
+            THÊM SẢN PHẨM
+        </h2>
     </div>
     <form>
         <div class="container-fluid" style="margin:10px; box-shadow: 0 0 8px 0 dodgerBlue; padding:0px!important">
             <div class="col-lg-5">
                 <div class="content-right">
                     <div class="product-img">
-                        <img src="" id="loadImg" alt="Alternate Text" height="300" width="250"/>
+                        <img src="" id="loadImg" alt="Alternate Text" height="300" width="250" />
                     </div>
                     <input type="file" id="link" name="name" accept="image/*" style="padding-left:50px;margin-left:33px;" />
                 </div>
@@ -42,7 +47,7 @@
 
                 <span class="pro-span">Loại đồng hồ:</span>
                 <select id="style">
-                    <option value="ĐỒng hồ nam">Đồng hồ Nam</option>
+                    <option value="Đồng hồ nam">Đồng hồ Nam</option>
                     <option value="Đồng hồ nữ">Đồng hồ Nữ</option>
                 </select>
                 <br />
@@ -130,7 +135,7 @@
                     }
                     else {
                         alert("Nhập sản phẩm thành công")
-                        window.location.href = "/Shop/Home";
+                        window.location.href = "/Shop/ListProduct";
                     }
                 }
             });

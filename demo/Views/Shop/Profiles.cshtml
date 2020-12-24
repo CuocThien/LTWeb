@@ -2,7 +2,7 @@
 @using PagedList.Mvc;
 @using demo.Model;
 @{
-    ViewBag.Title = "Profile";
+    ViewBag.Title = "Profiles";
 }
 
 @using demo.Controllers;
@@ -90,7 +90,7 @@
                     alert("Mật khẩu không đúng");
                 } else {
                     $.ajax({
-                        url: "/Shop/Profile",
+                        url: "/Shop/Profiles",
                         type: "POST",
                         data: {
                             Name: name,
@@ -116,3 +116,4 @@
     });
     </script>
 </div>
+

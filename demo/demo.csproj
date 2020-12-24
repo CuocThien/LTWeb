@@ -1012,7 +1012,6 @@
     <Content Include="Views\Shop\HeaderCart.cshtml" />
     <Content Include="Views\Shop\Payment.cshtml" />
     <Content Include="Views\Shop\Detail.cshtml" />
-    <Content Include="Views\Shop\Profile.cshtml" />
     <Content Include="Views\Shop\Brand.cshtml" />
     <Content Include="Views\Shop\Style.cshtml" />
     <Content Include="Views\Shop\ProDetail.cshtml" />
@@ -1038,6 +1037,12 @@
     <Content Include="Views\Shop\CartStatus.cshtml" />
     <Content Include="Views\Chart\Chart.cshtml" />
     <Content Include="Views\Shop\ImportExcel.cshtml" />
+    <Content Include="Views\Shop\EditProduct.cshtml" />
+    <Content Include="Views\Shop\Users.cshtml" />
+    <Content Include="Views\Shop\ListProduct.cshtml" />
+    <Content Include="Views\Shop\_ListProduct.cshtml" />
+    <Content Include="Views\Shop\_Users.cshtml" />
+    <Content Include="Views\Shop\Profiles.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

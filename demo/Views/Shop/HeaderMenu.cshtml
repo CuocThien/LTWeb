@@ -27,11 +27,14 @@
                         <a href="#" style="padding:0!important" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="user">@temp</a>
                         <ul class="dropdown-menu">
                             <li class="nav-item">
-                                <a class="nav-link" href="/Shop/Profile">Tài khoản của tôi</a>
+                                <a class="nav-link" href="/Shop/Profiles">Tài khoản của tôi</a>
                             </li>
+                            @if (user.isAdmin == false)
+                            {
                             <li class="nav-item">
                                 <a class="nav-link" href="/Shop/Cart">Đơn mua</a>
                             </li>
+                            }
                             <li class="nav-item">
                                 <a class="nav-link" href="~/Shop/HomeGuest" id="Logout">Đăng xuất</a>
                             </li>
@@ -126,13 +129,10 @@
                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">CHỨC NĂNG</a>
                         <ul class="dropdown-menu">
                             <li class="nav-item">
-                                <a class="nav-link" href="~/Shop/AddProduct">THÊM SẢN PHẨM</a>
+                                <a class="nav-link" href="/Shop/ListProduct">QUẢN LÝ SẢN PHẨM </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">CHỈNH SỬA SẢN PHẨM</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/Shop/ImportExcel">IMPORT SẢN PHẨM</a>
+                                <a class="nav-link" href="/Shop/Users?admin=false">QUẢN LÝ USERS</a>
                             </li>
                         </ul>
                     </li>

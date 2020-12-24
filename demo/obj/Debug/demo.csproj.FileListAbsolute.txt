@@ -741,6 +741,34 @@ D:\vy\study\HK1-20-21\Lập trình Web\new\newnew\LTWeb\LTWeb\LTWeb\demo\obj\Deb
 D:\vy\study\HK1-20-21\Lập trình Web\new\newnew\LTWeb\LTWeb\LTWeb\demo\obj\Debug\demo.csproj.CopyComplete
 D:\vy\study\HK1-20-21\Lập trình Web\new\newnew\LTWeb\LTWeb\LTWeb\demo\obj\Debug\demo.dll
 D:\vy\study\HK1-20-21\Lập trình Web\new\newnew\LTWeb\LTWeb\LTWeb\demo\obj\Debug\demo.pdb
+E:\LTWeb\demo\bin\mongocrypt.dll
+E:\LTWeb\demo\bin\snappy32.dll
+E:\LTWeb\demo\bin\snappy64.dll
+E:\LTWeb\demo\bin\libzstd.dll
+E:\LTWeb\demo\bin\CKEditor.NET.dll
+E:\LTWeb\demo\bin\DnsClient.dll
+E:\LTWeb\demo\bin\EPPlus.dll
+E:\LTWeb\demo\bin\Facebook.dll
+E:\LTWeb\demo\bin\Microsoft.IO.RecyclableMemoryStream.dll
+E:\LTWeb\demo\bin\MongoDB.Bson.dll
+E:\LTWeb\demo\bin\MongoDB.Driver.Core.dll
+E:\LTWeb\demo\bin\MongoDB.Driver.dll
+E:\LTWeb\demo\bin\MongoDB.Libmongocrypt.dll
+E:\LTWeb\demo\bin\SharpCompress.dll
+E:\LTWeb\demo\bin\System.Buffers.dll
+E:\LTWeb\demo\bin\System.ComponentModel.Annotations.dll
+E:\LTWeb\demo\bin\DnsClient.xml
+E:\LTWeb\demo\bin\EPPlus.xml
+E:\LTWeb\demo\bin\Facebook.xml
+E:\LTWeb\demo\bin\Microsoft.IO.RecyclableMemoryStream.xml
+E:\LTWeb\demo\bin\MongoDB.Bson.xml
+E:\LTWeb\demo\bin\MongoDB.Driver.xml
+E:\LTWeb\demo\bin\MongoDB.Driver.Core.xml
+E:\LTWeb\demo\bin\System.Buffers.xml
+D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\mongocrypt.dll
+D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\snappy32.dll
+D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\snappy64.dll
+D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\libzstd.dll
 D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\demo.dll.config
 D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\demo.dll
 D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\demo.pdb
@@ -796,16 +824,26 @@ D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\roslyn\VBCSCom
 D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\Antlr3.Runtime.dll
 D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\BouncyCastle.Crypto.dll
 D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\CKEditor.NET.dll
+D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\DnsClient.dll
 D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\EntityFramework.dll
 D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\EntityFramework.SqlServer.dll
+D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\EPPlus.dll
 D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\Facebook.dll
 D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\MailKit.dll
 D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\Microsoft.IO.RecyclableMemoryStream.dll
 D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\Microsoft.Web.Infrastructure.dll
 D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\MimeKit.dll
+D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\MongoDB.Bson.dll
+D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\MongoDB.Driver.Core.dll
+D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\MongoDB.Driver.dll
+D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\MongoDB.Libmongocrypt.dll
 D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\Newtonsoft.Json.dll
 D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\PagedList.dll
 D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\PagedList.Mvc.dll
+D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\SharpCompress.dll
+D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\System.Buffers.dll
+D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\System.ComponentModel.Annotations.dll
 D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\System.Web.Helpers.dll
 D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\System.Web.Mvc.dll
 D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\System.Web.Optimization.dll
@@ -816,16 +854,23 @@ D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\System.Web.Web
 D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\WebGrease.dll
 D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\Antlr3.Runtime.pdb
 D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\BouncyCastle.Crypto.xml
+D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\DnsClient.xml
 D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\EntityFramework.xml
 D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\EntityFramework.SqlServer.xml
+D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\EPPlus.xml
 D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\Facebook.xml
 D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\MailKit.pdb
 D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\MailKit.xml
+D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\Microsoft.IO.RecyclableMemoryStream.xml
 D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\MimeKit.pdb
 D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\MimeKit.xml
+D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\MongoDB.Bson.xml
+D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\MongoDB.Driver.xml
+D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\MongoDB.Driver.Core.xml
 D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\Newtonsoft.Json.xml
 D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\PagedList.xml
 D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\PagedList.Mvc.xml
+D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\System.Buffers.xml
 D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\System.Web.Helpers.xml
 D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\System.Web.Mvc.xml
 D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\System.Web.Optimization.xml
@@ -834,53 +879,8 @@ D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\System.Web.Web
 D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\System.Web.WebPages.Deployment.xml
 D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\System.Web.WebPages.Razor.xml
 D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\obj\Debug\demo.csprojAssemblyReference.cache
 D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\obj\Debug\demo.csproj.CoreCompileInputs.cache
 D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\obj\Debug\demo.csproj.CopyComplete
 D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\obj\Debug\demo.dll
 D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\obj\Debug\demo.pdb
-D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\mongocrypt.dll
-D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\snappy32.dll
-D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\snappy64.dll
-D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\libzstd.dll
-D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\DnsClient.dll
-D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\EPPlus.dll
-D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\Microsoft.IO.RecyclableMemoryStream.dll
-D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\MongoDB.Bson.dll
-D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\MongoDB.Driver.Core.dll
-D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\MongoDB.Driver.dll
-D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\MongoDB.Libmongocrypt.dll
-D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\SharpCompress.dll
-D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\System.Buffers.dll
-D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\System.ComponentModel.Annotations.dll
-D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\DnsClient.xml
-D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\EPPlus.xml
-D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\Microsoft.IO.RecyclableMemoryStream.xml
-D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\MongoDB.Bson.xml
-D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\MongoDB.Driver.xml
-D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\MongoDB.Driver.Core.xml
-D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\bin\System.Buffers.xml
-E:\LTWeb\demo\bin\mongocrypt.dll
-E:\LTWeb\demo\bin\snappy32.dll
-E:\LTWeb\demo\bin\snappy64.dll
-E:\LTWeb\demo\bin\libzstd.dll
-E:\LTWeb\demo\bin\CKEditor.NET.dll
-E:\LTWeb\demo\bin\DnsClient.dll
-E:\LTWeb\demo\bin\EPPlus.dll
-E:\LTWeb\demo\bin\Facebook.dll
-E:\LTWeb\demo\bin\Microsoft.IO.RecyclableMemoryStream.dll
-E:\LTWeb\demo\bin\MongoDB.Bson.dll
-E:\LTWeb\demo\bin\MongoDB.Driver.Core.dll
-E:\LTWeb\demo\bin\MongoDB.Driver.dll
-E:\LTWeb\demo\bin\MongoDB.Libmongocrypt.dll
-E:\LTWeb\demo\bin\SharpCompress.dll
-E:\LTWeb\demo\bin\System.Buffers.dll
-E:\LTWeb\demo\bin\System.ComponentModel.Annotations.dll
-E:\LTWeb\demo\bin\DnsClient.xml
-E:\LTWeb\demo\bin\EPPlus.xml
-E:\LTWeb\demo\bin\Facebook.xml
-E:\LTWeb\demo\bin\Microsoft.IO.RecyclableMemoryStream.xml
-E:\LTWeb\demo\bin\MongoDB.Bson.xml
-E:\LTWeb\demo\bin\MongoDB.Driver.xml
-E:\LTWeb\demo\bin\MongoDB.Driver.Core.xml
-E:\LTWeb\demo\bin\System.Buffers.xml
+D:\vy\study\HK1-20-21\Lập trình Web\new\new new\LTWeb\demo\obj\Debug\demo.csprojAssemblyReference.cache

@@ -55,11 +55,7 @@ namespace demo.Controllers
         {
             return View();
         }
-        public ActionResult AddProduct()
 
-        {
-            return View();
-        }
         public ActionResult ResetPassword()
         {
 
@@ -598,7 +594,51 @@ namespace demo.Controllers
                 product.TopHot = "0";
                 _db.Products.Add(product);
                 _db.SaveChanges();
-                return View("AddProduct");
+                return RedirectToAction("ListProduct", "Shop");
+            }
+            else
+            {
+                return Content("false");
+            }
+        }
+
+        [HttpGet]
+        public ActionResult AddProduct()
+        {
+            var list = new List<Product>();
+            var pro = _db.Products.ToList();
+            list = (List<Product>)pro;
+
+            return View(list);
+        }
+
+        [ValidateInput(false)]
+        [HttpPost]
+        public ActionResult EditProduct(FormCollection pro)
+
+        {
+            //var u = Check.convertFtoUPro(pro);
+            Product product = new Product();
+            if (Check.CheckProduct(pro) == true)
+            {
+                var p = _db.Products.ToList();
+                product.ID = p.Where(y => y.Name == pro["Name"]).SingleOrDefault().ID;
+                product.Brand = pro["Brand"];
+                product.Country = pro["Country"];
+                product.DateCreate = DateTime.Parse(pro["DateCreate"]);
+                product.Description = pro["Description"];
+                byte[] image = Encoding.ASCII.GetBytes(pro["Image"]);
+                product.Image = image;
+                var x = product.Image.Length;
+                product.Name = pro["Name"];
+                product.Price = float.Parse(pro["Price"]);
+                product.Style = pro["Style"];
+                product.Warranty = int.Parse(pro["Warranty"]);
+                product.Quantity = int.Parse(pro["Quantity"]);
+                product.TopHot = "0";
+                _db.Products.AddOrUpdate(product);
+                _db.SaveChanges();
+                return RedirectToAction("ListProduct", "Shop");
             }
             else
             {
@@ -607,6 +647,42 @@ namespace demo.Controllers
         }
 
 
+        [HttpGet]
+        public ActionResult EditProduct(string id)
+        {
+            var list = new List<Product>();
+            var pro = _db.Products.Where(x => x.ID == id).ToList();
+            list = (List<Product>)pro;
+
+            return View(list);
+        }
+
+        public  JsonResult DeletePro(long id)
+        {
+            string Id = id.ToString();
+            var pro = _db.Products.Where(x => x.ID == Id).SingleOrDefault();
+            _db.Products.Remove(pro);
+            _db.SaveChanges();
+            return Json(new
+            {
+                status = true
+            });
+        }
+
+        public ActionResult ListProduct(int ?page)
+        {
+            int pagesize = 8;
+            int pageNumber = (page ?? 1);
+            var result = _db.Products.OrderBy(id => id.ID);
+            return View(result.ToPagedList(pageNumber, pagesize));
+        }
+        public ActionResult _ListProduct(int? page)
+        {
+            int pagesize = 8;
+            int pageNumber = (page ?? 1);
+            var result = _db.Products.OrderBy(id => id.ID);
+            return View(result.ToPagedList(pageNumber, pagesize));
+        }
         //Trang chu
         public ActionResult HeaderMenu()
         {
@@ -771,16 +847,8 @@ namespace demo.Controllers
             }
         }
 
-        //Thông tin tài khoản
-
-        [HttpGet]
-        public ActionResult Profile()
-        {
-            return View();
-        }
-
         [HttpPost]
-        public ActionResult Profile(FormCollection frm)
+        public ActionResult Profiles(FormCollection frm)
         {
             User user = Session["User"] as User;
             var u = _db.Users.Find(user.Username);
@@ -793,7 +861,7 @@ namespace demo.Controllers
             _db.Users.AddOrUpdate(u);
             _db.SaveChanges();
             // return View();
-            return RedirectToAction("Profile", "Shop");
+            return RedirectToAction("Profiles", "Shop");
         }
 
         //hãng sản phẩm
@@ -807,8 +875,6 @@ namespace demo.Controllers
             list = (List<Product>)pro;
             return View(list);
         }
-
-
 
         //Loại đồng hồ
         public ActionResult Style(string id)
@@ -877,7 +943,7 @@ namespace demo.Controllers
                 excelConnection.Close();
 
                 ViewBag.Result = "Successfully Imported";
-                return RedirectToAction("Home", "Shop");
+                return RedirectToAction("ListProduct", "Shop");
             }
             return View();
         }
@@ -917,6 +983,34 @@ namespace demo.Controllers
             Response.AddHeader("content-disposition", "attachment: filename=" + "ReportOrder.xlsx");
             Response.BinaryWrite(Ep.GetAsByteArray());
             Response.End();
+        }
+
+        [HttpGet]
+        public ActionResult Users(int? page,bool admin)
+        {
+            int pagesize = 8;
+            int pageNumber = (page ?? 1);
+            var result = _db.Users.Where(x=>x.isAdmin==admin).OrderBy(id => id.Username);
+            return View(result.ToPagedList(pageNumber, pagesize));
+        }
+        public ActionResult _Users(int? page, bool admin)
+        {
+            int pagesize = 8;
+            int pageNumber = (page ?? 1);
+            var result = _db.Users.Where(x => x.isAdmin == admin).OrderBy(id => id.Username);
+            return View(result.ToPagedList(pageNumber, pagesize));
+        }
+        [HttpPost]
+        public JsonResult DeleteUser(string id)
+        {
+            string UserName = id.ToString();
+            var user = _db.Users.Where(x => x.Username == UserName).SingleOrDefault();
+            _db.Users.Remove(user);
+            _db.SaveChanges();
+            return Json(new
+            {
+                status = true
+            });
         }
     }
 }

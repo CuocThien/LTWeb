@@ -1,0 +1,127 @@
+﻿@model PagedList.IPagedList<demo.Model.User>
+@using PagedList.Mvc;
+@using demo.Model;
+@{
+    ViewBag.Title = "User";
+}
+@using demo.Controllers;
+
+@{ Html.RenderAction("HeaderMenu", "Shop");}
+
+
+<div class="container-fluid">
+    <h2 style="text-align:center">QUẢN LÝ USERS</h2>
+    <a href="/Shop/Users?admin=false">Người dùng</a>
+    <a href="/Shop/Users?admin=true">Admin</a>
+    <div id="loadUsers" class="products row">
+        @{Html.RenderAction("_Users", "Shop", new { page = 1 });}
+    </div>
+    <ul class="pager">
+        <li><a id="minpage">|<<</a></li>
+        <li><a id="previous"><<</a></li>
+        <li><a id="next">>></a></li>
+        <li><a id="maxpage">>>|</a></li>
+    </ul>
+</div>
+
+<script>
+    var currentpage = 1;
+    var max = 0;
+    @{
+        shopEntities db = new shopEntities();
+    }
+    $(document).ready(function () {
+        var Admin = @Model.FirstOrDefault().isAdmin;         
+        $('#previous').click(function () {
+                currentpage = currentpage - 1;
+                if (currentpage <= 0)
+                    currentpage=1
+            $.ajax({
+                type: "GET",
+                url: "/Shop/_Users",
+                data: {
+                    page: currentpage,
+                    admin=Admin
+                },
+                success: function (res) {
+                    $('#loadUsers').html(res)
+                }
+            });
+        });
+        $('#next').click(function () {
+            pagesize = 8;
+            var max = 0;
+            var size = (@db.Products.Count()) / pagesize;
+            if ((@db.Products.Count()) % pagesize == 0) {
+                max = (@db.Products.Count()) / pagesize;
+            }
+            else {
+                max = Math.floor(((@db.Products.Count()) / pagesize) + 1);
+            }
+            currentpage = currentpage + 1;
+            if (currentpage > max)
+                currentpage = max;
+            $.ajax({
+                type: "GET",
+                url: "/Shop/_Users",
+                data: {
+                    page: currentpage,
+                    admin=@Model.FirstOrDefault().isAdmin
+                },
+                success: function (res) {
+                    $('#loadUsers').html(res)
+                }
+            });
+        });
+        $('#minpage').click(function () {
+            currentpage = 1
+            $.ajax({
+                type: "GET",
+                url: "/Shop/_Users",
+                data: {
+                    page: currentpage,
+                    admin=Admin
+                },
+                success: function (res) {
+                    $('#loadUsers').html(res)
+                }
+            });
+        });
+        $('#maxpage').click(function () {
+            pagesize = 8;
+            var max = 0;
+            var size = (@db.Products.Count()) / pagesize;
+            if ((@db.Products.Count()) % pagesize == 0) {
+                max = (@db.Products.Count()) / pagesize;
+            }
+            else {
+                max = Math.floor(((@db.Products.Count()) / pagesize) + 1);
+            }
+            currentpage = max;
+            $.ajax({
+                type: "GET",
+                url: "/Shop/_User",
+                data: {
+                    page: currentpage,
+                    admin=Admin
+                },
+                success: function (res) {
+                    $('#loadUsers').html(res)
+                }
+            });
+        });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $('#Logout').click(function () {
+            $.ajax({
+                type: "POST",
+                url: "/Shop/Logout",
+                success: function (res) {
+                    alert("Đăng xuất thành công")
+                }
+            });
+        });
+    });
+</script>

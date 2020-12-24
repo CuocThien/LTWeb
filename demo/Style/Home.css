@@ -310,6 +310,11 @@ a {
         padding-top: 10px;
 
     }
+    .overlay > span > a {
+        color: black;
+        padding-left: 0px;
+        padding-top: 10px;
+    }
 .product:hover .overlay {
     top: 0;
     height: 50px;

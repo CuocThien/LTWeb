@@ -1,0 +1,165 @@
+﻿@using demo.Controllers
+@using demo.Model;
+@model List<demo.Model.Product>
+@{
+    ViewBag.Title = "EditProduct";
+}
+
+@{ Html.RenderAction("HeaderMenu", "Shop");}
+<div>
+    <div class="title">
+        <h2 style="text-transform: uppercase;
+        background: -webkit-linear-gradient(90deg,#eee, #f806f7,#8e03fb);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    ">
+            SỬA SẢN PHẨM
+        </h2>
+    </div>
+    <form>
+        @if (Model.Count > 0)
+        {
+            foreach (var item in Model)
+            {
+                string image = "";
+                {
+                    if (!(item.Image is null))
+                    {
+                        byte[] imgBytes = item.Image;
+                        image = System.Text.Encoding.ASCII.GetString(imgBytes);
+                    }
+                }
+                <div class="container-fluid" style="margin:10px; box-shadow: 0 0 8px 0 dodgerBlue; padding:0px!important">
+                    <div class="col-lg-5">
+                        <div class="content-right">
+                            <div class="product-img">
+                                @*@Html.Image(image, "Alternate Text", "300", "250")*@
+                                <img src="@image" id="loadImg" alt="Alternate Text" height="300" width="250" />
+                            </div>
+                            <input type="file" id="link" name="name" accept="image/*" style="padding-left:50px;margin-left:33px;" />
+                        </div>
+
+                    </div>
+                    <div class="content-left col-lg-7" style=" box-shadow: -3px 0px 3px 0px #8d8585;">
+                        <span class="pro-span">Tên sản phẩm</span>
+                        <input type="text" id="Pro_name" class="ip-text-Pro" name="" value="@item.Name" />
+
+                        <span class="pro-span">Hãng</span>
+                        <select id="brand">
+                            <option value="@item.Brand" selected disabled hidden>@item.Brand1.Name.ToUpper()</option>
+                            <option value="DW">DANIEL WELLINGTON</option>
+                            <option value="CS">CASIO</option>
+                            <option value="RL">ROLEX</option>
+                            <option value="D">DIOR</option>
+                            <option value="AP">APPLE</option>
+                            <option value="JL">JACQUES LEMANS</option>
+                        </select>
+                        <br />
+
+                        <span class="pro-span">Bảo hành (tháng):</span>
+                        <input type="number" id="warranty" class="ip-number-Pro" name="" value="@item.Warranty" />
+
+                        <span class="pro-span">Loại đồng hồ:</span>
+                        <select id="style">
+                            <option value="@item.Style" selected disabled hidden>@item.Style</option>
+                            <option value="ĐỒng hồ nam">Đồng hồ Nam</option>
+                            <option value="Đồng hồ nữ">Đồng hồ Nữ</option>
+                        </select>
+                        <br />
+
+                        <span class="pro-span">Năm sản xuất: </span>
+                        <input type="date" id="yearOfManufacturing" class="ip-date-Pro" name="" value="@item.DateCreate.Value.ToString("yyyy-MM-dd")" />
+
+                        <span class="pro-span">Giá tiền: </span>
+                        <input type="number" id="price" class="ip-number-Pro" name="" value="@item.Price" />
+
+                        <span class="pro-span">Số lượng: </span>
+                        <input type="number" id="quantity" class="ip-number-Pro" name="" value="@item.Quantity" />
+
+                        <span class="pro-span">Nước sản xuất</span>
+                        <input type="text" id="country" class="ip-text-Pro" name="" value="@item.Country" />
+
+                        <span class="pro-span">Mô tả</span>
+
+                        <textarea id="Description" rows="10" cols="70" style="max-width:500px; max-height:300px;" placeholder="Nhập mô tả sản phẩm">@Html.Raw(item.Description)</textarea>
+                        <script>
+                            CKEDITOR.replace('Description');
+                        </script>
+                        <div type="submit" id="edit" class="ip-submit-Pro" name="name" style="margin-left:130px;text-align:center;">SỬA</div>
+
+                    </div>
+                </div>
+            }
+        }
+    </form>
+</div>
+<script>
+
+    $(document).ready(function () {
+        $("#link").change(function () {
+            var src = "";
+            if (this.files && this.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#loadImg').attr('src', e.target.result);
+                    src = e.target.result;
+                }
+                reader.readAsDataURL(this.files[0]);
+            }
+        });
+        $("#brand").each(function () {
+            $(this).find('option[value="' + $(this).attr("value") + '"]').prop('selected', true);
+        });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $("#edit").click(function () {
+            var oEditor = CKEDITOR.instances.Description;
+            var noidung = oEditor.getData();
+
+            let Pro_name = $("#Pro_name")[0].value;
+            let yearOfManufacturing = $("#yearOfManufacturing")[0].value;
+            let price = $("#price")[0].value;
+            var brand = document.getElementById("brand");
+            brand = brand.value;
+            let country = $("#country")[0].value;
+            var style = document.getElementById("style");
+            style = style.value;
+            var img = document.getElementById("loadImg");
+            img = img.src;
+
+            let warranty = $("#warranty")[0].value;
+            let quantity = $("#quantity")[0].value;
+            var description = document.getElementById("Description");
+            description = description.value;
+            $.ajax({
+                cache: false,
+                type: "POST",
+                url: "/Shop/EditProduct",
+                data: {
+                    Name: Pro_name,
+                    Image: img,
+                    Price: price,
+                    Warranty: warranty,
+                    DateCreate: yearOfManufacturing,
+                    Description: noidung,
+                    Style: style,
+                    Country: country,
+                    Brand: brand,
+                    Quantity: quantity
+                },
+                success: function (res) {
+                    if (res === "false") {
+                        alert("Sửa sản phẩm thất bại")
+                    }
+                    else {
+                        alert("Sửa sản phẩm thành công")
+                        window.location.href = "/Shop/ListProduct";
+                    }
+                }
+            });
+        });
+    });
+</script>
+

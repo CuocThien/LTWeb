@@ -1,0 +1,72 @@
+﻿@using demo.Controllers;
+@model PagedList.IPagedList<demo.Model.Product>
+@using PagedList.Mvc;
+@using demo.Model;
+@{
+    if (!(Model is null))
+    {
+        <table id="tb1" class="table table-hover">
+
+            <thead>
+                <tr>
+                    <th style="text-align: center;">ID</th>
+                    <th style="text-align: center;">Name</th>
+                    <th style="text-align: center;">Price</th>
+                    <th style="text-align: center;">Quantity</th>
+                    <th style="text-align: center;">Warranty</th>
+                    <th style="text-align: center;">Brand</th>
+                    <th style="text-align: center;"></th>
+                    <th style="text-align: center;"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+
+                    <tr class="onRow">
+                        <td style="width: 10%;text-align:center;">@item.ID</td>
+                        <td style="width:35% ;text-align:center;">@item.Name</td>
+                        <td style="width: 10%;text-align:center;">@item.Price</td>
+                        <td style="width: 10%;text-align:center">@item.Quantity</td>
+                        <td style="width: 5%;text-align:center;">@item.Warranty</td>
+                        <td style="width: 20%;text-align:center;">@item.Brand1.Name</td>
+                        <td style="width: 5%;text-align:center;"><a href="/Shop/EditProduct?id=@item.ID" class="glyphicon glyphicon-pencil"></a></td>
+                        <td style="width: 5%;text-align:center;"><div class="Deletepro"> <a href="#" class="glyphicon glyphicon-trash" data-id="@item.ID"></a></div></td>
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+
+    }
+    else
+    {
+        {
+            <p class="text-center">
+                Hiện tại sản phẩm nào trong cửa hàng!
+            </p>
+        }
+    }
+}
+<script>
+        $(document).ready(function () {
+            $('.Deletepro').click(function (e) {
+                const current = e.currentTarget;
+                var r = confirm("Bạn có chắc chắn muốn xóa sản phẩm này không?");
+                if (r == true) {
+                    $.ajax({
+                        data: { id: current.children[0].dataset.id },
+                        url: '/Shop/DeletePro',
+                        dataType: 'json',
+                        type: 'POST',
+                        success: function (res) {
+                            if (res.status == true) {
+                                window.location.href = "/Shop/ListProduct";
+                            }
+                        }
+                    })
+                }
+            });
+        });
+
+</script>
