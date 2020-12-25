@@ -42,8 +42,8 @@
 
                     @{ if (user is null)
                         {
-                            <div class="AddCart">
-                                <h4><a href="/Shop/Login" id="buy">Mua Ngay</a></h4>
+                            <div class="AddCart" style="margin-top:10px">
+                                <h4 style="display:inline"><a href="/Shop/Login" id="buy">Mua Ngay</a></h4>
                                 <a href="/Shop/Login" class="glyphicon glyphicon-shopping-cart"></a>
                             </div>
 
@@ -52,16 +52,16 @@
                         {
                             if (pro.Quantity > 0)
                             {
-                                <div class="AddCart">
-                                    <h4><a href="/Shop/Cart?ProductID=@pro.ID&quantity=1" ,id="buy">Mua Ngay</a></h4>
+                                <div class="AddCart" style="margin-top:10px">
+                                    <h4 style="display:inline"><a href="/Shop/Cart?ProductID=@pro.ID&quantity=1" ,id="buy">Mua Ngay</a></h4>
                                     <span class="addcart"> <a href="#" id="addcart" class="glyphicon glyphicon-shopping-cart" data-id="@pro.ID"></a></span>
                                 </div>
 
                             }
                             else
                             {
-                                <div class="AddCart">
-                                    <h4><a href="#" style="pointer-events:none;color:gray">Mua Ngay</a></h4>
+                                <div class="AddCart"style="margin-top:10px">
+                                    <h4 style="display:inline"><a href="#" style="pointer-events:none;color:gray">Mua Ngay</a></h4>
                                     <a href="#" class="glyphicon glyphicon-shopping-cart" style="pointer-events:none;color:gray"></a>
                                 </div>
                             }

@@ -1095,19 +1095,19 @@ namespace demo.Controllers
             Response.End();
         }
 
-        [HttpGet]
-        public ActionResult Users(int? page,bool admin)
+        public ActionResult Users(int? page,string admin)
         {
-            int pagesize = 8;
+            int pagesize = 4;
             int pageNumber = (page ?? 1);
-            var result = _db.Users.Where(x=>x.isAdmin==admin).OrderBy(id => id.Username);
+            var result = _db.Users.Where(x=>x.isAdmin.ToString() == admin).OrderBy(id => id.Username);
             return View(result.ToPagedList(pageNumber, pagesize));
         }
-        public ActionResult _Users(int? page, bool admin)
+        [HttpGet]
+        public ActionResult _Users(int? page, string admin)
         {
-            int pagesize = 8;
+            int pagesize = 4;
             int pageNumber = (page ?? 1);
-            var result = _db.Users.Where(x => x.isAdmin == admin).OrderBy(id => id.Username);
+            var result = _db.Users.Where(x => x.isAdmin.ToString() == admin).OrderBy(id => id.Username);
             return View(result.ToPagedList(pageNumber, pagesize));
         }
         [HttpPost]

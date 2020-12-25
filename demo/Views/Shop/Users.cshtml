@@ -31,7 +31,7 @@
         shopEntities db = new shopEntities();
     }
     $(document).ready(function () {
-        var Admin = @Model.FirstOrDefault().isAdmin;         
+        var Admin = @Model.FirstOrDefault().isAdmin.ToString().ToLower();
         $('#previous').click(function () {
                 currentpage = currentpage - 1;
                 if (currentpage <= 0)
@@ -41,7 +41,7 @@
                 url: "/Shop/_Users",
                 data: {
                     page: currentpage,
-                    admin=Admin
+                    admin: Admin
                 },
                 success: function (res) {
                     $('#loadUsers').html(res)
@@ -49,14 +49,14 @@
             });
         });
         $('#next').click(function () {
-            pagesize = 8;
+            pagesize = 4;
             var max = 0;
-            var size = (@db.Products.Count()) / pagesize;
-            if ((@db.Products.Count()) % pagesize == 0) {
-                max = (@db.Products.Count()) / pagesize;
+            var size = (@db.Users.Count()) / pagesize;
+            if ((@db.Users.Count()) % pagesize == 0) {
+                max = (@db.Users.Count()) / pagesize;
             }
             else {
-                max = Math.floor(((@db.Products.Count()) / pagesize) + 1);
+                max = Math.floor(((@db.Users.Count()) / pagesize) + 1);
             }
             currentpage = currentpage + 1;
             if (currentpage > max)
@@ -66,7 +66,7 @@
                 url: "/Shop/_Users",
                 data: {
                     page: currentpage,
-                    admin=@Model.FirstOrDefault().isAdmin
+                    admin: Admin
                 },
                 success: function (res) {
                     $('#loadUsers').html(res)
@@ -80,7 +80,7 @@
                 url: "/Shop/_Users",
                 data: {
                     page: currentpage,
-                    admin=Admin
+                    admin: Admin
                 },
                 success: function (res) {
                     $('#loadUsers').html(res)
@@ -88,14 +88,14 @@
             });
         });
         $('#maxpage').click(function () {
-            pagesize = 8;
+            pagesize = 4;
             var max = 0;
-            var size = (@db.Products.Count()) / pagesize;
-            if ((@db.Products.Count()) % pagesize == 0) {
-                max = (@db.Products.Count()) / pagesize;
+            var size = (@db.Users.Count()) / pagesize;
+            if ((@db.Users.Count()) % pagesize == 0) {
+                max = (@db.Users.Count()) / pagesize;
             }
             else {
-                max = Math.floor(((@db.Products.Count()) / pagesize) + 1);
+                max = Math.floor(((@db.Users.Count()) / pagesize) + 1);
             }
             currentpage = max;
             $.ajax({
@@ -103,7 +103,7 @@
                 url: "/Shop/_User",
                 data: {
                     page: currentpage,
-                    admin=Admin
+                    admin: Admin
                 },
                 success: function (res) {
                     $('#loadUsers').html(res)
