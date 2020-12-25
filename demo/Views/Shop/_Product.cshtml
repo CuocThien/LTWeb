@@ -16,9 +16,10 @@
                     {
                         if (user.isAdmin == true)
                         {
-                    <p class="overlay">
-                        <a href="/Shop/EditProduct?id=@pro.ID" class="glyphicon glyphicon-pencil"></a>
-                        <span class="Deletepro"> <a href="#" id="Deletepro" class="glyphicon glyphicon-trash" data-id="@pro.ID"></a></span></p>
+                            <p class="overlay">
+                                <a href="/Shop/EditProduct?id=@pro.ID" class="glyphicon glyphicon-pencil"></a>
+                                <span class="Deletepro"> <a href="#" id="Deletepro" class="glyphicon glyphicon-trash" data-id="@pro.ID"></a></span>
+                            </p>
                         }
                     }
                     @{ string image = "";}
@@ -42,21 +43,26 @@
                     @{ if (user is null)
                         {
                             <div class="AddCart">
-                                <h4><a href="/Shop/Login" id="buy">Chọn Mua</a></h4>
+                                <h4><a href="/Shop/Login" id="buy">Mua Ngay</a></h4>
+                                <a href="/Shop/Login" class="glyphicon glyphicon-shopping-cart"></a>
                             </div>
+
                         }
-                        else
+                        else if(user.isAdmin==false)
                         {
                             if (pro.Quantity > 0)
                             {
                                 <div class="AddCart">
-                                    <h4><a href="/Shop/Cart?ProductID=@pro.ID&quantity=1" ,id="buy">Chọn Mua</a></h4>
+                                    <h4><a href="/Shop/Cart?ProductID=@pro.ID&quantity=1" ,id="buy">Mua Ngay</a></h4>
+                                    <span class="addcart"> <a href="#" id="addcart" class="glyphicon glyphicon-shopping-cart" data-id="@pro.ID"></a></span>
                                 </div>
+
                             }
                             else
                             {
                                 <div class="AddCart">
-                                    <h4><a href="#" style="pointer-events:none;color:gray">Chọn Mua</a></h4>
+                                    <h4><a href="#" style="pointer-events:none;color:gray">Mua Ngay</a></h4>
+                                    <a href="#" class="glyphicon glyphicon-shopping-cart" style="pointer-events:none;color:gray"></a>
                                 </div>
                             }
                         }
@@ -88,6 +94,21 @@ else
                     }
                 })
             }
+        });
+        $('.addcart').click(function (e) {
+            const current = e.currentTarget;
+                $.ajax({
+                    data: { ProductID: current.children[0].dataset.id },
+                    url: '/Shop/Addcart',
+                    dataType: 'json',
+                    type: 'POST',
+                    success: function (res) {
+                        if (res.status == true) {
+                            alert("Thêm vào giỏ hàng thành công!")
+                            window.location.href = "/Shop/Home";
+                        }
+                    }
+                })
         });
     });
 

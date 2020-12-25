@@ -36,30 +36,35 @@
                         <li>Giá tiền:@pro.Price</li>
                         @if (pro.Quantity == 0 || pro.Quantity == null)
                         {
-                    <li>Số Lượng:&emsp;<input style="border:none;text-align:center;width:70px;" type="number" min="0" max="0" value="0" onchange="changeHandler()" size="5" /> &emsp;sản phẩm có sẵn</li>
+                            <li>Số Lượng:&emsp;<input style="border:none;text-align:center;width:70px;" type="number" min="0" max="0" value="0" onchange="changeHandler()" size="5" /> &emsp;sản phẩm có sẵn</li>
                         }
                         else
                         {
-                    <li>Số Lượng:&emsp;<input id="quantity" style="border:none;text-align:center;width:70px;" type="number" min="1" max="@pro.Quantity" value="@pro.Quantity" onchange="changeHandler()" />&emsp; sản phẩm có sẵn</li>
+                            <li>Số Lượng:&emsp;<input id="quantity" style="border:none;text-align:center;width:70px;" type="number" min="1" max="@pro.Quantity" value="@pro.Quantity" onchange="changeHandler()" />&emsp; sản phẩm có sẵn</li>
                         }
                         @{ if (user is null)
                             {
                                 <div class="AddCart">
-                                    <h4><a href="/Shop/Login" id="buy">Chọn Mua</a></h4>
+                                    <h4><a href="/Shop/Login" id="buy">Mua Ngay</a></h4>
+                                    <a href="/Shop/Login" class="glyphicon glyphicon-shopping-cart"></a>
                                 </div>
+
                             }
-                            else
+                            else if (user.isAdmin == false)
                             {
                                 if (pro.Quantity > 0)
                                 {
                                     <div class="AddCart">
-                                        <h4><a href="/Shop/Cart?ProductID=@pro.ID&quantity=1" ,id="buy">Chọn Mua</a></h4>
+                                        <h4><a href="/Shop/Cart?ProductID=@pro.ID&quantity=1" ,id="buy">Mua Ngay</a></h4>
+                                        <span class="addcart"> <a href="#" id="addcart" class="glyphicon glyphicon-shopping-cart" data-id="@pro.ID"></a></span>
                                     </div>
+
                                 }
                                 else
                                 {
                                     <div class="AddCart">
-                                        <h4><a href="#" style="pointer-events:none;color:gray">Chọn Mua</a></h4>
+                                        <h4><a href="#" style="pointer-events:none;color:gray">Mua Ngay</a></h4>
+                                        <a href="#" class="glyphicon glyphicon-shopping-cart" style="pointer-events:none;color:gray"></a>
                                     </div>
                                 }
                             }
@@ -104,6 +109,21 @@
                 $(this).val(sl);
             if (x < 0)
                 $(this).val(0);
+        });
+        $('.addcart').click(function (e) {
+            const current = e.currentTarget;
+            $.ajax({
+                data: { ProductID: current.children[0].dataset.id },
+                url: '/Shop/Addcart',
+                dataType: 'json',
+                type: 'POST',
+                success: function (res) {
+                    if (res.status == true) {
+                        alert("Thêm vào giỏ hàng thành công!")
+                        window.location.href = "/Shop/ProDetail";
+                    }
+                }
+            })
         });
     });
 </script>

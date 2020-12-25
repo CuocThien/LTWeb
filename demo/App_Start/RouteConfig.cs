@@ -20,11 +20,6 @@ namespace demo
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller="Shop",action = "HomeGuest", id = UrlParameter.Optional }
             );
-            routes.MapRoute(
-        name: "Cart",
-        url: "{controller}/{action}/{id}",
-        defaults: new { controller = "Shop", action = "Cart", id = UrlParameter.Optional }
-    );
         }
     }
 }
