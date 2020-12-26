@@ -111,8 +111,9 @@
 
                     }
                     else {
-                        alert("Thanh toán đơn hàng thành công")
-                        $("#loadBody").html(res)
+                        toastr.success("Thanh toán đơn hàng thành công", "Payment", { timeOut: 1500, positionClass: "toast-top-right" })
+                        setTimeout(function () { $("#loadBody").html(res) }, 2000)
+                       
                     }
                 }
 

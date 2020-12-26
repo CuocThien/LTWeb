@@ -104,8 +104,8 @@ else
                     type: 'POST',
                     success: function (res) {
                         if (res.status == true) {
-                            alert("Thêm vào giỏ hàng thành công!")
-                            window.location.href = "/Shop/Home";
+                            toastr.success("Thêm vào giỏ hàng thành công!", "AddCart", { timeOut: 1500, positionClass: "toast-top-right" })
+                            setTimeout(function () { window.location.href = "/Shop/Home"; }, 2000)
                         }
                     }
                 })

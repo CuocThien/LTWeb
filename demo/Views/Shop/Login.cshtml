@@ -4,6 +4,7 @@
 
 }
 @model demo.Model.User
+
 <div class="header">
     <div class="header-main">
         <h1>LOGIN</h1>
@@ -12,7 +13,7 @@
 
                 <div class="header-left-top">
 
-                    <form >
+                    <form>
                         <input type="text" id="username" class="ip-text" value="" name="username" placeholder="username" />
                         <span id="usererror"></span>
                         <input type="password" class="ip-password" value="" name="password" placeholder="password" />
@@ -28,7 +29,7 @@
                             <div class="clear"> </div>
                         </div>
                         <div type="submit" id="login" class="ip-submit" style="text-align:center">Login</div>
-                  
+
                     </form>
                     <div class="header-left-bottom">
                         <div class="sign-up"> <h2>OR</h2> </div>
@@ -53,7 +54,7 @@
             $.ajax({
                 cache: false,
                 type: "POST",
-            
+
                 url: "/Shop/Login",
                 data: {
 
@@ -62,15 +63,18 @@
                 },
                 success: function (res) {
                     if (res === "false") {
-                        alert("Đăng nhập thất bại")
+                        toastr.error("Đăng nhập thất bại", "Login", { timeOut: 2000, positionClass: "toast-top-right" })
                     }
                     else {
-                        alert("Đăng nhập thành công")
-                        $("#loadBody").html(res)
+                        toastr.success("Đăng nhập thành công", "Login", { timeOut:1500, positionClass: "toast-top-right" })
+                        setTimeout(function () { window.location.href = "/Shop/Home"; },2000)
+                        //toastr.success("Đăng nhập thành công", "Login", { timeOut:10000)
+                        //$("#loadBody").html(res)
+                        
                     }
                 }
             })
-        })  
+        })
     })
 </script>
 <script>

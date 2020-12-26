@@ -142,3 +142,17 @@
     </div>
 
 </div>
+<script>
+    $(document).ready(function () {
+        $('#Logout').click(function () {
+            $.ajax({
+                type: "POST",
+                url: "/Shop/Logout",
+                success: function (res) {
+                    toastr.success("Đăng xuất thành công", "Logout", { timeOut: 5000, positionClass: "toast-top-right" })
+                    setTimeout(function () { window.location.href = "/Shop/HomeGuest"; }, 6000)
+                }
+            });
+        });
+    });
+</script>

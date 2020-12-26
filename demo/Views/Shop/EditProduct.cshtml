@@ -151,11 +151,11 @@
                 },
                 success: function (res) {
                     if (res === "false") {
-                        alert("Sửa sản phẩm thất bại")
+                        toastr.error("Sửa sản phẩm thất bại", "EditProduct", { timeOut: 2000, positionClass: "toast-top-right" })
                     }
                     else {
-                        alert("Sửa sản phẩm thành công")
-                        window.location.href = "/Shop/ListProduct";
+                        toastr.success("Sửa sản phẩm thành công", "EditProduct", { timeOut: 1500, positionClass: "toast-top-right" })
+                        setTimeout(function () { window.location.href = "/Shop/ListProduct"; }, 2000)
                     }
                 }
             });

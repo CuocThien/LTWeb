@@ -77,17 +77,19 @@
         </div>
     </div>
     <script>
+
+
     $(document).ready(function () {
         $("#save").click(function () {
             var name = $('#Name').val();
             var phone = $('#Phone').val();
             var address = $('#Address').val();
             var email = $('#Email').val();
-            var birthday = $('#Birthday').val();
-            var password = prompt("Please enter your Password");
+            var birthday = $('#Birthday').val(); 
+            var password = prompt("Enter your password please");
             if (password != null) {
                 if (password !=@user.Password) {
-                    alert("Mật khẩu không đúng");
+                    toastr.error("Mật khẩu không đúng", "EditProfile", { timeOut: 2000, positionClass: "toast-top-center" })
                 } else {
                     $.ajax({
                         url: "/Shop/Profiles",
@@ -104,8 +106,9 @@
 
                             }
                             else {
-                                alert("Thay đổi thông tin thành công")
-                                $("#loadBody").html(res)
+                                toastr.success("Thay đổi thông tin thành công", "EditProfile", { timeOut: 1500, positionClass: "toast-top-right" })
+                                setTimeout(function () { $("#loadBody").html(res) }, 2000)
+                                
                             }
                         }
 

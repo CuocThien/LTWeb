@@ -90,16 +90,16 @@
                 },
                 success: function (res) {
                     if (res === "false")
-                        alert("Đăng ký thất bại")
+                        toastr.error("Đăng ký thất bại", "Register", { timeOut: 2000, positionClass: "toast-top-right" })
                     else if (res === "userexist") {
-                        alert("Đăng ký thất bại user trùng")
+                        toastr.error("Đăng ký thất bại user trùng", "Register", { timeOut: 2000, positionClass: "toast-top-right" })
                     }
                     else if (res === "NotEqual") {
-                        alert("Không khớp mật khẩu")
+                        toastr.error("Không khớp mật khẩu", "Register", { timeOut: 2000, positionClass: "toast-top-right" })
                     }
                     else {
-                        alert("Đăng ký thành công")
-                        $("#loadBody").html(res)
+                        toastr.success("Đăng ký thành công", "Register", { timeOut: 1500, positionClass: "toast-top-right" })
+                        setTimeout(function () { $("#loadBody").html(res) }, 2000)
                     }
                 }
             })
