@@ -279,6 +279,7 @@ namespace demo.Controllers
             var cart = Session[CartSession];
             var l = new List<OrderDetail>();
             l = (List<OrderDetail>)cart;
+            ViewBag.Message = status;
             return View(l);
         }
 

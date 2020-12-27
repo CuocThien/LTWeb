@@ -16,21 +16,21 @@
             @{
                 if (!(user is null) && user.isAdmin == false)
                 {
-                    <li class="nav-item">
+                    <li class="nav-item control Active">
                         <a class="nav-link" href="/Shop/Cart">Giỏ Hàng</a>
                     </li>
                 }
             }
-            <li class="nav-item">
+            <li class="nav-item control">
                 <a href="/Shop/CartStatus?status=Wait" class="nav-link">Chờ xác nhận</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item control">
                 <a href="/Shop/CartStatus?status=Delivery" class="nav-link">Đang giao</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item control">
                 <a href="/Shop/CartStatus?status=Finish" class="nav-link">Đã giao</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item control">
                 <a href="/Shop/CartStatus?status=Cancel" class="nav-link">Đã hủy</a>
             </li>
         </ul>
@@ -132,8 +132,8 @@
 </div>
 <script>
             $(document).ready(function () {
-                @{shopEntities _db = new shopEntities(); }
-              
+                @{shopEntities _db = new shopEntities();}
+
                 $('.Deletepro').click(function (e)
                 {
                        const current = e.currentTarget;
@@ -197,11 +197,15 @@
 
                         window.location.href = "/Shop/Payment";
                 });
+                
                 //$('#tb1 tr').click(function (e) {
                 //    var pro = $(this).closest('.onRow').find('td:nth-child(2)').text();
-                //        alert(pro);
                 //    $('#quantity').keyup(function () {
-                //        alert(product);
+                //        var sl = Number(product.Quantity);
+                //        alert(sl)
+                //        if (Number($(this).text) > sl) {
+                //            this.text = sl;
+                //        }
                 //        });
 
                 //});

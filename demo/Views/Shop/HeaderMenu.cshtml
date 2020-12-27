@@ -31,9 +31,9 @@
                             </li>
                             @if (user.isAdmin == false)
                             {
-                            <li class="nav-item">
-                                <a class="nav-link" href="/Shop/Cart">Đơn mua</a>
-                            </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/Shop/Cart">Đơn mua</a>
+                                </li>
                             }
                             <li class="nav-item">
                                 <a class="nav-link" href="~/Shop/HomeGuest" id="Logout">Đăng xuất</a>
@@ -59,10 +59,10 @@
 <div class="home-Menu row">
     <div class="home-Menu-left col-lg-6">
         <ul class="nav navbar-nav center_nav pull-right">
-            <li class="nav-item active" >
+            <li class="nav-item active">
                 <a class="nav-link" href="~/Shop/Home">TRANG CHỦ</a>
             </li>
-            <li class="nav-item submenu dropdown" >
+            <li class="nav-item submenu dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">PHÂN LOẠI</a>
                 <ul class="dropdown-menu">
                     <li class="nav-item">
@@ -74,7 +74,7 @@
 
                 </ul>
             </li>
-            <li class="nav-item submenu dropdown " >
+            <li class="nav-item submenu dropdown ">
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">HÃNG</a>
                 <ul class="dropdown-menu">
                     <li class="nav-item">
@@ -155,4 +155,9 @@
             });
         });
     });
+</script>
+<script>
+        $(document).ready(function(){
+           $('.dropdown-toggle').dropdown()
+       });
 </script>

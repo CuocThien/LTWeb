@@ -11,31 +11,56 @@
     {
         <div class="total col-lg-3">
             <div class="product-detail">
-                <div class="product">
-                    @if (!(user is null))
-                    {
-                        if (user.isAdmin == true)
+                @if (pro.Quantity > 0)
+                {
+                    <div class="product">
+                        @if (!(user is null))
                         {
-                            <p class="overlay">
-                                <a href="/Shop/EditProduct?id=@pro.ID" class="glyphicon glyphicon-pencil"></a>
-                                <span class="Deletepro"> <a href="#" id="Deletepro" class="glyphicon glyphicon-trash" data-id="@pro.ID"></a></span>
-                            </p>
+                            if (user.isAdmin == true)
+                            {
+                                <p class="overlay">
+                                    <a href="/Shop/EditProduct?id=@pro.ID" class="glyphicon glyphicon-pencil"></a>
+                                    <span class="Deletepro"> <a href="#" id="Deletepro" class="glyphicon glyphicon-trash" data-id="@pro.ID"></a></span>
+                                </p>
+                            }
                         }
-                    }
-                    @{ string image = "";}
-                    @{if (!(pro.Image is null))
+                        @{ string image = "";}
+                        @{if (!(pro.Image is null))
+                            {
+                                byte[] imgBytes = pro.Image;
+                                image = System.Text.Encoding.ASCII.GetString(imgBytes);
+                            }
+                        }
+                        @Html.Image(image, "Alternate Text", "300", "250")
+                    </div>
+                }
+                else
+                {
+                    <div class="product" style="opacity:0.5;">
+                        @if (!(user is null))
                         {
-                            byte[] imgBytes = pro.Image;
-                            image = System.Text.Encoding.ASCII.GetString(imgBytes);
+                            if (user.isAdmin == true)
+                            {
+                                <p class="overlay">
+                                    <a href="/Shop/EditProduct?id=@pro.ID" class="glyphicon glyphicon-pencil"></a>
+                                    <span class="Deletepro"> <a href="#" id="Deletepro" class="glyphicon glyphicon-trash" data-id="@pro.ID"></a></span>
+                                </p>
+                            }
                         }
-                    }
-                    @Html.Image(image, "Alternate Text", "300", "250")
-                    @*<div class="overlay">
-                            <div class="text">Hết Hàng</div>
-                        </div>*@
-                </div>
+                        @{ string image = "";}
+                        @{if (!(pro.Image is null))
+                            {
+                                byte[] imgBytes = pro.Image;
+                                image = System.Text.Encoding.ASCII.GetString(imgBytes);
+                            }
+                        }
+                        @Html.Image(image, "Alternate Text", "300", "250")
+                    </div>
+
+                    <span class="outofstock">Hết Hàng</span>
+                }
                 <div class="detail">
-                    <span class="name_pro"><a href="/Shop/ProDetail?id=@pro.ID">@pro.Name</a></span>
+                    <span class="name_pro"><a href="/Shop/ProDetail?id=@pro.ID" class="label_title">@pro.Name</a></span>
                     <span style="font-size:15px; color:blue">Giá tiền:</span>
                     <br />
                     <div class="price">@(((float)pro.Price).ToString("N0")) đ</div>
@@ -48,7 +73,7 @@
                             </div>
 
                         }
-                        else if(user.isAdmin==false)
+                        else if (user.isAdmin == false)
                         {
                             if (pro.Quantity > 0)
                             {
@@ -60,7 +85,7 @@
                             }
                             else
                             {
-                                <div class="AddCart"style="margin-top:10px">
+                                <div class="AddCart" style="margin-top:10px">
                                     <h4 style="display:inline"><a href="#" style="pointer-events:none;color:gray">Mua Ngay</a></h4>
                                     <a href="#" class="glyphicon glyphicon-shopping-cart" style="pointer-events:none;color:gray"></a>
                                 </div>
@@ -97,19 +122,28 @@ else
         });
         $('.addcart').click(function (e) {
             const current = e.currentTarget;
-                $.ajax({
-                    data: { ProductID: current.children[0].dataset.id },
-                    url: '/Shop/Addcart',
-                    dataType: 'json',
-                    type: 'POST',
-                    success: function (res) {
-                        if (res.status == true) {
-                            toastr.success("Thêm vào giỏ hàng thành công!", "AddCart", { timeOut: 1500, positionClass: "toast-top-right" })
-                            setTimeout(function () { window.location.href = "/Shop/Home"; }, 2000)
-                        }
+            $.ajax({
+                data: { ProductID: current.children[0].dataset.id },
+                url: '/Shop/Addcart',
+                dataType: 'json',
+                type: 'POST',
+                success: function (res) {
+                    if (res.status == true) {
+                        toastr.success("Thêm vào giỏ hàng thành công!", "AddCart", { timeOut: 500, positionClass: "toast-top-right" })
+                        //setTimeout(function () { window.location.href = "/Shop/Home"; }, 2000)
                     }
-                })
+                }
+            })
         });
     });
 
+</script>
+<script>
+    $(".label_title").each(function () {
+        if ($(this).text().length > 18)
+        {
+            $(this).text($(this).text().substr(0, 18));
+            $(this).append('...');
+        }
+    });
 </script>

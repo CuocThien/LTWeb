@@ -16,22 +16,22 @@
             @{
                 if (!(user is null) && user.isAdmin == false)
                 {
-                    <li class="nav-item">
+                    <li class="nav-item cart">
                         <a class="nav-link" href="/Shop/Cart">Giỏ Hàng</a>
                     </li>
                 }
             }
 
-            <li class="nav-item">
+            <li class="nav-item wait Active">
                 <a href="/Shop/CartStatus?status=Wait" class="nav-link">Chờ xác nhận</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item delivery">
                 <a href="/Shop/CartStatus?status=Delivery" class="nav-link">Đang giao</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item finish">
                 <a href="/Shop/CartStatus?status=Finish" class="nav-link">Đã giao</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item cancel">
                 <a href="/Shop/CartStatus?status=Cancel" class="nav-link">Đã hủy</a>
             </li>
         </ul>
@@ -89,8 +89,8 @@
                                             }
 
                                             @*<tr>
-                                                <td colspan="7"><br /><br /><br /></td>
-                                            </tr>*@
+                                                    <td colspan="7"><br /><br /><br /></td>
+                                                </tr>*@
 
                                             <tr>
 
@@ -141,8 +141,8 @@
                                                 }
                                             </tr>
                                             @*<tr>
-                                                <td colspan="7"><br /></td>
-                                            </tr>*@
+                                                    <td colspan="7"><br /></td>
+                                                </tr>*@
 
                                             k = i.ID_Order;
 
@@ -166,13 +166,16 @@
                                                     </tr>
                                                 }
                                             }
-                                            @*<tr>
-                                                <td colspan="7"><br /><br /><br /></td>
-                                            </tr>*@
-                                            <tr class="line" style="height=5px">
-                                                <td colspan="7"></td>
+                                            <tr>
+                                                <td colspan="7"><br /></td>
+                                            </tr>
+                                            <tr class="line">
+                                                <td colspan="7" style="padding:0;margin:8px 0;"></td>
                                             </tr>
 
+                                            <tr>
+                                                <td colspan="7"><br /></td>
+                                            </tr>
                                         }
 
                                     }
@@ -182,7 +185,7 @@
                             </table>
                             if (status == "Finish" && user.isAdmin == true)
                             {
-                                <a href="@Url.Action("DownloadExcel","Shop")">Download Excel Order</a>
+                                <a href="@Url.Action("DownloadExcel", "Shop")">Download Excel Order</a>
                             }
                         }
                         else
@@ -260,7 +263,31 @@
                 })
             }
         });
-
+        
+        
     });
 </script>
 
+<script>
+    $(document).ready(function () {
+        let m = "@Html.Raw(ViewBag.Message)"
+        if (m == "Delivery") {
+            var y = $(".Active");
+            y.removeClass("Active");
+            var tmp = $(".delivery");
+            tmp.addClass("Active")
+        }
+        else if (m == "Finish") {
+            var y = $(".Active");
+            y.removeClass("Active");
+            var tmp = $(".finish");
+            tmp.addClass("Active")
+        }
+        else if (m == "Cancel") {
+            var y = $(".Active");
+            y.removeClass("Active");
+            var tmp = $(".cancel");
+            tmp.addClass("Active")
+        }
+    });
+</script>
