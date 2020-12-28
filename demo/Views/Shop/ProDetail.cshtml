@@ -72,7 +72,7 @@
                     </ul>
                 </div>
             </div>
-            <div>
+            <div class="col-lg-4">
                 <ul>
                     <h2>Chi tiết sản phẩm</h2>
                     <li>Kiểu: @pro.Style</li>
@@ -81,7 +81,7 @@
                     <li>Nước sản xuất: @pro.Country</li>
                 </ul>
             </div>
-            <div>
+            <div class="col-lg-8">
                 <h2>Mô tả sản phẩm</h2>
                 <span style="color:black">@Html.Raw(pro.Description)</span>
             </div>
@@ -120,7 +120,7 @@
                 success: function (res) {
                     if (res.status == true) {
                         toastr.success("Thêm vào giỏ hàng thành công!", "AddCart", { timeOut: 1500, positionClass: "toast-top-right" })
-                        setTimeout(function () { window.location.href = "/Shop/ProDetail"; }, 2000)
+                        setTimeout(function () { window.location.href = "/Shop/Home"; }, 2000)
                     }
                 }
             })
