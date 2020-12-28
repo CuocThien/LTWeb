@@ -48,6 +48,14 @@ namespace demo.Controllers
         public ActionResult Login()
 
         {
+            int a = 10;
+            return View();
+        }
+
+        public ActionResult Login1(string controller,string action,string id)
+
+        {
+            int a = 10;
             return View();
         }
         public ActionResult Register()

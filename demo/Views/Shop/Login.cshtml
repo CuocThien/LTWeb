@@ -51,6 +51,16 @@
         $("#login").click(function () {
             let username = $(".ip-text")[0].value;
             let password = $(".ip-password")[0].value;
+            var url = window.location.href.split('?');
+            console.log(url)
+            var link = "";
+            if (url[1]) {
+                url = url[1].split('&');
+                link = `/${url[0].split('=')[1]}/${url[1].split('=')[1]}?${url[2]}`;
+            } else {
+                link=`/Shop/Home`
+            }
+                
             $.ajax({
                 cache: false,
                 type: "POST",
@@ -67,7 +77,8 @@
                     }
                     else {
                         toastr.success("Đăng nhập thành công", "Login", { timeOut:1500, positionClass: "toast-top-right" })
-                        setTimeout(function () { window.location.href = "/Shop/Home"; },2000)
+                        setTimeout(function () {
+                            window.location.href = link; },2000)
                         //toastr.success("Đăng nhập thành công", "Login", { timeOut:10000)
                         //$("#loadBody").html(res)
                         

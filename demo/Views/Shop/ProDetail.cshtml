@@ -45,9 +45,19 @@
                         @{ if (user is null)
                             {
                                 <div class="AddCart">
+
                                     <h4><a href="/Shop/Login" id="buy">Mua Ngay</a></h4>
-                                    <a href="/Shop/Login" class="glyphicon glyphicon-shopping-cart"></a>
+                     
+                                    <a id="urlAddCart" href="/Shop/Login?controller=Shop&action=ProDetail&id=11" class="glyphicon glyphicon-shopping-cart"></a>
                                 </div>
+                                <script>
+
+                                    var url = window.location.href;
+                                    var addCart = document.getElementById('urlAddCart');
+                                    url = url.substring(24).split('/');
+                                    url = `/Shop/Login?controller=${url[0]}&action=${url[1].replace('?', '&')}`;
+                                    addCart.setAttribute('href', url);
+                                </script>
 
                             }
                             else if (user.isAdmin == false)
@@ -100,6 +110,8 @@
 </div>
 @* Đánh giá sản phẩm (phân trang) *@
 <script>
+    
+    
     $(document).ready(function () {
         $("#quantity").keyup(function () {
             var sl =@Model.FirstOrDefault().Quantity;

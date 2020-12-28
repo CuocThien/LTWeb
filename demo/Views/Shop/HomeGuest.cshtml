@@ -8,6 +8,10 @@
 <div>
     @{Html.RenderAction("HeaderMenuGuest", "Shop");}
     <div class="container-fluid">
+        <div>
+            <input type="text" placeholder="Search" aria-label="Search">
+            <button>Search</button>
+        </div>
         <div id="loadProduct" class="products row">
             @{ string brand = "all";
                 string id = "home";}
