@@ -1185,5 +1185,36 @@ namespace demo.Controllers
                 status = true
             });
         }
+        public JsonResult GetAllDistrictByProvinceId(string id)
+        {
+            if (id == "")
+                id = "1";
+            List<string> Districts = new List<string>();
+            using (var db = new shopEntities())
+            {
+                var data = db.Districts.Where(x => x.ProvinceId.ToString() == id).OrderBy(x => x.Name).ToList();
+                foreach(var item in data)
+                {
+                    Districts.Add(item.Name);
+                }    
+                return Json(Districts, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public JsonResult GetAllWardByDistrictId(string id)
+        {
+            if (id == "")
+                id = "1";
+            List<string> Wards = new List<string>();
+            using (var db = new shopEntities())
+            {
+                id = db.Districts.Where(d => d.Name == id).SingleOrDefault().Id.ToString();
+                var data = db.Wards.Where(x => x.DistrictID.ToString() == id).OrderBy(x => x.Name).ToList();
+                foreach (var item in data)
+                {
+                    Wards.Add(item.Name);
+                }
+                return Json(Wards, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

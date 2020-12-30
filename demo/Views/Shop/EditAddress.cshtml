@@ -41,17 +41,30 @@
             </div>
             <div class="form-group row">
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="Province" value="" placeholder="Tỉnh/Thành Phố">
+                    <select id="province" class="form-control">
+                        @{
+                            shopEntities db = new shopEntities();
+                            foreach (var p in db.Provinces)
+                            {
+                                <option value="@p.Id">@p.Name</option>
+                            }
+                        }
+                    </select>
+                    @*<input type="text" class="form-control" id="Province" value="" placeholder="Tỉnh/Thành Phố">*@
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="District" value="" placeholder="Quận/Huyện">
+                    <select id="district" class="form-control">
+                    </select>
+                    @*<input type="text" class="form-control" id="District" value="" placeholder="Quận/Huyện">*@
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="Ward" value="" placeholder="Phường/Xã">
+                    <select id="ward" class="form-control">
+                    </select>
+                    @*<input type="text" class="form-control" id="Ward" value="" placeholder="Phường/Xã">*@
                 </div>
             </div>
             <div class="form-group row">
@@ -75,5 +88,40 @@
             $('#openPopup').css('opacity', 0);
             $('#openPopup').css('visibility', 'hidden');
         })
+        $("#province").change(function () {
+            var pro = $("#province")[0].value;
+            $.ajax({
+                type: "GET",
+                url: "/Shop/GetAllDistrictByProvinceId",
+                data: {
+                    id: pro
+                },
+                success: function (res) {
+                    $('#district').html("");
+                    $("#district").append(("<option disabled selected>" + "Chọn Quận/Huyện" + "</option>"));
+                    $.each(res, function (key, item) {
+                        $("#district").append("<option>" + item + "</option>");
+                    });
+                }
+            });
+            
+        });
+        $("#district").change(function () {
+            var dis = $("#district")[0].value;
+            $.ajax({
+                type: "GET",
+                url: "/Shop/GetAllWardByDistrictId",
+                data: {
+                    id: dis
+                },
+                success: function (res) {
+                    $('#ward').html("");
+                    $("#ward").append(("<option disabled selected>" + "Chọn Phường/Xã" + "</option>"));
+                    $.each(res, function (key, item) {
+                        $("#ward").append("<option>" + item + "</option>");
+                    });
+                }
+            });
+        });
     });
 </script>

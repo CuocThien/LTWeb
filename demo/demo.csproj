@@ -223,6 +223,7 @@
     <Content Include="Img\dongho3.jpg" />
     <Content Include="Img\face.png" />
     <Content Include="Img\l.png" />
+    <Content Include="Img\logoMyTeam.gif" />
     <Content Include="Img\m.png" />
     <Content Include="Img\map-marker-2-24.png" />
     <Content Include="Img\phone-24.png" />
@@ -610,6 +611,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\loadProvinceDistrictWard.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\CheckPass.js" />
     <Content Include="Scripts\toastr.js" />
