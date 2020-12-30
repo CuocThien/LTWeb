@@ -17,6 +17,7 @@ namespace demo.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public User()
         {
+            this.DeliveryAddresses = new HashSet<DeliveryAddress>();
             this.Orders = new HashSet<Order>();
         }
     
@@ -31,7 +32,8 @@ namespace demo.Model
         public string Email { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DeliveryAddress> DeliveryAddresses { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders { get; set; }
-        public virtual DeliveryAddress DeliveryAddress { get; set; }
     }
 }

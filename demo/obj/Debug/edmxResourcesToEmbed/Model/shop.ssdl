@@ -7,12 +7,11 @@
     <Property Name="ID" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Name" Type="nvarchar" MaxLength="250" />
   </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'shop.dbo.DeliveryAddress' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="DeliveryAddress">
     <Key>
-      <PropertyRef Name="UserName" />
+      <PropertyRef Name="Id" />
     </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Phone" Type="nvarchar" MaxLength="10" />
     <Property Name="Address" Type="nvarchar(max)" />
@@ -90,16 +89,6 @@ warning 6002: The table/view 'shop.dbo.DeliveryAddress' does not have a primary 
     <Property Name="IsPublished" Type="bit" />
     <Property Name="IsDeleted" Type="bit" />
   </EntityType>
-  <EntityType Name="sysdiagrams">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-    <Property Name="principal_id" Type="int" Nullable="false" />
-    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="version" Type="int" />
-    <Property Name="definition" Type="varbinary(max)" />
-  </EntityType>
   <EntityType Name="User">
     <Key>
       <PropertyRef Name="Username" />
@@ -129,7 +118,7 @@ warning 6002: The table/view 'shop.dbo.DeliveryAddress' does not have a primary 
   </EntityType>
   <Association Name="FK_DeliveryAddress_User">
     <End Role="User" Type="Self.User" Multiplicity="1" />
-    <End Role="DeliveryAddress" Type="Self.DeliveryAddress" Multiplicity="0..1" />
+    <End Role="DeliveryAddress" Type="Self.DeliveryAddress" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="User">
         <PropertyRef Name="Username" />
@@ -213,23 +202,14 @@ warning 6002: The table/view 'shop.dbo.DeliveryAddress' does not have a primary 
   </Association>
   <EntityContainer Name="shopModelStoreContainer">
     <EntitySet Name="Brand" EntityType="Self.Brand" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DeliveryAddress" EntityType="Self.DeliveryAddress" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="District" EntityType="Self.District" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="OrderDetail" EntityType="Self.OrderDetail" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Province" EntityType="Self.Province" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Ward" EntityType="Self.Ward" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="DeliveryAddress" EntityType="Self.DeliveryAddress" store:Type="Tables" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-    [DeliveryAddress].[UserName] AS [UserName], 
-    [DeliveryAddress].[Phone] AS [Phone], 
-    [DeliveryAddress].[Address] AS [Address], 
-    [DeliveryAddress].[FullName] AS [FullName], 
-    [DeliveryAddress].[isDefault] AS [isDefault]
-    FROM [dbo].[DeliveryAddress] AS [DeliveryAddress]</DefiningQuery>
-    </EntitySet>
     <AssociationSet Name="FK_DeliveryAddress_User" Association="Self.FK_DeliveryAddress_User">
       <End Role="User" EntitySet="User" />
       <End Role="DeliveryAddress" EntitySet="DeliveryAddress" />

@@ -552,7 +552,6 @@ namespace demo.Controllers
             var district = frm["District"];
             var ward = frm["Ward"];
             var street = frm["Street"];
-            shopEntities db = new shopEntities();
             var address = street + ", " + ward + ", " + district + ", " + province;
             var deliveryAddress = new DeliveryAddress();
             deliveryAddress.FullName = name;
@@ -561,11 +560,11 @@ namespace demo.Controllers
             var user = Session["User"] as User;
             deliveryAddress.UserName = user.Username;
             deliveryAddress.isDefault = false;
-            deliveryAddress.User = user;
-            db.DeliveryAddresses.Add(deliveryAddress);
+            //deliveryAddress.User = user;
+            _db.DeliveryAddresses.Add(deliveryAddress);
 
-            db.SaveChanges();
-            return View();
+            _db.SaveChanges();
+            return RedirectToAction("EditAddress", "Shop");
         }
 
         [HttpGet]

@@ -2,18 +2,21 @@
 <Schema Namespace="shopModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityContainer Name="shopEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Brands" EntityType="shopModel.Brand" />
+    <EntitySet Name="DeliveryAddresses" EntityType="shopModel.DeliveryAddress" />
     <EntitySet Name="Districts" EntityType="shopModel.District" />
     <EntitySet Name="OrderDetails" EntityType="shopModel.OrderDetail" />
     <EntitySet Name="Orders" EntityType="shopModel.Order" />
     <EntitySet Name="Products" EntityType="shopModel.Product" />
     <EntitySet Name="Provinces" EntityType="shopModel.Province" />
-    <EntitySet Name="sysdiagrams" EntityType="shopModel.sysdiagram" />
     <EntitySet Name="Users" EntityType="shopModel.User" />
     <EntitySet Name="Wards" EntityType="shopModel.Ward" />
-    <EntitySet Name="DeliveryAddresses" EntityType="shopModel.DeliveryAddress" />
     <AssociationSet Name="FK_Products_Brand" Association="shopModel.FK_Products_Brand">
       <End Role="Brand" EntitySet="Brands" />
       <End Role="Product" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DeliveryAddress_User" Association="shopModel.FK_DeliveryAddress_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="DeliveryAddress" EntitySet="DeliveryAddresses" />
     </AssociationSet>
     <AssociationSet Name="FK_District_Province" Association="shopModel.FK_District_Province">
       <End Role="Province" EntitySet="Provinces" />
@@ -35,10 +38,6 @@
       <End Role="User" EntitySet="Users" />
       <End Role="Order" EntitySet="Orders" />
     </AssociationSet>
-    <AssociationSet Name="FK_DeliveryAddress_User" Association="shopModel.FK_DeliveryAddress_User">
-      <End Role="User" EntitySet="Users" />
-      <End Role="DeliveryAddress" EntitySet="DeliveryAddresses" />
-    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Brand">
     <Key>
@@ -47,6 +46,18 @@
     <Property Name="ID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Products" Relationship="shopModel.FK_Products_Brand" FromRole="Brand" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="DeliveryAddress">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Phone" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="FullName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="isDefault" Type="Boolean" />
+    <NavigationProperty Name="User" Relationship="shopModel.FK_DeliveryAddress_User" FromRole="DeliveryAddress" ToRole="User" />
   </EntityType>
   <EntityType Name="District">
     <Key>
@@ -128,16 +139,6 @@
     <Property Name="IsDeleted" Type="Boolean" />
     <NavigationProperty Name="Districts" Relationship="shopModel.FK_District_Province" FromRole="Province" ToRole="District" />
   </EntityType>
-  <EntityType Name="sysdiagram">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-    <Property Name="principal_id" Type="Int32" Nullable="false" />
-    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="version" Type="Int32" />
-    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-  </EntityType>
   <EntityType Name="User">
     <Key>
       <PropertyRef Name="Username" />
@@ -151,8 +152,8 @@
     <Property Name="isAdmin" Type="Boolean" />
     <Property Name="avatar" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
     <Property Name="Email" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="DeliveryAddresses" Relationship="shopModel.FK_DeliveryAddress_User" FromRole="User" ToRole="DeliveryAddress" />
     <NavigationProperty Name="Orders" Relationship="shopModel.FK_Orders_User" FromRole="User" ToRole="Order" />
-    <NavigationProperty Name="DeliveryAddress" Relationship="shopModel.FK_DeliveryAddress_User" FromRole="User" ToRole="DeliveryAddress" />
   </EntityType>
   <EntityType Name="Ward">
     <Key>
@@ -168,17 +169,6 @@
     <Property Name="IsDeleted" Type="Boolean" />
     <NavigationProperty Name="District" Relationship="shopModel.FK_Ward_District" FromRole="Ward" ToRole="District" />
   </EntityType>
-  <EntityType Name="DeliveryAddress">
-    <Key>
-      <PropertyRef Name="UserName" />
-    </Key>
-    <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Phone" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-    <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="FullName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="isDefault" Type="Boolean" />
-    <NavigationProperty Name="User" Relationship="shopModel.FK_DeliveryAddress_User" FromRole="DeliveryAddress" ToRole="User" />
-  </EntityType>
   <Association Name="FK_Products_Brand">
     <End Type="shopModel.Brand" Role="Brand" Multiplicity="1" />
     <End Type="shopModel.Product" Role="Product" Multiplicity="*" />
@@ -188,6 +178,18 @@
       </Principal>
       <Dependent Role="Product">
         <PropertyRef Name="Brand" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DeliveryAddress_User">
+    <End Type="shopModel.User" Role="User" Multiplicity="1" />
+    <End Type="shopModel.DeliveryAddress" Role="DeliveryAddress" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Username" />
+      </Principal>
+      <Dependent Role="DeliveryAddress">
+        <PropertyRef Name="UserName" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -248,18 +250,6 @@
       </Principal>
       <Dependent Role="Order">
         <PropertyRef Name="ID_Customer" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_DeliveryAddress_User">
-    <End Type="shopModel.User" Role="User" Multiplicity="1" />
-    <End Type="shopModel.DeliveryAddress" Role="DeliveryAddress" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="User">
-        <PropertyRef Name="Username" />
-      </Principal>
-      <Dependent Role="DeliveryAddress">
-        <PropertyRef Name="UserName" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
