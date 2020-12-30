@@ -48,14 +48,12 @@ namespace demo.Controllers
         public ActionResult Login()
 
         {
-            int a = 10;
             return View();
         }
 
-        public ActionResult Login1(string controller,string action,string id)
+        public ActionResult Login1(string controller, string action, string id)
 
         {
-            int a = 10;
             return View();
         }
         public ActionResult Register()
@@ -358,7 +356,7 @@ namespace demo.Controllers
             {
                 var tmp = _db.Products.Where(x => x.ID == pro.ID_Product).SingleOrDefault();
                 var count = tmp.Quantity;
-                count=count-pro.Quantity;
+                count = count - pro.Quantity;
                 tmp.Quantity = count;
             }
             _db.Orders.AddOrUpdate(ID);
@@ -396,7 +394,7 @@ namespace demo.Controllers
             {
                 var tmp = _db.Products.Where(x => x.ID == pro.ID_Product).SingleOrDefault();
                 var count = int.Parse(tmp.TopHot);
-                count=count+int.Parse(pro.Quantity.ToString());
+                count = count + int.Parse(pro.Quantity.ToString());
                 tmp.TopHot = count.ToString();
             }
             _db.Orders.AddOrUpdate(ID);
@@ -534,6 +532,18 @@ namespace demo.Controllers
             return View(l);
         }
 
+        //Doi dia chi giao hang
+
+        [HttpGet]
+        public ActionResult EditAddress()
+        {
+            var list = new List<DeliveryAddress>();
+            User user = Session["User"] as User;
+            var ID = _db.DeliveryAddresses.Where(x => x.UserName == user.Username).ToList();
+            list = (List<DeliveryAddress>)ID;
+            return View(list);
+        }
+
         [HttpGet]
 
         [ChildActionOnly]
@@ -623,6 +633,7 @@ namespace demo.Controllers
         public ActionResult Register(FormCollection user)
         {
             var u = _db.Users.Find(user["Username"]);
+            DeliveryAddress address = new DeliveryAddress();
             if (u != null)
                 return Content("userexist");
             var x = user["Password"];
@@ -632,7 +643,11 @@ namespace demo.Controllers
                 if (user["Password"].Equals(user["Confirm"]))
                 {
                     u = Check.convertFtoU(user);
+                    address.UserName = u.Username;
+                    address.Phone = u.Phone;
+                    address.Address = u.Address;
                     _db.Users.Add(u);
+                    _db.DeliveryAddresses.Add(address);
                     _db.SaveChanges();
                     return View("Login");
                 }
@@ -644,6 +659,7 @@ namespace demo.Controllers
                 return Content("false");
             }
         }
+
 
         //Xu ly san pham
         public ActionResult _Product(int? page, string brand, string id)
@@ -770,7 +786,7 @@ namespace demo.Controllers
             return View(list);
         }
 
-        public  JsonResult DeletePro(long id)
+        public JsonResult DeletePro(long id)
         {
             string Id = id.ToString();
             var pro = _db.Products.Where(x => x.ID == Id).SingleOrDefault();
@@ -782,7 +798,7 @@ namespace demo.Controllers
             });
         }
 
-        public ActionResult ListProduct(int ?page)
+        public ActionResult ListProduct(int? page)
         {
             int pagesize = 8;
             int pageNumber = (page ?? 1);
@@ -893,6 +909,42 @@ namespace demo.Controllers
             //return View();
         }
 
+        [HttpGet]
+        public ActionResult ChangePassword()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ChangePassword(FormCollection USER)
+        {
+            User user = Session["User"] as User;
+            //Kiểm tra User có tồn tại trong database hay không
+            if (user == null || _db.Users.Find(user.Username.Trim()) == null)
+                return Content("false");
+            else if (USER["current"] =="")
+                return Content("null");
+            else if (USER["current"] == user.Password)
+            {
+                var u = _db.Users.Find(user.Username.Trim());
+                if (USER["Password"] == "" || USER["Confirm"] == "")
+                    return Content("null");
+                else if (USER["Password"].Equals(USER["Confirm"]))
+                {
+                    u.Password = USER["Password"].Trim();
+                    _db.Users.AddOrUpdate(u);
+                    _db.SaveChanges();
+                    return View("Login");
+                }
+                else
+                {
+                    return Content("NotEqual");
+                }
+            }
+            else
+                return Content("Error");
+        }
+
+
         //Dang nhap bang FB
         public ActionResult LoginFacebook()
         {
@@ -960,11 +1012,13 @@ namespace demo.Controllers
             }
         }
 
+
+        //Thong tin cua user
         public ActionResult Profiles()
         {
             return View();
         }
-        
+
         [HttpPost]
         public ActionResult Profiles(FormCollection frm)
         {
@@ -1104,11 +1158,11 @@ namespace demo.Controllers
             Response.End();
         }
 
-        public ActionResult Users(int? page,string admin)
+        public ActionResult Users(int? page, string admin)
         {
             int pagesize = 4;
             int pageNumber = (page ?? 1);
-            var result = _db.Users.Where(x=>x.isAdmin.ToString() == admin).OrderBy(id => id.Username);
+            var result = _db.Users.Where(x => x.isAdmin.ToString() == admin).OrderBy(id => id.Username);
             return View(result.ToPagedList(pageNumber, pagesize));
         }
         [HttpGet]

@@ -7,6 +7,29 @@
     <Property Name="ID" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Name" Type="nvarchar" MaxLength="250" />
   </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'shop.dbo.DeliveryAddress' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="DeliveryAddress">
+    <Key>
+      <PropertyRef Name="UserName" />
+    </Key>
+    <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Phone" Type="nvarchar" MaxLength="10" />
+    <Property Name="Address" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="District">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="250" />
+    <Property Name="Type" Type="nvarchar" MaxLength="50" />
+    <Property Name="LatiLongTude" Type="nvarchar" MaxLength="50" />
+    <Property Name="ProvinceId" Type="int" Nullable="false" />
+    <Property Name="SortOrder" Type="int" />
+    <Property Name="IsPublished" Type="bit" />
+    <Property Name="IsDeleted" Type="bit" />
+  </EntityType>
   <EntityType Name="OrderDetail">
     <Key>
       <PropertyRef Name="ID_Order" />
@@ -50,6 +73,21 @@
     <Property Name="Country" Type="nvarchar" MaxLength="50" />
     <Property Name="Image" Type="varbinary(max)" />
   </EntityType>
+  <EntityType Name="Province">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="Type" Type="nvarchar" MaxLength="20" />
+    <Property Name="TelephoneCode" Type="int" />
+    <Property Name="ZipCode" Type="nvarchar" MaxLength="20" />
+    <Property Name="CountryId" Type="int" Nullable="false" />
+    <Property Name="CountryCode" Type="nvarchar" MaxLength="2" />
+    <Property Name="SortOrder" Type="int" />
+    <Property Name="IsPublished" Type="bit" />
+    <Property Name="IsDeleted" Type="bit" />
+  </EntityType>
   <EntityType Name="sysdiagrams">
     <Key>
       <PropertyRef Name="diagram_id" />
@@ -74,6 +112,43 @@
     <Property Name="avatar" Type="nvarchar" MaxLength="2000" />
     <Property Name="Email" Type="nvarchar" MaxLength="250" />
   </EntityType>
+  <EntityType Name="Ward">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Type" Type="nvarchar" MaxLength="50" />
+    <Property Name="LatiLongTude" Type="nvarchar" MaxLength="50" />
+    <Property Name="DistrictID" Type="int" Nullable="false" />
+    <Property Name="SortOrder" Type="int" Nullable="false" />
+    <Property Name="IsPublished" Type="bit" />
+    <Property Name="IsDeleted" Type="bit" />
+  </EntityType>
+  <Association Name="FK_DeliveryAddress_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="DeliveryAddress" Type="Self.DeliveryAddress" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Username" />
+      </Principal>
+      <Dependent Role="DeliveryAddress">
+        <PropertyRef Name="UserName" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_District_Province">
+    <End Role="Province" Type="Self.Province" Multiplicity="1" />
+    <End Role="District" Type="Self.District" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Province">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="District">
+        <PropertyRef Name="ProvinceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_OrderDetail_Orders">
     <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
     <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
@@ -122,13 +197,43 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Ward_District">
+    <End Role="District" Type="Self.District" Multiplicity="1" />
+    <End Role="Ward" Type="Self.Ward" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="District">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Ward">
+        <PropertyRef Name="DistrictID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="shopModelStoreContainer">
     <EntitySet Name="Brand" EntityType="Self.Brand" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="District" EntityType="Self.District" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="OrderDetail" EntityType="Self.OrderDetail" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Province" EntityType="Self.Province" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Ward" EntityType="Self.Ward" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DeliveryAddress" EntityType="Self.DeliveryAddress" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [DeliveryAddress].[UserName] AS [UserName], 
+    [DeliveryAddress].[Phone] AS [Phone], 
+    [DeliveryAddress].[Address] AS [Address]
+    FROM [dbo].[DeliveryAddress] AS [DeliveryAddress]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_DeliveryAddress_User" Association="Self.FK_DeliveryAddress_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="DeliveryAddress" EntitySet="DeliveryAddress" />
+    </AssociationSet>
+    <AssociationSet Name="FK_District_Province" Association="Self.FK_District_Province">
+      <End Role="Province" EntitySet="Province" />
+      <End Role="District" EntitySet="District" />
+    </AssociationSet>
     <AssociationSet Name="FK_OrderDetail_Orders" Association="Self.FK_OrderDetail_Orders">
       <End Role="Orders" EntitySet="Orders" />
       <End Role="OrderDetail" EntitySet="OrderDetail" />
@@ -144,6 +249,10 @@
     <AssociationSet Name="FK_Products_Brand" Association="Self.FK_Products_Brand">
       <End Role="Brand" EntitySet="Brand" />
       <End Role="Products" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Ward_District" Association="Self.FK_Ward_District">
+      <End Role="District" EntitySet="District" />
+      <End Role="Ward" EntitySet="Ward" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

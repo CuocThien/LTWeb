@@ -26,10 +26,14 @@ namespace demo.Model
         }
     
         public virtual DbSet<Brand> Brands { get; set; }
+        public virtual DbSet<District> Districts { get; set; }
         public virtual DbSet<OrderDetail> OrderDetails { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<Province> Provinces { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Ward> Wards { get; set; }
+        public virtual DbSet<DeliveryAddress> DeliveryAddresses { get; set; }
     }
 }

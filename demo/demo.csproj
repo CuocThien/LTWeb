@@ -958,6 +958,12 @@
       <DependentUpon>shop.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\DataPoint.cs" />
+    <Compile Include="Model\DeliveryAddress.cs">
+      <DependentUpon>shop.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\District.cs">
+      <DependentUpon>shop.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\ImportExcel.cs" />
     <Compile Include="Model\Order.cs">
       <DependentUpon>shop.tt</DependentUpon>
@@ -966,6 +972,9 @@
       <DependentUpon>shop.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Product.cs">
+      <DependentUpon>shop.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Province.cs">
       <DependentUpon>shop.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\shop.Context.cs">
@@ -987,6 +996,9 @@
       <DependentUpon>shop.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\User.cs">
+      <DependentUpon>shop.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Ward.cs">
       <DependentUpon>shop.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -1049,6 +1061,8 @@
     <Content Include="Views\Shop\_ListProduct.cshtml" />
     <Content Include="Views\Shop\_Users.cshtml" />
     <Content Include="Views\Shop\Profiles.cshtml" />
+    <Content Include="Views\Shop\EditAddress.cshtml" />
+    <Content Include="Views\Shop\ChangePassword.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

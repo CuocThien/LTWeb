@@ -1,0 +1,79 @@
+﻿@using demo.Controllers
+@using demo.Model;
+@model List<demo.Model.DeliveryAddress>
+@{
+    ViewBag.Title = "EditAddress";
+}
+
+@{ Html.RenderAction("HeaderMenu", "Shop");}
+<div class="main">
+
+    <div style="position: absolute; width: 100%;">
+        @if (Model.Count > 0)
+        {
+            <div style="margin-top:50px;margin-left:50px;height:30px">
+                <i class="glyphicon glyphicon-map-marker">ĐỊA CHỈ NHẬN HÀNG</i>
+                <button type="button" id="set" class="btn" style=" margin-left: 50px; float: right; width: 11%; height: 35px;">Thiết lập địa chỉ</button>
+                <button type="button" id="add" class="btn" style=" float: right; width: 11%; height: 35px;">+ Thêm địa chỉ mới</button>
+
+            </div>
+            <br />
+            foreach (var item in Model)
+            {
+                <input type="radio" id="" name="address" value="" style="width:50px">
+                <label for="">@item.User.Name &nbsp; @item.Phone &nbsp; @item.Address</label><br>
+            }
+            <button type="submit" id="Finish" class="btn" style=" margin-right: 50px;margin-left:50px; margin-top: 50px; float: left; width: 12%; height: 40px;">Hoàn thành</button>
+            <button type="button" id="Back" class="btn" style=" margin-top: 50px; float: left; width: 12%; height: 40px;">Trở lại</button>
+        }
+    </div>
+    <div class="popup" id="openPopup">
+        <div class="popup-form">
+            <div class="form-group row">
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="Name" value="" placeholder="Họ và Tên">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="Phone" value="" placeholder="Số Điện Thoại">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="Province" value="" placeholder="Tỉnh/Thành Phố">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="District" value="" placeholder="Quận/Huyện">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="Ward" value="" placeholder="Phường/Xã">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="Stress" value="" placeholder="Tòa Nhà/Tên Đường">
+                </div>
+            </div>
+            <button type="submit" id="FinishFrm" class="btn" style=" margin-right: 50px;margin-left:50px; margin-top: 50px; float: left; width: 27%; height: 40px;">Hoàn thành</button>
+            <button type="button" id="BackFrm" class="btn" style=" margin-top: 50px; float: left; width: 25%; height: 40px;">Trở lại</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#add').click(function () {
+            $('#openPopup').css('opacity', 1);
+            $('#openPopup').css('visibility', 'visible');
+        })
+        $('#BackFrm').click(function () {
+            $('#openPopup').css('opacity', 0);
+            $('#openPopup').css('visibility', 'hidden');
+        })
+    });
+</script>

@@ -12,6 +12,29 @@
           <Property Name="ID" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="250" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'shop.dbo.DeliveryAddress' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="DeliveryAddress">
+          <Key>
+            <PropertyRef Name="UserName" />
+          </Key>
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="10" />
+          <Property Name="Address" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="District">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="250" />
+          <Property Name="Type" Type="nvarchar" MaxLength="50" />
+          <Property Name="LatiLongTude" Type="nvarchar" MaxLength="50" />
+          <Property Name="ProvinceId" Type="int" Nullable="false" />
+          <Property Name="SortOrder" Type="int" />
+          <Property Name="IsPublished" Type="bit" />
+          <Property Name="IsDeleted" Type="bit" />
+        </EntityType>
         <EntityType Name="OrderDetail">
           <Key>
             <PropertyRef Name="ID_Order" />
@@ -55,6 +78,21 @@
           <Property Name="Country" Type="nvarchar" MaxLength="50" />
           <Property Name="Image" Type="varbinary(max)" />
         </EntityType>
+        <EntityType Name="Province">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="Type" Type="nvarchar" MaxLength="20" />
+          <Property Name="TelephoneCode" Type="int" />
+          <Property Name="ZipCode" Type="nvarchar" MaxLength="20" />
+          <Property Name="CountryId" Type="int" Nullable="false" />
+          <Property Name="CountryCode" Type="nvarchar" MaxLength="2" />
+          <Property Name="SortOrder" Type="int" />
+          <Property Name="IsPublished" Type="bit" />
+          <Property Name="IsDeleted" Type="bit" />
+        </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -79,6 +117,43 @@
           <Property Name="avatar" Type="nvarchar" MaxLength="2000" />
           <Property Name="Email" Type="nvarchar" MaxLength="250" />
         </EntityType>
+        <EntityType Name="Ward">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Type" Type="nvarchar" MaxLength="50" />
+          <Property Name="LatiLongTude" Type="nvarchar" MaxLength="50" />
+          <Property Name="DistrictID" Type="int" Nullable="false" />
+          <Property Name="SortOrder" Type="int" Nullable="false" />
+          <Property Name="IsPublished" Type="bit" />
+          <Property Name="IsDeleted" Type="bit" />
+        </EntityType>
+        <Association Name="FK_DeliveryAddress_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="DeliveryAddress" Type="Self.DeliveryAddress" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Username" />
+            </Principal>
+            <Dependent Role="DeliveryAddress">
+              <PropertyRef Name="UserName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_District_Province">
+          <End Role="Province" Type="Self.Province" Multiplicity="1" />
+          <End Role="District" Type="Self.District" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Province">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="District">
+              <PropertyRef Name="ProvinceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_OrderDetail_Orders">
           <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
           <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
@@ -127,13 +202,43 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Ward_District">
+          <End Role="District" Type="Self.District" Multiplicity="1" />
+          <End Role="Ward" Type="Self.Ward" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="District">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Ward">
+              <PropertyRef Name="DistrictID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="shopModelStoreContainer">
           <EntitySet Name="Brand" EntityType="Self.Brand" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="District" EntityType="Self.District" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderDetail" EntityType="Self.OrderDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Province" EntityType="Self.Province" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ward" EntityType="Self.Ward" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DeliveryAddress" EntityType="Self.DeliveryAddress" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [DeliveryAddress].[UserName] AS [UserName], 
+    [DeliveryAddress].[Phone] AS [Phone], 
+    [DeliveryAddress].[Address] AS [Address]
+    FROM [dbo].[DeliveryAddress] AS [DeliveryAddress]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_DeliveryAddress_User" Association="Self.FK_DeliveryAddress_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="DeliveryAddress" EntitySet="DeliveryAddress" />
+          </AssociationSet>
+          <AssociationSet Name="FK_District_Province" Association="Self.FK_District_Province">
+            <End Role="Province" EntitySet="Province" />
+            <End Role="District" EntitySet="District" />
+          </AssociationSet>
           <AssociationSet Name="FK_OrderDetail_Orders" Association="Self.FK_OrderDetail_Orders">
             <End Role="Orders" EntitySet="Orders" />
             <End Role="OrderDetail" EntitySet="OrderDetail" />
@@ -150,6 +255,10 @@
             <End Role="Brand" EntitySet="Brand" />
             <End Role="Products" EntitySet="Products" />
           </AssociationSet>
+          <AssociationSet Name="FK_Ward_District" Association="Self.FK_Ward_District">
+            <End Role="District" EntitySet="District" />
+            <End Role="Ward" EntitySet="Ward" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -157,14 +266,26 @@
       <Schema Namespace="shopModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="shopEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Brands" EntityType="shopModel.Brand" />
+          <EntitySet Name="Districts" EntityType="shopModel.District" />
           <EntitySet Name="OrderDetails" EntityType="shopModel.OrderDetail" />
           <EntitySet Name="Orders" EntityType="shopModel.Order" />
           <EntitySet Name="Products" EntityType="shopModel.Product" />
+          <EntitySet Name="Provinces" EntityType="shopModel.Province" />
           <EntitySet Name="sysdiagrams" EntityType="shopModel.sysdiagram" />
           <EntitySet Name="Users" EntityType="shopModel.User" />
+          <EntitySet Name="Wards" EntityType="shopModel.Ward" />
+          <EntitySet Name="DeliveryAddresses" EntityType="shopModel.DeliveryAddress" />
           <AssociationSet Name="FK_Products_Brand" Association="shopModel.FK_Products_Brand">
             <End Role="Brand" EntitySet="Brands" />
             <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_District_Province" Association="shopModel.FK_District_Province">
+            <End Role="Province" EntitySet="Provinces" />
+            <End Role="District" EntitySet="Districts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ward_District" Association="shopModel.FK_Ward_District">
+            <End Role="District" EntitySet="Districts" />
+            <End Role="Ward" EntitySet="Wards" />
           </AssociationSet>
           <AssociationSet Name="FK_OrderDetail_Orders" Association="shopModel.FK_OrderDetail_Orders">
             <End Role="Order" EntitySet="Orders" />
@@ -178,6 +299,10 @@
             <End Role="User" EntitySet="Users" />
             <End Role="Order" EntitySet="Orders" />
           </AssociationSet>
+          <AssociationSet Name="FK_DeliveryAddress_User" Association="shopModel.FK_DeliveryAddress_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="DeliveryAddress" EntitySet="DeliveryAddresses" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Brand">
           <Key>
@@ -186,6 +311,21 @@
           <Property Name="ID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Products" Relationship="shopModel.FK_Products_Brand" FromRole="Brand" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="District">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LatiLongTude" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ProvinceId" Type="Int32" Nullable="false" />
+          <Property Name="SortOrder" Type="Int32" />
+          <Property Name="IsPublished" Type="Boolean" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <NavigationProperty Name="Province" Relationship="shopModel.FK_District_Province" FromRole="District" ToRole="Province" />
+          <NavigationProperty Name="Wards" Relationship="shopModel.FK_Ward_District" FromRole="District" ToRole="Ward" />
         </EntityType>
         <EntityType Name="OrderDetail">
           <Key>
@@ -236,6 +376,22 @@
           <NavigationProperty Name="Brand1" Relationship="shopModel.FK_Products_Brand" FromRole="Product" ToRole="Brand" />
           <NavigationProperty Name="OrderDetails" Relationship="shopModel.FK_OrderDetail_Products" FromRole="Product" ToRole="OrderDetail" />
         </EntityType>
+        <EntityType Name="Province">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="TelephoneCode" Type="Int32" />
+          <Property Name="ZipCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CountryId" Type="Int32" Nullable="false" />
+          <Property Name="CountryCode" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="SortOrder" Type="Int32" />
+          <Property Name="IsPublished" Type="Boolean" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <NavigationProperty Name="Districts" Relationship="shopModel.FK_District_Province" FromRole="Province" ToRole="District" />
+        </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -260,6 +416,30 @@
           <Property Name="avatar" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Orders" Relationship="shopModel.FK_Orders_User" FromRole="User" ToRole="Order" />
+          <NavigationProperty Name="DeliveryAddress" Relationship="shopModel.FK_DeliveryAddress_User" FromRole="User" ToRole="DeliveryAddress" />
+        </EntityType>
+        <EntityType Name="Ward">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LatiLongTude" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DistrictID" Type="Int32" Nullable="false" />
+          <Property Name="SortOrder" Type="Int32" Nullable="false" />
+          <Property Name="IsPublished" Type="Boolean" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <NavigationProperty Name="District" Relationship="shopModel.FK_Ward_District" FromRole="Ward" ToRole="District" />
+        </EntityType>
+        <EntityType Name="DeliveryAddress">
+          <Key>
+            <PropertyRef Name="UserName" />
+          </Key>
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="User" Relationship="shopModel.FK_DeliveryAddress_User" FromRole="DeliveryAddress" ToRole="User" />
         </EntityType>
         <Association Name="FK_Products_Brand">
           <End Type="shopModel.Brand" Role="Brand" Multiplicity="1" />
@@ -270,6 +450,30 @@
             </Principal>
             <Dependent Role="Product">
               <PropertyRef Name="Brand" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_District_Province">
+          <End Type="shopModel.Province" Role="Province" Multiplicity="1" />
+          <End Type="shopModel.District" Role="District" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Province">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="District">
+              <PropertyRef Name="ProvinceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ward_District">
+          <End Type="shopModel.District" Role="District" Multiplicity="1" />
+          <End Type="shopModel.Ward" Role="Ward" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="District">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Ward">
+              <PropertyRef Name="DistrictID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -309,6 +513,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_DeliveryAddress_User">
+          <End Type="shopModel.User" Role="User" Multiplicity="1" />
+          <End Type="shopModel.DeliveryAddress" Role="DeliveryAddress" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Username" />
+            </Principal>
+            <Dependent Role="DeliveryAddress">
+              <PropertyRef Name="UserName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -320,6 +536,20 @@
               <MappingFragment StoreEntitySet="Brand">
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Districts">
+            <EntityTypeMapping TypeName="shopModel.District">
+              <MappingFragment StoreEntitySet="District">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="IsPublished" ColumnName="IsPublished" />
+                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+                <ScalarProperty Name="ProvinceId" ColumnName="ProvinceId" />
+                <ScalarProperty Name="LatiLongTude" ColumnName="LatiLongTude" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -368,6 +598,22 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Provinces">
+            <EntityTypeMapping TypeName="shopModel.Province">
+              <MappingFragment StoreEntitySet="Province">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="IsPublished" ColumnName="IsPublished" />
+                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+                <ScalarProperty Name="CountryCode" ColumnName="CountryCode" />
+                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+                <ScalarProperty Name="TelephoneCode" ColumnName="TelephoneCode" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
             <EntityTypeMapping TypeName="shopModel.sysdiagram">
               <MappingFragment StoreEntitySet="sysdiagrams">
@@ -391,6 +637,29 @@
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Wards">
+            <EntityTypeMapping TypeName="shopModel.Ward">
+              <MappingFragment StoreEntitySet="Ward">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="IsPublished" ColumnName="IsPublished" />
+                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+                <ScalarProperty Name="DistrictID" ColumnName="DistrictID" />
+                <ScalarProperty Name="LatiLongTude" ColumnName="LatiLongTude" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DeliveryAddresses">
+            <EntityTypeMapping TypeName="shopModel.DeliveryAddress">
+              <MappingFragment StoreEntitySet="DeliveryAddress">
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

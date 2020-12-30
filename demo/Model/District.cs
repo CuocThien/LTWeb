@@ -12,26 +12,25 @@ namespace demo.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class User
+    public partial class District
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public User()
+        public District()
         {
-            this.Orders = new HashSet<Order>();
+            this.Wards = new HashSet<Ward>();
         }
     
-        public string Username { get; set; }
-        public string Password { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
-        public Nullable<System.DateTime> Birthday { get; set; }
-        public string Phone { get; set; }
-        public string Address { get; set; }
-        public Nullable<bool> isAdmin { get; set; }
-        public string avatar { get; set; }
-        public string Email { get; set; }
+        public string Type { get; set; }
+        public string LatiLongTude { get; set; }
+        public int ProvinceId { get; set; }
+        public Nullable<int> SortOrder { get; set; }
+        public Nullable<bool> IsPublished { get; set; }
+        public Nullable<bool> IsDeleted { get; set; }
     
+        public virtual Province Province { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Order> Orders { get; set; }
-        public virtual DeliveryAddress DeliveryAddress { get; set; }
+        public virtual ICollection<Ward> Wards { get; set; }
     }
 }
