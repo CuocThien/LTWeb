@@ -127,6 +127,8 @@
     <EntitySetMapping Name="DeliveryAddresses">
       <EntityTypeMapping TypeName="shopModel.DeliveryAddress">
         <MappingFragment StoreEntitySet="DeliveryAddress">
+          <ScalarProperty Name="isDefault" ColumnName="isDefault" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
           <ScalarProperty Name="Address" ColumnName="Address" />
           <ScalarProperty Name="Phone" ColumnName="Phone" />
           <ScalarProperty Name="UserName" ColumnName="UserName" />

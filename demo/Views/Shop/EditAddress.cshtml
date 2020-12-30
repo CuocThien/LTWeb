@@ -50,26 +50,23 @@
                             }
                         }
                     </select>
-                    @*<input type="text" class="form-control" id="Province" value="" placeholder="Tỉnh/Thành Phố">*@
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-sm-10">
                     <select id="district" class="form-control">
                     </select>
-                    @*<input type="text" class="form-control" id="District" value="" placeholder="Quận/Huyện">*@
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-sm-10">
                     <select id="ward" class="form-control">
                     </select>
-                    @*<input type="text" class="form-control" id="Ward" value="" placeholder="Phường/Xã">*@
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="Stress" value="" placeholder="Tòa Nhà/Tên Đường">
+                    <input type="text" class="form-control" id="Street" value="" placeholder="Tòa Nhà/Tên Đường">
                 </div>
             </div>
             <button type="submit" id="FinishFrm" class="btn" style=" margin-right: 50px;margin-left:50px; margin-top: 50px; float: left; width: 27%; height: 40px;">Hoàn thành</button>
@@ -80,6 +77,30 @@
 
 <script>
     $(document).ready(function () {
+        $("#FinishFrm").click(function () {
+            var name = $("#Name").val();
+            var phonenum = $("#Phone").val();
+            var province = $("#province :selected").text();
+            var district = $("#district :selected").text();
+            var ward = $("#ward :selected").text();
+            var street = $("#Street").val()
+            $.ajax({
+                type: "POST",
+                url: "/Shop/EditAddress",
+                data: {
+                    Name: name,
+                    Phonenum: phonenum,
+                    Province: province,
+                    District: district,
+                    Ward: ward,
+                    Street: street
+                },
+                success: function (res) {
+                    window.location.href = "/Shop/EditAddress"
+                }
+
+            });
+        });
         $('#add').click(function () {
             $('#openPopup').css('opacity', 1);
             $('#openPopup').css('visibility', 'visible');

@@ -21,6 +21,8 @@ warning 6002: The table/view 'shop.dbo.DeliveryAddress' does not have a primary 
           <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Phone" Type="nvarchar" MaxLength="10" />
           <Property Name="Address" Type="nvarchar(max)" />
+          <Property Name="FullName" Type="nvarchar(max)" />
+          <Property Name="isDefault" Type="bit" />
         </EntityType>
         <EntityType Name="District">
           <Key>
@@ -228,7 +230,9 @@ warning 6002: The table/view 'shop.dbo.DeliveryAddress' does not have a primary 
             <DefiningQuery>SELECT 
     [DeliveryAddress].[UserName] AS [UserName], 
     [DeliveryAddress].[Phone] AS [Phone], 
-    [DeliveryAddress].[Address] AS [Address]
+    [DeliveryAddress].[Address] AS [Address], 
+    [DeliveryAddress].[FullName] AS [FullName], 
+    [DeliveryAddress].[isDefault] AS [isDefault]
     FROM [dbo].[DeliveryAddress] AS [DeliveryAddress]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK_DeliveryAddress_User" Association="Self.FK_DeliveryAddress_User">
@@ -439,6 +443,8 @@ warning 6002: The table/view 'shop.dbo.DeliveryAddress' does not have a primary 
           <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Phone" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FullName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="isDefault" Type="Boolean" />
           <NavigationProperty Name="User" Relationship="shopModel.FK_DeliveryAddress_User" FromRole="DeliveryAddress" ToRole="User" />
         </EntityType>
         <Association Name="FK_Products_Brand">
@@ -657,6 +663,8 @@ warning 6002: The table/view 'shop.dbo.DeliveryAddress' does not have a primary 
           <EntitySetMapping Name="DeliveryAddresses">
             <EntityTypeMapping TypeName="shopModel.DeliveryAddress">
               <MappingFragment StoreEntitySet="DeliveryAddress">
+                <ScalarProperty Name="isDefault" ColumnName="isDefault" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />

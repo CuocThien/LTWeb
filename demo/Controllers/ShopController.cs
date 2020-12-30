@@ -543,6 +543,30 @@ namespace demo.Controllers
             list = (List<DeliveryAddress>)ID;
             return View(list);
         }
+        [HttpPost]
+        public ActionResult EditAddress(FormCollection frm)
+        {
+            var name = frm["Name"];
+            var phonenum = frm["Phonenum"];
+            var province = frm["Province"];
+            var district = frm["District"];
+            var ward = frm["Ward"];
+            var street = frm["Street"];
+            shopEntities db = new shopEntities();
+            var address = street + ", " + ward + ", " + district + ", " + province;
+            var deliveryAddress = new DeliveryAddress();
+            deliveryAddress.FullName = name;
+            deliveryAddress.Phone = phonenum;
+            deliveryAddress.Address = address;
+            var user = Session["User"] as User;
+            deliveryAddress.UserName = user.Username;
+            deliveryAddress.isDefault = false;
+            deliveryAddress.User = user;
+            db.DeliveryAddresses.Add(deliveryAddress);
+
+            db.SaveChanges();
+            return View();
+        }
 
         [HttpGet]
 

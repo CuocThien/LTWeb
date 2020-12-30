@@ -175,6 +175,8 @@
     <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Phone" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
     <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="FullName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="isDefault" Type="Boolean" />
     <NavigationProperty Name="User" Relationship="shopModel.FK_DeliveryAddress_User" FromRole="DeliveryAddress" ToRole="User" />
   </EntityType>
   <Association Name="FK_Products_Brand">
