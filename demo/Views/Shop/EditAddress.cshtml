@@ -13,15 +13,23 @@
         {
             <div style="margin-top:50px;margin-left:50px;height:30px">
                 <i class="glyphicon glyphicon-map-marker">ĐỊA CHỈ NHẬN HÀNG</i>
-                <button type="button" id="set" class="btn" style=" margin-left: 50px; float: right; width: 11%; height: 35px;">Thiết lập địa chỉ</button>
-                <button type="button" id="add" class="btn" style=" float: right; width: 11%; height: 35px;">+ Thêm địa chỉ mới</button>
+                <button type="button" id="set" class="btn" style=" margin-left: 50px; float: right; width: 13%; height: 35px;">Thiết lập địa chỉ</button>
+                <button type="button" id="add" class="btn" style=" float: right; width: 13%; height: 35px;">+ Thêm địa chỉ mới</button>
 
             </div>
             <br />
             foreach (var item in Model)
             {
-                <input type="radio" id="" name="address" value="" style="width:50px">
-                <label for="">@item.User.Name &nbsp; @item.Phone &nbsp; @item.Address</label><br>
+                if (item.isDefault == false)
+                {
+                    <input type="radio" id="" name="address" value="@item.Id" style="width:50px">
+                    <label for="">@item.User.Name &nbsp; @item.Phone &nbsp; @item.Address</label><br>
+                }
+                else
+                {
+                    <input type="radio" checked id="" name="address" value="@item.Id" style="width:50px">
+                    <label for="">@item.User.Name &nbsp; @item.Phone &nbsp; @item.Address</label><br>
+                }
             }
             <button type="submit" id="Finish" class="btn" style=" margin-right: 50px;margin-left:50px; margin-top: 50px; float: left; width: 12%; height: 40px;">Hoàn thành</button>
             <button type="button" id="Back" class="btn" style=" margin-top: 50px; float: left; width: 12%; height: 40px;">Trở lại</button>
@@ -77,6 +85,20 @@
 
 <script>
     $(document).ready(function () {
+        $("#Finish").click(function () {
+            var idAddress = $('input[type=radio]:checked').val();
+            $.ajax({
+                type: "POST",
+                url: "/Shop/EditAddress",
+                data: { idAddress: idAddress },
+                success: function (res) {
+                    window.location.href="/Shop/Payment"
+                }
+            });
+        });
+        $("#Back").click(function () {
+            window.location.href="/Shop/Payment"
+        });
         $("#FinishFrm").click(function () {
             var name = $("#Name").val();
             var phonenum = $("#Phone").val();

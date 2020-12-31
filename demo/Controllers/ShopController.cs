@@ -546,24 +546,36 @@ namespace demo.Controllers
         [HttpPost]
         public ActionResult EditAddress(FormCollection frm)
         {
-            var name = frm["Name"];
-            var phonenum = frm["Phonenum"];
-            var province = frm["Province"];
-            var district = frm["District"];
-            var ward = frm["Ward"];
-            var street = frm["Street"];
-            var address = street + ", " + ward + ", " + district + ", " + province;
-            var deliveryAddress = new DeliveryAddress();
-            deliveryAddress.FullName = name;
-            deliveryAddress.Phone = phonenum;
-            deliveryAddress.Address = address;
             var user = Session["User"] as User;
-            deliveryAddress.UserName = user.Username;
-            deliveryAddress.isDefault = false;
-            //deliveryAddress.User = user;
-            _db.DeliveryAddresses.Add(deliveryAddress);
-
-            _db.SaveChanges();
+            if (frm["idAddress"] == "")
+            {
+                var name = frm["Name"];
+                var phonenum = frm["Phonenum"];
+                var province = frm["Province"];
+                var district = frm["District"];
+                var ward = frm["Ward"];
+                var street = frm["Street"];
+                var address = street + ", " + ward + ", " + district + ", " + province;
+                var deliveryAddress = new DeliveryAddress();
+                deliveryAddress.FullName = name;
+                deliveryAddress.Phone = phonenum;
+                deliveryAddress.Address = address;
+                deliveryAddress.UserName = user.Username;
+                deliveryAddress.isDefault = false;
+                //deliveryAddress.User = user;
+                _db.DeliveryAddresses.Add(deliveryAddress);
+                _db.SaveChanges();
+            }
+            else
+            {
+                var idAddress = frm["idAddress"];
+                _db.DeliveryAddresses.Where(u => u.isDefault == true).SingleOrDefault().isDefault = false;
+                _db.DeliveryAddresses.Where(u => u.Id.ToString() == idAddress).SingleOrDefault().isDefault = true;
+                _db.SaveChanges();
+                Session.Clear();
+                Session["Is Login"] = 1;
+                Session["User"] = _db.Users.Where(u=>u.Username==user.Username).SingleOrDefault();
+            }
             return RedirectToAction("EditAddress", "Shop");
         }
 
@@ -669,6 +681,7 @@ namespace demo.Controllers
                     address.UserName = u.Username;
                     address.Phone = u.Phone;
                     address.Address = u.Address;
+                    address.isDefault = true;
                     _db.Users.Add(u);
                     _db.DeliveryAddresses.Add(address);
                     _db.SaveChanges();

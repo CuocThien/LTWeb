@@ -1,9 +1,11 @@
-﻿@model List<demo.Model.User>
+﻿
+@model demo.Model.User
 @using PagedList.Mvc;
 @using demo.Model;
 @{
     ViewBag.Title = "Profiles";
 }
+
 
 @using demo.Controllers;
 
@@ -11,71 +13,97 @@
 
 @{ Html.RenderAction("HeaderMenu", "Shop");}
 
-<div class="container">
-    <div class="row">
-        <div id="cart" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <!-- Begin empty cart -->
-            <div class="row">
-                <div id="layout-page" class="col-md-12 col-sm-12 col-xs-12" margin-left:10px">
-                    <h1 style="margin-bottom:10px;text-align: center; font-size: -webkit-xxx-large; font-style: italic; font-family: ui-sans-serif; font-weight: bolder; color: darkmagenta;">
-                        Hồ sơ của tôi
-                    </h1>
-                    @{
-                        if (!(user is null))
-                        {
+<div >
+    <div id="layout-page" style="left: 0; position: absolute; width: 100%;padding: 0 350px;">
+        <h1 style="margin-bottom:10px;text-align: center; font-size: -webkit-xxx-large; font-style: italic; font-family: ui-sans-serif; font-weight: bolder; color: darkmagenta;">
+            Hồ sơ của tôi
+        </h1>
+        @{
+            if (!(user is null))
+            {
 
-                            // var item = Model.Find(user.Username);
-                            shopEntities _db = new shopEntities();
-                            var item = _db.Users.Find(user.Username);
-                            // var password = user.Password;
-                            <div class="form-group row">
-                                <label for="Username" class="col-sm-2 col-form-label">Tên đăng nhập</label>
-                                <div class="col-sm-10">
-                                    <input type="text" style="border:none" readonly class="form-control-plaintext" id="Username" value="@item.Username">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="Name" class="col-sm-2 col-form-label">Tên</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="Name" value="@item.Name">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="Email" class="col-sm-2 col-form-label">Email</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="Email" value="@item.Email">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="Phone" class="col-sm-2 col-form-label">Số điện thoại</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="Phone" value="@item.Phone">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="Address" class="col-sm-2 col-form-label">Địa chỉ</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="Address" value="@item.Address">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="Birthday" class="col-sm-2 col-form-label">Ngày sinh</label>
-                                <div class="col-sm-10">
-                                    @{var date = item.Birthday.Value.ToString("yyyy-MM-dd");}
-                                    <input type="date" class="form-control" id="Birthday" value="@date">
-                                </div>
-                            </div>
-                            <button type="submit" id="save" class="btn" style=" margin-top: 50px; width: 8%; height: 40px;">Lưu</button>
-                            <button type="button" id="Change" class="btn" style=" margin-top: 50px; width: 10%; height: 40px;">Đổi mật khẩu</button>
-                        }
-                    }
+                // var item = Model.Find(user.Username);
+                shopEntities _db = new shopEntities();
+                var item = _db.Users.Find(user.Username);
+                // var password = user.Password;
+                <div class="form-group row">
+                    <label for="Username" class="col-sm-3 col-form-label">Tên đăng nhập</label>
+                    <div class="col-sm-8">
+                        <input type="text" style="border:none" readonly class="form-control-plaintext" id="Username" value="@item.Username">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="Name" class="col-sm-3 col-form-label">Tên</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="Name" value="@item.Name">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="Email" class="col-sm-3 col-form-label">Email</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="Email" value="@item.Email">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="Phone" class="col-sm-3 col-form-label">Số điện thoại</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="Phone" value="@item.Phone">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="Address" class="col-sm-3 col-form-label">Địa chỉ</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="Address" value="@item.Address">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="Birthday" class="col-sm-3 col-form-label">Ngày sinh</label>
+                    <div class="col-sm-8">
+                        @{var date = item.Birthday.Value.ToString("yyyy-MM-dd");}
+                        <input type="date" class="form-control" id="Birthday" value="@date">
+                    </div>
+                </div>
+                <div class="form-group row" style="text-align:center;">
+                    <button type="submit" id="save" class="btn" style=" margin-top: 50px; width: 20%; height: 40px;">Lưu</button>
+                    <button type="button" id="Change" class="btn" style=" margin-top: 50px; width: 20%; height: 40px;">Đổi mật khẩu</button>
+                </div>
+            }
+        }
 
 
+    </div>
+    <div class="popup" style="left: 0;" id="openPopup">
+        <div class="popup-form" style="padding: 50px 100px!important;">
+            <div class="form-group row">
+                <label for="Username" class="col-sm-3 col-form-label">User Name:</label>
+                <div class="col-sm-8">
+                    <input type="text" id="ip-text" readonly class="form-control" value="@user.Username" name="username" />
+                    @Html.ValidationMessageFor(m => m.Username)
                 </div>
             </div>
-            <!-- End cart -->
+            <div class="form-group row">
+                <label for="Password" class="col-sm-3 col-form-label">Password:</label>
+                <div class="col-sm-8">
+                    <input type="password" id="password" class="form-control" value="" name="password" />
+                    @Html.ValidationMessageFor(m => m.Password)
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="Confirm" class="col-sm-3 col-form-label">Confirm:</label>
+                <div class="col-sm-8">
+                    <input type="password" id="confirm" class="form-control" value="" name="confirm" />
+                    <br />
+                    <span id="showError"></span>
+                    @Html.ValidationMessageFor(m => m.Password)
+                </div>
+            </div>
+
+            <button type="submit" id="reset" class="btn" style=" margin-right: 50px;margin-left:50px; margin-top: 50px; float: left; width: 27%; height: 40px;">Đổi mật khẩu</button>
+            <button type="button" id="BackFrm" class="btn" style=" margin-top: 50px; float: left; width: 25%; height: 40px;">Trở lại</button>
         </div>
     </div>
+
+
 </div>
 <script>
 
@@ -117,10 +145,45 @@
                 }
             }
         });
-        $("#Change").click(function () {
-            window.location.href = "/Shop/ChangePassword";
-                });
+        $('#Change').click(function () {
+            $('#openPopup').css('opacity', 1);
+            $('#openPopup').css('visibility', 'visible');
+        })
+        $('#BackFrm').click(function () {
+            $('#openPopup').css('opacity', 0);
+            $('#openPopup').css('visibility', 'hidden');
+        })
+        $("#reset").click(function () {
+            let username = $("#ip-text")[0].value;
+            let password = $("#password")[0].value;
+            let confirm = $("#confirm")[0].value
+            $.ajax({
+                cache: false,
+                type: "POST",
+
+                url: "/Shop/ResetPassword",
+                data: {
+
+                    username: username,
+                    password: password,
+                    confirm: confirm
+                },
+                success: function (res) {
+                    if (res === "false")
+                        toastr.error("Đổi mật khẩu thất bại", "Reset Password", { timeOut: 2000, positionClass: "toast-top-right" })
+                    else if (res === "NotEqual")
+                        toastr.error("Mật khẩu không trùng khớp", "Reset Password", { timeOut: 2000, positionClass: "toast-top-right" })
+                    else {
+                        toastr.success("Đổi mật khẩu thành công", "Register", { timeOut: 1500, positionClass: "toast-top-right" })
+                        setTimeout(function () { window.location.href = "/Shop/Login"; }, 2000 )
+                    }
+                }
+            })
+        })
+        //$("#Change").click(function () {
+        //    window.location.href = "/Shop/ChangePassword";
+        //        });
     });
 </script>
 
-
+<script src="~/Scripts/CheckPass.js"></script>

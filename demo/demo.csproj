@@ -1021,7 +1021,6 @@
     <Content Include="Views\Shop\Register.cshtml" />
     <Content Include="Views\Shop\Home.cshtml" />
     <Content Include="Views\Shop\AddProduct.cshtml" />
-    <Content Include="Views\Shop\ResetPassword.cshtml" />
     <Content Include="Views\Shop\ForgotPassword.cshtml" />
     <Content Include="Views\Shop\_Product.cshtml" />
     <Content Include="Views\Shop\HomeGuest.cshtml" />

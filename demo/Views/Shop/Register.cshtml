@@ -46,7 +46,10 @@
                     <input class="ip-text" id="email" type="text" name="email" value="" />
 
                     <br /><br />
-                    <div type="submit" id="register" class="ip-submit" style="text-align:center">Register</div>
+                    <div style="text-align: center;">
+                        <div type="submit" style="text-align:center; width: 45%; margin-right: 10px;" id="register" class="ip-submit">Register</div>
+                        <div type="submit" style="width: 45%; text-align:center; margin-left: 10px;" id="login" class="ip-submit">Login</div>
+                    </div>
 
                 </form>
                 <div class="header-left-bottom">
@@ -104,6 +107,9 @@
                 }
             })
         })
+        $("#login").click(function () {
+            window.location.href="/Shop/Login"
+        });
     })
 </script>
 <script src="~/Scripts/CheckPass.js"></script>

@@ -28,8 +28,10 @@
                             </div>
                             <div class="clear"> </div>
                         </div>
-                        <div type="submit" id="login" class="ip-submit" style="text-align:center">Login</div>
-
+                        <div style="text-align: center;">
+                            <div type="submit" style="width: 45%;text-align:center;margin-right: 10px;" id="login" class="ip-submit">Login</div>
+                            <div type="submit" style="text-align:center;width: 45%;margin-left: 10px;" id="register" class="ip-submit">Register</div>
+                        </div>
                     </form>
                     <div class="header-left-bottom">
                         <div class="sign-up"> <h2>OR</h2> </div>
@@ -86,6 +88,9 @@
                 }
             })
         })
+        $("#register").click(function () {
+            window.location.href = "/Shop/Register";
+        });
     })
 </script>
 <script>

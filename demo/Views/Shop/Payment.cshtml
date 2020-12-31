@@ -16,11 +16,11 @@
         <div id="cart" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             @{var ID = user.Orders.Where(o => o.ID_Customer == user.Username && o.status == "Cart").SingleOrDefault();
                 <h2>Địa chỉ nhận hàng</h2>
-
+                var address = user.DeliveryAddresses.Where(u => u.UserName == user.Username).ToList().Where(a=>a.isDefault==true).SingleOrDefault();
                 <div class="content" style="display:flex">
-                    <span class="Address" id="name">@ID.User.Name</span>&ensp;
-                    <span class="Address" id="phone"> @ID.User.Phone</span>&ensp;
-                    <span class="Address" id="address">@ID.User.Address</span>
+                    <span class="Address" id="name">@address.FullName</span>&ensp;
+                    <span class="Address" id="phone"> @address.Phone</span>&ensp;
+                    <span class="Address" id="address">@address.Address</span>
                     <a href="/Shop/EditAddress" data-id="">Sửa</a>
                 </div>
             }
