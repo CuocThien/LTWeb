@@ -18,19 +18,22 @@
 
             </div>
             <br />
-            foreach (var item in Model)
-            {
-                if (item.isDefault == false)
-                {
-                    <input type="radio" id="" name="address" value="@item.Id" style="width:50px">
-                    <label for="">@item.User.Name &nbsp; @item.Phone &nbsp; @item.Address</label><br>
+            <div style="margin-left:50px">
+                @{ foreach (var item in Model)
+                    {
+                        if (item.isDefault == false)
+                        {
+                            <input type="radio" id="" name="address" value="@item.Id" style="width:50px">
+                            <label for="">@item.FullName &nbsp; @item.Phone &nbsp; @item.Address</label><br>
+                        }
+                        else
+                        {
+                            <input type="radio" checked id="" name="address" value="@item.Id" style="width:50px">
+                            <label for="">@item.FullName &nbsp; @item.Phone &nbsp; @item.Address</label><br>
+                        }
+                    }
                 }
-                else
-                {
-                    <input type="radio" checked id="" name="address" value="@item.Id" style="width:50px">
-                    <label for="">@item.User.Name &nbsp; @item.Phone &nbsp; @item.Address</label><br>
-                }
-            }
+            </div>
             <button type="submit" id="Finish" class="btn" style=" margin-right: 50px;margin-left:50px; margin-top: 50px; float: left; width: 12%; height: 40px;">Hoàn thành</button>
             <button type="button" id="Back" class="btn" style=" margin-top: 50px; float: left; width: 12%; height: 40px;">Trở lại</button>
         }
@@ -78,8 +81,10 @@
                     <input type="text" class="form-control" id="Street" value="" placeholder="Tòa Nhà/Tên Đường">
                 </div>
             </div>
-            <button type="submit" id="FinishFrm" class="btn" style=" margin-right: 50px;margin-left:50px; margin-top: 50px; float: left; width: 27%; height: 40px;">Hoàn thành</button>
-            <button type="button" id="BackFrm" class="btn" style=" margin-top: 50px; float: left; width: 25%; height: 40px;">Trở lại</button>
+            <div>
+                <button type="submit" id="FinishFrm" class="btn" style="  margin-top: 50px; float: left; width: 40%; height: 40px;">Hoàn thành</button>
+                <button type="button" id="BackFrm" class="btn" style=" margin-top: 50px; float: left; width: 40%; height: 40px;">Trở lại</button>
+            </div>
         </div>
     </div>
 </div>
@@ -93,12 +98,12 @@
                 url: "/Shop/EditAddress",
                 data: { idAddress: idAddress },
                 success: function (res) {
-                    window.location.href="/Shop/Payment"
+                    window.location.href = "/Shop/Payment"
                 }
             });
         });
         $("#Back").click(function () {
-            window.location.href="/Shop/Payment"
+            window.location.href = "/Shop/Payment"
         });
         $("#FinishFrm").click(function () {
             var name = $("#Name").val();
@@ -148,7 +153,7 @@
                     });
                 }
             });
-            
+
         });
         $("#district").change(function () {
             var dis = $("#district")[0].value;

@@ -18,10 +18,10 @@
     }
     else
     {
-        <div>
+        <div style="text-align: center; margin-bottom: 50px; ">
             @using (Html.BeginForm("Home", "Shop", FormMethod.Get))
             {
-                @Html.TextBox("SearchString")<input type="submit" value="Tìm kiếm" />
+                @Html.TextBox("SearchString", null, new { @class = "searchbox" })<input type="submit" style="width: 10%;" value="Tìm kiếm" />
             }
         </div>
     }

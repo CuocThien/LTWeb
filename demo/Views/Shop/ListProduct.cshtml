@@ -9,14 +9,16 @@
 
 @{ Html.RenderAction("HeaderMenu", "Shop");}
 
-<div class="container-fluid">
-    <h2>QUẢN LÝ SẢN PHẨM</h2>
-    <span>
-        <a href="/Shop/AddProduct" class="glyphicon glyphicon-file">
-            <span style="color:#337ab7;font-size:20px;font-weight:bold">Add Product</span>
-        </a>
-        <a class="nav-link" href="/Shop/ImportExcel">IMPORT SẢN PHẨM</a>
-    </span>
+<div class="container">
+    <h2 style="text-align:center;margin:50px  0">QUẢN LÝ SẢN PHẨM</h2>
+    <div style="margin-top:50px">
+        <span>
+            <a href="/Shop/AddProduct" class="glyphicon glyphicon-file">
+                <span style="color:#337ab7;font-size:20px;font-weight:bold">Add Product</span>
+            </a>
+            <a class="nav-link" href="/Shop/ImportExcel">IMPORT SẢN PHẨM</a>
+        </span>
+    </div>
     <div id="loadProduct" class="products row">
         @{Html.RenderAction("_ListProduct", "Shop", new { page = 1});}
     </div>

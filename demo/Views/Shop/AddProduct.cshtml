@@ -16,7 +16,7 @@
             THÊM SẢN PHẨM
         </h2>
     </div>
-    <form>
+    <form style="position: absolute; width: 100%;">
         <div class="container-fluid" style="margin:10px; box-shadow: 0 0 8px 0 dodgerBlue; padding:0px!important">
             <div class="col-lg-5">
                 <div class="content-right">
@@ -32,14 +32,17 @@
                 <input type="text" id="Pro_name" class="ip-text-Pro" name="" value="" />
 
                 <span class="pro-span">Hãng</span>
-                <select id="brand">
-                    <option value="DW">DANIEL WELLINGTON</option>
-                    <option value="CS">CASIO</option>
-                    <option value="RL">ROLEX</option>
-                    <option value="D">DIOR</option>
-                    <option value="AP">APPLE</option>
-                    <option value="JL">JACQUES LEMANS</option>
+                <select id="brand" style="display:inline">
+                    <option disabled selected>Chọn hãng đồng hồ</option>
+                    @{
+                        shopEntities db = new shopEntities();
+                        foreach (var p in db.Brands)
+                        {
+                            <option value="@p.ID">@p.Name</option>
+                        }
+                    }
                 </select>
+                <btn type="submit" class="ip-submit-Pro" id="addBrand" style="display:inline;font-weight: bold;margin-left: 30px;color: honeydew;"> Thêm Hãng</btn>
                 <br />
 
                 <span class="pro-span">Bảo hành (tháng):</span>
@@ -74,6 +77,25 @@
             </div>
         </div>
     </form>
+    <div class="popup" style="left: 0;" id="openPopup">
+        <div class="popup-form" style="padding: 50px 100px!important;">
+            <div class="form-group row">
+                <label for="BrandName" class="col-sm-3 col-form-label">Tên hãng:</label>
+                <div class="col-sm-8">
+                    <input type="text" id="brand_new" class="form-control" value="" name="brand_new" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="BrandID" class="col-sm-3 col-form-label">Mã hãng:</label>
+                <div class="col-sm-8">
+                    <input type="text" id="brand_Id" class="form-control" value="" name="brand_Id" />
+                </div>
+            </div>
+
+            <button type="submit" id="AddFrm" class="btn" style=" margin-right: 50px;margin-left:50px; margin-top: 50px; float: left; width: 27%; height: 40px;">Thên Hãng</button>
+            <button type="button" id="BackFrm" class="btn" style=" margin-top: 50px; float: left; width: 25%; height: 40px;">Trở lại</button>
+        </div>
+    </div>
 </div>
 <script>
 
@@ -136,6 +158,37 @@
                     else {
                         alert("Nhập sản phẩm thành công")
                         window.location.href = "/Shop/ListProduct";
+                    }
+                }
+            });
+        });
+        $('#addBrand').click(function () {
+            $('#openPopup').css('opacity', 1);
+            $('#openPopup').css('visibility', 'visible');
+        })
+        $('#BackFrm').click(function () {
+            $('#openPopup').css('opacity', 0);
+            $('#openPopup').css('visibility', 'hidden');
+        })
+        $("#AddFrm").click(function () {
+            var brandname = $('#brand_new').val();
+            var brandid = $('#brand_Id').val();
+            $.ajax({
+                cache: false,
+                type: "POST",
+                url: "/Shop/AddBrand",
+                data: {
+                    brandname: brandname,
+                    brandid: brandid,
+                },
+                success: function (res) {
+                    if (res === "false")
+                        toastr.error("Thương hiệu này đã tồn tại", "Add Brand", { timeOut: 2000, positionClass: "toast-top-right" })
+                    else if (res === "falsename")
+                        toastr.error("Tên thương hiệu này đã tồn tại", "Add Brand", { timeOut: 2000, positionClass: "toast-top-right" })
+                    else if(res==="success"){
+                        toastr.success("Thêm thương hiệu thành công", "Add Brand", { timeOut: 1500, positionClass: "toast-top-right" })
+                        setTimeout(function () { window.location.href = "/Shop/AddProduct"; }, 2000)
                     }
                 }
             });

@@ -184,6 +184,8 @@
                         toastr.error("Mật khẩu không trùng khớp", "Reset Password", { timeOut: 2000, positionClass: "toast-top-right" })
                     else if (res === "Wrong")
                         toastr.error("Nhập sai mật khẩu", "Reset Password", { timeOut: 2000, positionClass: "toast-top-right" })
+                    else if (res === "null")
+                        toastr.error("Không để trống mật khẩu", "Reset Password", { timeOut: 2000, positionClass: "toast-top-right" })
                     else {
                         toastr.success("Đổi mật khẩu thành công", "Register", { timeOut: 1500, positionClass: "toast-top-right" })
                         setTimeout(function () { window.location.href = "/Shop/Login"; }, 2000 )

@@ -82,7 +82,6 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="250" Nullable="false" />
           <Property Name="Type" Type="nvarchar" MaxLength="20" />
-          <Property Name="SortOrder" Type="int" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -372,7 +371,6 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="Type" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="SortOrder" Type="Int32" />
           <NavigationProperty Name="Districts" Relationship="shopModel.FK_District_Province" FromRole="Province" ToRole="District" />
         </EntityType>
         <EntityType Name="sysdiagram">
@@ -579,7 +577,6 @@
           <EntitySetMapping Name="Provinces">
             <EntityTypeMapping TypeName="shopModel.Province">
               <MappingFragment StoreEntitySet="Province">
-                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />

@@ -25,11 +25,7 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar" MaxLength="250" />
     <Property Name="Type" Type="nvarchar" MaxLength="50" />
-    <Property Name="LatiLongTude" Type="nvarchar" MaxLength="50" />
     <Property Name="ProvinceId" Type="int" Nullable="false" />
-    <Property Name="SortOrder" Type="int" />
-    <Property Name="IsPublished" Type="bit" />
-    <Property Name="IsDeleted" Type="bit" />
   </EntityType>
   <EntityType Name="OrderDetail">
     <Key>
@@ -81,13 +77,16 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar" MaxLength="250" Nullable="false" />
     <Property Name="Type" Type="nvarchar" MaxLength="20" />
-    <Property Name="TelephoneCode" Type="int" />
-    <Property Name="ZipCode" Type="nvarchar" MaxLength="20" />
-    <Property Name="CountryId" Type="int" Nullable="false" />
-    <Property Name="CountryCode" Type="nvarchar" MaxLength="2" />
-    <Property Name="SortOrder" Type="int" />
-    <Property Name="IsPublished" Type="bit" />
-    <Property Name="IsDeleted" Type="bit" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
   </EntityType>
   <EntityType Name="User">
     <Key>
@@ -110,11 +109,7 @@
     <Property Name="Id" Type="int" Nullable="false" />
     <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Type" Type="nvarchar" MaxLength="50" />
-    <Property Name="LatiLongTude" Type="nvarchar" MaxLength="50" />
     <Property Name="DistrictID" Type="int" Nullable="false" />
-    <Property Name="SortOrder" Type="int" Nullable="false" />
-    <Property Name="IsPublished" Type="bit" />
-    <Property Name="IsDeleted" Type="bit" />
   </EntityType>
   <Association Name="FK_DeliveryAddress_User">
     <End Role="User" Type="Self.User" Multiplicity="1" />
@@ -208,6 +203,7 @@
     <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Province" EntityType="Self.Province" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Ward" EntityType="Self.Ward" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_DeliveryAddress_User" Association="Self.FK_DeliveryAddress_User">

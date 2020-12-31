@@ -904,8 +904,10 @@ namespace demo.Controllers
             {
                 //Nếu có thì tiến hành kiểm tra ở Form và ở database có trùng khớp hay không
                 var u = _db.Users.Find(user["Username"].Trim());
-                if (user["oldpassword"] != u.Password)
+                if (user["oldpassword"]!="" && user["oldpassword"] != u.Password)
                     return Content("Wrong");
+                if (user["Password"] == "" || user["Confirm"] == "")
+                    return Content("null");
                 if (user["Password"].Equals(user["Confirm"]))
                 {
                     u.Password = user["Password"].Trim();
@@ -1235,6 +1237,28 @@ namespace demo.Controllers
                 return Json(Wards, JsonRequestBehavior.AllowGet);
             }
         }
-
+        [HttpPost]
+        public ActionResult AddBrand(FormCollection frm)
+        {
+            Brand brand = new Brand();
+            var id = frm["brandid"];
+            var name = frm["brandname"];
+            shopEntities db = new shopEntities();
+            var check = db.Brands.Where(x => x.ID == id).SingleOrDefault();
+            var checkname = db.Brands.Where(x => x.Name == name).SingleOrDefault();
+            if (check != null)
+                return Content("false");
+            else if (checkname != null)
+                return Content("falsename");
+            else
+            {
+                brand.ID = id.ToUpper();
+                brand.Name = name;
+                _db.Brands.Add(brand);
+                _db.SaveChanges();
+                return Content("success");
+            }
+            
+        }
     }
 }

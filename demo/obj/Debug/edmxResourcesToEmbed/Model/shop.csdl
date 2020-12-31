@@ -8,6 +8,7 @@
     <EntitySet Name="Orders" EntityType="shopModel.Order" />
     <EntitySet Name="Products" EntityType="shopModel.Product" />
     <EntitySet Name="Provinces" EntityType="shopModel.Province" />
+    <EntitySet Name="sysdiagrams" EntityType="shopModel.sysdiagram" />
     <EntitySet Name="Users" EntityType="shopModel.User" />
     <EntitySet Name="Wards" EntityType="shopModel.Ward" />
     <AssociationSet Name="FK_Products_Brand" Association="shopModel.FK_Products_Brand">
@@ -66,11 +67,7 @@
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="LatiLongTude" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="ProvinceId" Type="Int32" Nullable="false" />
-    <Property Name="SortOrder" Type="Int32" />
-    <Property Name="IsPublished" Type="Boolean" />
-    <Property Name="IsDeleted" Type="Boolean" />
     <NavigationProperty Name="Province" Relationship="shopModel.FK_District_Province" FromRole="District" ToRole="Province" />
     <NavigationProperty Name="Wards" Relationship="shopModel.FK_Ward_District" FromRole="District" ToRole="Ward" />
   </EntityType>
@@ -130,14 +127,17 @@
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="Type" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-    <Property Name="TelephoneCode" Type="Int32" />
-    <Property Name="ZipCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-    <Property Name="CountryId" Type="Int32" Nullable="false" />
-    <Property Name="CountryCode" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
-    <Property Name="SortOrder" Type="Int32" />
-    <Property Name="IsPublished" Type="Boolean" />
-    <Property Name="IsDeleted" Type="Boolean" />
     <NavigationProperty Name="Districts" Relationship="shopModel.FK_District_Province" FromRole="Province" ToRole="District" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
   </EntityType>
   <EntityType Name="User">
     <Key>
@@ -162,11 +162,7 @@
     <Property Name="Id" Type="Int32" Nullable="false" />
     <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="LatiLongTude" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="DistrictID" Type="Int32" Nullable="false" />
-    <Property Name="SortOrder" Type="Int32" Nullable="false" />
-    <Property Name="IsPublished" Type="Boolean" />
-    <Property Name="IsDeleted" Type="Boolean" />
     <NavigationProperty Name="District" Relationship="shopModel.FK_Ward_District" FromRole="Ward" ToRole="District" />
   </EntityType>
   <Association Name="FK_Products_Brand">

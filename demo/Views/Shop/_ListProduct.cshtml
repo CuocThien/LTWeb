@@ -3,10 +3,10 @@
 @using PagedList.Mvc;
 @using demo.Model;
 @{
-    <div>
+    <div style="text-align: center; margin-bottom: 50px; margin-top:30px">
         @using (Html.BeginForm("ListProduct", "Shop", FormMethod.Get))
         {
-            @Html.TextBox("SearchString")<input type="submit" value="Tìm kiếm" />
+            @Html.TextBox("SearchString",null, new { @class = "searchbox" })<input type="submit" style="width: 10%"; value="Tìm kiếm" />
         }
     </div>
     if (!(Model is null))
