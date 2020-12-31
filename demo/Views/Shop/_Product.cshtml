@@ -7,6 +7,24 @@
 @{ User user = Session["User"] as User;}
 @if (!(Model is null))
 {
+    if (user is null)
+    {
+<div>
+    @using (Html.BeginForm("HomeGuest", "Shop", FormMethod.Get))
+    {
+        @Html.TextBox("SearchString")<input type="submit" value="Tìm kiếm" />
+    }
+</div>
+    }
+    else
+    {
+        <div>
+            @using (Html.BeginForm("Home", "Shop", FormMethod.Get))
+            {
+                @Html.TextBox("SearchString")<input type="submit" value="Tìm kiếm" />
+            }
+        </div>
+    }
     foreach (var pro in Model.ToList())
     {
         <div class="total col-lg-3">
@@ -140,8 +158,7 @@ else
 </script>
 <script>
     $(".label_title").each(function () {
-        if ($(this).text().length > 18)
-        {
+        if ($(this).text().length > 18) {
             $(this).text($(this).text().substr(0, 18));
             $(this).append('...');
         }

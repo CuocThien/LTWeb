@@ -698,27 +698,34 @@ namespace demo.Controllers
 
 
         //Xu ly san pham
-        public ActionResult _Product(int? page, string brand, string id)
+        public ActionResult _Product(int? page, string brand, string id,string SearchString)
         {
+            var list = from l in _db.Products // lấy toàn bộ liên kết
+                       select l;
+            if (!String.IsNullOrEmpty(SearchString)) // kiểm tra chuỗi tìm kiếm có rỗng/null hay không
+            {
+                list = list.Where(s => s.Name.Contains(SearchString) || s.Style.Contains(SearchString)); //lọc theo chuỗi tìm kiếm
+                //list = (List<Product>)links;
+            }
             if (id == "home")
             {
                 int pagesize = 8;
                 int pageNumber = (page ?? 1);
-                var result = _db.Products.OrderBy(x => x.ID);
+                var result = list.OrderBy(x => x.ID);
                 return PartialView(result.ToPagedList(pageNumber, pagesize));
             }
             else if (id == "brand")
             {
                 int pagesize = 8;
                 int pageNumber = (page ?? 1);
-                var result = _db.Products.Where(x => x.Brand == brand).OrderBy(ID => ID.ID);
+                var result = list.Where(x => x.Brand == brand).OrderBy(ID => ID.ID);
                 return PartialView(result.ToPagedList(pageNumber, pagesize));
             }
             else if (id == "style")
             {
                 int pagesize = 8;
                 int pageNumber = (page ?? 1);
-                var result = _db.Products.Where(x => x.Style == brand).OrderBy(ID => ID.ID);
+                var result = list.Where(x => x.Style == brand).OrderBy(ID => ID.ID);
                 return PartialView(result.ToPagedList(pageNumber, pagesize));
             }
             return View();
@@ -841,11 +848,18 @@ namespace demo.Controllers
             var result = _db.Products.OrderBy(id => id.ID);
             return View(result.ToPagedList(pageNumber, pagesize));
         }
-        public ActionResult _ListProduct(int? page)
+        public ActionResult _ListProduct(int? page, string SearchString)
         {
+            var list = from l in _db.Products // lấy toàn bộ liên kết
+                       select l;
+            if (!String.IsNullOrEmpty(SearchString)) // kiểm tra chuỗi tìm kiếm có rỗng/null hay không
+            {
+                list = list.Where(s => s.Name.Contains(SearchString) || s.Style.Contains(SearchString) ||s.ID.Contains(SearchString)); //lọc theo chuỗi tìm kiếm
+                //list = (List<Product>)links;
+            }
             int pagesize = 8;
             int pageNumber = (page ?? 1);
-            var result = _db.Products.OrderBy(id => id.ID);
+            var result = list.OrderBy(id => id.ID);
             return View(result.ToPagedList(pageNumber, pagesize));
         }
         //Trang chu
@@ -853,14 +867,16 @@ namespace demo.Controllers
         {
             return View();
         }
+
         [HttpGet]
         [AuthorizeController]
-        public ActionResult Home(int? page)
+        public ActionResult Home(int? page,string SearchString)
         {
-            int pagesize = 8;
-            int pageNumber = (page ?? 1);
-            var result = _db.Products.OrderBy(id => id.ID);
-            return View(result.ToPagedList(pageNumber, pagesize));
+                var result = _db.Products.OrderBy(id => id.ID);
+                int pagesize = 8;
+                int pageNumber = (page ?? 1);
+                return View(result.ToPagedList(pageNumber, pagesize));
+           
         }
 
         public ActionResult HeaderMenuGuest()
@@ -1219,5 +1235,6 @@ namespace demo.Controllers
                 return Json(Wards, JsonRequestBehavior.AllowGet);
             }
         }
+
     }
 }

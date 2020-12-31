@@ -3,6 +3,12 @@
 @using PagedList.Mvc;
 @using demo.Model;
 @{
+    <div>
+        @using (Html.BeginForm("ListProduct", "Shop", FormMethod.Get))
+        {
+            @Html.TextBox("SearchString")<input type="submit" value="Tìm kiếm" />
+        }
+    </div>
     if (!(Model is null))
     {
         <table id="tb1" class="table table-hover">
