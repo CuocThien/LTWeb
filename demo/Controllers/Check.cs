@@ -46,13 +46,15 @@ namespace demo.Controllers
         public static User convertFtoU(FormCollection user)
         {
             User u = new User();
-            u.Address = user["Address"];
+            var address = user["Address"] + ", " + user["ward"] + ", " + user["district"] + ", " + user["province"];
+            u.Address = address;
             u.Birthday = DateTime.Parse(user["Birthday"]);
             u.Email = user["Email"];
             u.Name = user["Name"];
             u.Password = user["Password"];
             u.Phone = user["Phone"];
             u.Username = user["Username"];
+            u.isAdmin = false;
             return u;
         }
     }

@@ -3,59 +3,64 @@
 @using demo.Controllers;
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<div class="home-Contact " style="align-items:center">
-    <img src="~/Img/logoMyTeam.gif" height="100" width="100" style="border-radius:50%;margin-right: 675px;" alt="#" />
-    <span>Contact us: <a href="tel:#0708033730">0708033730</a></span>
-    <hr>
-    @{
 
-        var user = Session["User"] as User;
-        if (Session["User"] != null)
-        {
-            string temp = user.Username;
-            if (user.Name != null)
+<div class="home-Contact " style="align-items:center">
+    <div class="col-lg-4" style="margin-left: 66px;">
+        <img src="~/Img/logoMyTeam.gif" height="100" width="100" style="border-radius:50%;" alt="#" />
+    </div>
+    <div class="col-lg-8" style="display: flex;justify-content: flex-end;">
+        <span>Contact us: <a href="tel:#0708033730">0708033730</a></span>
+        <hr>
+        @{
+
+            var user = Session["User"] as User;
+            if (Session["User"] != null)
             {
-                temp = user.Name;
+                string temp = user.Username;
+                if (user.Name != null)
+                {
+                    temp = user.Name;
+                }
+                else
+                {
+                    temp = user.Username;
+                }
+
+                <div class="after-login">
+                    <ul class="nav navbar-nav center_nav pull-right">
+                        <li class="nav-item submenu dropdown">
+                            <a href="#" style="padding:0!important" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="user">@temp</a>
+                            <ul class="dropdown-menu">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/Shop/Profiles">Tài khoản của tôi</a>
+                                </li>
+                                @if (user.isAdmin == false)
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/Shop/Cart">Đơn mua</a>
+                                    </li>
+                                }
+                                <li class="nav-item">
+                                    <a class="nav-link" href="~/Shop/HomeGuest" id="Logout">Đăng xuất</a>
+                                </li>
+
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
             }
             else
             {
-                temp = user.Username;
+
+                <div class="Before-login">
+                    <span><a href="~/Shop/Register">ĐĂNG KÝ</a></span>
+                    <hr>
+                    <SPAN><a href="~/Shop/Login">ĐĂNG NHẬP</a></SPAN>
+                </div>
             }
-
-            <div class="after-login">
-                <ul class="nav navbar-nav center_nav pull-right">
-                    <li class="nav-item submenu dropdown">
-                        <a href="#" style="padding:0!important" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="user">@temp</a>
-                        <ul class="dropdown-menu">
-                            <li class="nav-item">
-                                <a class="nav-link" href="/Shop/Profiles">Tài khoản của tôi</a>
-                            </li>
-                            @if (user.isAdmin == false)
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/Shop/Cart">Đơn mua</a>
-                                </li>
-                            }
-                            <li class="nav-item">
-                                <a class="nav-link" href="~/Shop/HomeGuest" id="Logout">Đăng xuất</a>
-                            </li>
-
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-
         }
-        else
-        {
-
-            <div class="Before-login">
-                <span><a href="~/Shop/Register">ĐĂNG KÝ</a></span>
-                <hr>
-                <SPAN><a href="~/Shop/Login">ĐĂNG NHẬP</a></SPAN>
-            </div>
-        }
-    }
+    </div>
 </div>
 <div class="home-Menu row">
     <div class="home-Menu-left col-lg-6">

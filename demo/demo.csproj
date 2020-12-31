@@ -1060,7 +1060,6 @@
     <Content Include="Views\Shop\_Users.cshtml" />
     <Content Include="Views\Shop\Profiles.cshtml" />
     <Content Include="Views\Shop\EditAddress.cshtml" />
-    <Content Include="Views\Shop\ChangePassword.cshtml" />
     <Content Include="Views\Shop\ResetPassword.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

@@ -3,7 +3,7 @@
     ViewBag.Title = "Register";
 }
 @model demo.Model.User
-
+@using demo.Model;
 <div class="header">
     <div class="header-main">
         <h1>REGISTER</h1>
@@ -38,7 +38,30 @@
                     <input type="text" id="phone" class="ip-number" name="phone" value="" />
                     <br /><br />
 
-                    <span>Address:</span>
+                    <span>Province:</span>
+                    <select id="province" class="form-control selectbox">
+                        <option disabled selected>Chọn Tỉnh/Thành Phố</option>
+                        @{
+                            shopEntities db = new shopEntities();
+                            foreach (var p in db.Provinces)
+                            {
+                                <option value="@p.Id">@p.Name</option>
+                            }
+                        }
+                    </select>
+                    <br /><br />
+
+                    <span>District:</span>
+                    <select id="district" class="form-control selectbox">
+                    </select>
+                    <br /><br />
+
+                    <span>Ward:</span>
+                    <select id="ward" class="form-control selectbox">
+                    </select>
+                    <br /><br />
+
+                    <span>Street:</span>
                     <input class="ip-text" id="address" type="text" name="address" value="" />
                     <br /><br />
 
@@ -72,6 +95,9 @@
             let name = $("#name")[0].value;
             let birthday = $("#birthday")[0].value;
             let phone = $("#phone")[0].value;
+            var province = $("#province :selected").text();
+            var district = $("#district :selected").text();
+            var ward = $("#ward :selected").text();
             let address = $("#address")[0].value;
             let email = $("#email")[0].value
             let confirm = $("#confirm")[0].value
@@ -87,6 +113,9 @@
                     name: name,
                     birthday: birthday,
                     phone: phone,
+                    province: province,
+                    district: district,
+                    ward: ward,
                     address: address,
                     email: email,
                     confirm: confirm
@@ -108,7 +137,7 @@
             })
         })
         $("#login").click(function () {
-            window.location.href="/Shop/Login"
+            window.location.href = "/Shop/Login"
         });
     })
 </script>
@@ -140,6 +169,41 @@
                 $('#nameerror').html('')
                 return true;
             }
+        });
+        $("#province").change(function () {
+            var pro = $("#province")[0].value;
+            $.ajax({
+                type: "GET",
+                url: "/Shop/GetAllDistrictByProvinceId",
+                data: {
+                    id: pro
+                },
+                success: function (res) {
+                    $('#district').html("");
+                    $("#district").append(("<option disabled selected>" + "Chọn Quận/Huyện" + "</option>"));
+                    $.each(res, function (key, item) {
+                        $("#district").append("<option>" + item + "</option>");
+                    });
+                }
+            });
+
+        });
+        $("#district").change(function () {
+            var dis = $("#district")[0].value;
+            $.ajax({
+                type: "GET",
+                url: "/Shop/GetAllWardByDistrictId",
+                data: {
+                    id: dis
+                },
+                success: function (res) {
+                    $('#ward').html("");
+                    $("#ward").append(("<option disabled selected>" + "Chọn Phường/Xã" + "</option>"));
+                    $.each(res, function (key, item) {
+                        $("#ward").append("<option>" + item + "</option>");
+                    });
+                }
+            });
         });
     });
 </script>

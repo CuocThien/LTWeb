@@ -888,6 +888,8 @@ namespace demo.Controllers
             {
                 //Nếu có thì tiến hành kiểm tra ở Form và ở database có trùng khớp hay không
                 var u = _db.Users.Find(user["Username"].Trim());
+                if (user["oldpassword"] != u.Password)
+                    return Content("Wrong");
                 if (user["Password"].Equals(user["Confirm"]))
                 {
                     u.Password = user["Password"].Trim();
@@ -943,41 +945,6 @@ namespace demo.Controllers
                 return Content("false");
             }
             //return View();
-        }
-
-        [HttpGet]
-        public ActionResult ChangePassword()
-        {
-            return View();
-        }
-        [HttpPost]
-        public ActionResult ChangePassword(FormCollection USER)
-        {
-            User user = Session["User"] as User;
-            //Kiểm tra User có tồn tại trong database hay không
-            if (user == null || _db.Users.Find(user.Username.Trim()) == null)
-                return Content("false");
-            else if (USER["current"] =="")
-                return Content("null");
-            else if (USER["current"] == user.Password)
-            {
-                var u = _db.Users.Find(user.Username.Trim());
-                if (USER["Password"] == "" || USER["Confirm"] == "")
-                    return Content("null");
-                else if (USER["Password"].Equals(USER["Confirm"]))
-                {
-                    u.Password = USER["Password"].Trim();
-                    _db.Users.AddOrUpdate(u);
-                    _db.SaveChanges();
-                    return View("Login");
-                }
-                else
-                {
-                    return Content("NotEqual");
-                }
-            }
-            else
-                return Content("Error");
         }
 
 
