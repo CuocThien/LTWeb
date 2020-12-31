@@ -440,6 +440,13 @@ label.checkbox {
     border-bottom: solid white!important;
 }
 
+.searchbox {
+    height: 30px!important;
+    width: 500px!important;
+    max-width: 500px!important;
+    margin-right: 30px!important;
+    padding: 0 20px!important;
+}
 @media(max-width:1440px) {
     .header-main {
         width: 33%;

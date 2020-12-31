@@ -994,6 +994,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>shop.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Model\sysdiagram.cs">
+      <DependentUpon>shop.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\User.cs">
       <DependentUpon>shop.tt</DependentUpon>
     </Compile>
