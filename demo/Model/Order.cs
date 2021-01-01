@@ -31,6 +31,7 @@ namespace demo.Model
         public Nullable<System.DateTime> Date_Recived { get; set; }
         public Nullable<System.DateTime> Date_Cancel { get; set; }
     
+        public virtual FeedBack FeedBack { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
         public virtual User User { get; set; }

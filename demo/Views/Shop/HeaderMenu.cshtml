@@ -28,6 +28,14 @@
 
                 <div class="after-login">
                     <ul class="nav navbar-nav center_nav pull-right">
+                        @{ string image = "";}
+                        @{if (!(user.avatar is null))
+                            {
+                                byte[] imgBytes = user.avatar;
+                                image = System.Text.Encoding.ASCII.GetString(imgBytes);
+                            }
+                        }
+                        @Html.Image(image, "Alternate Text", "50", "30")
                         <li class="nav-item submenu dropdown">
                             <a href="#" style="padding:0!important" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="user">@temp</a>
                             <ul class="dropdown-menu">

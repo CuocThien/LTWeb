@@ -28,6 +28,7 @@ namespace demo.Model
         public virtual DbSet<Brand> Brands { get; set; }
         public virtual DbSet<DeliveryAddress> DeliveryAddresses { get; set; }
         public virtual DbSet<District> Districts { get; set; }
+        public virtual DbSet<FeedBack> FeedBacks { get; set; }
         public virtual DbSet<OrderDetail> OrderDetails { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<Product> Products { get; set; }

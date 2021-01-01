@@ -105,6 +105,7 @@
             </div>
             <div>
                 <h2>Đánh giá sản phẩm</h2>
+                @{Html.RenderAction("_FeedBack", "Shop", new { pro.ID }); }
             </div>
         }
 
@@ -118,8 +119,8 @@
 </div>
 @* Đánh giá sản phẩm (phân trang) *@
 <script>
-    
-    
+
+
     $(document).ready(function () {
         $("#quantity").keyup(function () {
             var sl =@Model.FirstOrDefault().Quantity;
@@ -144,6 +145,94 @@
                     }
                 }
             })
+        });
+    });
+</script>
+<script>
+    var currentpage = 1;
+    var max = 0;
+    @{
+        shopEntities db = new shopEntities();
+    }
+    $(document).ready(function () {
+        var ID =@Model.FirstOrDefault().ID;
+        $('#previous').click(function () {
+            currentpage = currentpage - 1;
+            if (currentpage <= 0)
+                currentpage=1
+            $.ajax({
+                type: "GET",
+                url: "/Shop/_FeedBack",
+                data: {
+                    page: currentpage,
+                    id: ID
+                },
+                success: function (res) {
+                    $('#loadProduct').html(res)
+                }
+            });
+        });
+        $('#next').click(function () {
+            pagesize = 8;
+            var max = 0;
+            var size = (@db.Products.Count()) / pagesize;
+            if ((@db.Products.Count()) % pagesize == 0) {
+                max = (@db.Products.Count()) / pagesize;
+            }
+            else {
+                max = Math.floor(((@db.Products.Count()) / pagesize) + 1);
+            }
+            currentpage = currentpage + 1;
+            if (currentpage > max)
+                currentpage = max;
+            $.ajax({
+                type: "GET",
+                url: "/Shop/_FeedBack",
+                data: {
+                    page: currentpage,
+                    id: ID
+                },
+                success: function (res) {
+                    $('#loadProduct').html(res)
+                }
+            });
+        });
+        $('#minpage').click(function () {
+            currentpage = 1
+            $.ajax({
+                type: "GET",
+                url: "/Shop/_FeedBack",
+                data: {
+                    page: currentpage,
+                    id: ID
+                },
+                success: function (res) {
+                    $('#loadProduct').html(res)
+                }
+            });
+        });
+        $('#maxpage').click(function () {
+            pagesize = 8;
+            var max = 0;
+            var size = (@db.Products.Count()) / pagesize;
+            if ((@db.Products.Count()) % pagesize == 0) {
+                max = (@db.Products.Count()) / pagesize;
+            }
+            else {
+                max = Math.floor(((@db.Products.Count()) / pagesize) + 1);
+            }
+            currentpage = max;
+            $.ajax({
+                type: "GET",
+                url: "/Shop/_FeedBack",
+                data: {
+                    page: currentpage,
+                    id: ID
+                },
+                success: function (res) {
+                    $('#loadProduct').html(res)
+                }
+            });
         });
     });
 </script>

@@ -966,6 +966,9 @@
     <Compile Include="Model\District.cs">
       <DependentUpon>shop.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\FeedBack.cs">
+      <DependentUpon>shop.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\ImportExcel.cs" />
     <Compile Include="Model\Order.cs">
       <DependentUpon>shop.tt</DependentUpon>
@@ -1064,6 +1067,7 @@
     <Content Include="Views\Shop\Profiles.cshtml" />
     <Content Include="Views\Shop\EditAddress.cshtml" />
     <Content Include="Views\Shop\ResetPassword.cshtml" />
+    <Content Include="Views\Shop\_FeedBack.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -21,7 +21,23 @@
         @{
             if (!(user is null))
             {
-
+                string image = "";
+                {
+                    if (!(user.avatar is null))
+                    {
+                        byte[] imgBytes = user.avatar;
+                        image = System.Text.Encoding.ASCII.GetString(imgBytes);
+                    }
+                }
+                <div class="col-lg-5">
+                    <div class="content-right">
+                        <div class="product-img">
+                            @*@Html.Image(image, "Alternate Text", "300", "250")*@
+                            <img src="@image" id="loadImg" alt="Alternate Text" height="300" width="250" />
+                        </div>
+                        <input type="file" id="link" name="name" accept="image/*" style="padding-left:50px;margin-left:33px;" />
+                    </div>
+                </div>
                 // var item = Model.Find(user.Username);
                 shopEntities _db = new shopEntities();
                 var item = _db.Users.Find(user.Username);
@@ -113,7 +129,21 @@
 
 </div>
 <script>
-
+    $(document).ready(function () {
+        $("#link").change(function () {
+            var src = "";
+            if (this.files && this.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#loadImg').attr('src', e.target.result);
+                    src = e.target.result;
+                }
+                reader.readAsDataURL(this.files[0]);
+            }
+        });
+    });
+</script>
+<script>
 
     $(document).ready(function () {
         $("#save").click(function () {
@@ -123,6 +153,8 @@
             var email = $('#Email').val();
             var birthday = $('#Birthday').val();
             var password = prompt("Enter your password please");
+            var img = document.getElementById("loadImg");
+            img = img.src;
             if (password != null) {
                 if (password !=@user.Password) {
                     toastr.error("Mật khẩu không đúng", "EditProfile", { timeOut: 2000, positionClass: "toast-top-center" })
@@ -135,11 +167,12 @@
                             Phone: phone,
                             Address: address,
                             Email: email,
-                            Birthday: birthday
+                            Birthday: birthday,
+                            avatar:img
                         },
                         success: function (res) {
                             if (res === "false") {
-
+                                toastr.error("Sửa thông tin thất bại", "EditProfile", { timeOut: 2000, positionClass: "toast-top-right" })
                             }
                             else {
                                 toastr.success("Thay đổi thông tin thành công", "EditProfile", { timeOut: 1500, positionClass: "toast-top-right" })

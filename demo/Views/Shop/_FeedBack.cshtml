@@ -1,0 +1,38 @@
+﻿@using demo.Controllers;
+@model PagedList.IPagedList<demo.Model.FeedBack>
+@using PagedList.Mvc;
+@using demo.Model;
+
+
+@if (Model.Count>0)
+{
+    foreach (var pro in Model.ToList())
+    {
+        <table class="table table-hover">
+            <tbody>
+                <tr>
+                    <td>
+                        @{ string image = "";
+                            var user = pro.Order.User;}
+                        @{if (!(user.avatar is null))
+                            {
+                                byte[] imgBytes = user.avatar;
+                                image = System.Text.Encoding.ASCII.GetString(imgBytes);
+                            }
+                        }
+                        @Html.Image(image, "Alternate Text", "50", "30") &nbsp; &nbsp; &nbsp;
+                        @user.Name
+                        <br />
+                        @pro.FeedBack1
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    }
+}
+else
+{
+    <h2>Không có đánh giá nào!</h2>
+}
+

@@ -31,6 +31,14 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="FeedBacks">
+      <EntityTypeMapping TypeName="shopModel.FeedBack">
+        <MappingFragment StoreEntitySet="FeedBack">
+          <ScalarProperty Name="FeedBack1" ColumnName="FeedBack" />
+          <ScalarProperty Name="ID_Order" ColumnName="ID_Order" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="OrderDetails">
       <EntityTypeMapping TypeName="shopModel.OrderDetail">
         <MappingFragment StoreEntitySet="OrderDetail">

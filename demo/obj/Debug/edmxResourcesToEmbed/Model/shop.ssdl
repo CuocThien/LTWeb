@@ -27,6 +27,13 @@
     <Property Name="Type" Type="nvarchar" MaxLength="50" />
     <Property Name="ProvinceId" Type="int" Nullable="false" />
   </EntityType>
+  <EntityType Name="FeedBack">
+    <Key>
+      <PropertyRef Name="ID_Order" />
+    </Key>
+    <Property Name="ID_Order" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="FeedBack" Type="nvarchar(max)" />
+  </EntityType>
   <EntityType Name="OrderDetail">
     <Key>
       <PropertyRef Name="ID_Order" />
@@ -99,7 +106,7 @@
     <Property Name="Phone" Type="nchar" MaxLength="10" />
     <Property Name="Address" Type="nvarchar(max)" />
     <Property Name="isAdmin" Type="bit" />
-    <Property Name="avatar" Type="nvarchar" MaxLength="2000" />
+    <Property Name="avatar" Type="varbinary(max)" />
     <Property Name="Email" Type="nvarchar" MaxLength="250" />
   </EntityType>
   <EntityType Name="Ward">
@@ -132,6 +139,18 @@
       </Principal>
       <Dependent Role="District">
         <PropertyRef Name="ProvinceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FeedBack_Orders">
+    <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+    <End Role="FeedBack" Type="Self.FeedBack" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Orders">
+        <PropertyRef Name="ID_Order" />
+      </Principal>
+      <Dependent Role="FeedBack">
+        <PropertyRef Name="ID_Order" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -199,6 +218,7 @@
     <EntitySet Name="Brand" EntityType="Self.Brand" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="DeliveryAddress" EntityType="Self.DeliveryAddress" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="District" EntityType="Self.District" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FeedBack" EntityType="Self.FeedBack" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="OrderDetail" EntityType="Self.OrderDetail" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
@@ -213,6 +233,10 @@
     <AssociationSet Name="FK_District_Province" Association="Self.FK_District_Province">
       <End Role="Province" EntitySet="Province" />
       <End Role="District" EntitySet="District" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FeedBack_Orders" Association="Self.FK_FeedBack_Orders">
+      <End Role="Orders" EntitySet="Orders" />
+      <End Role="FeedBack" EntitySet="FeedBack" />
     </AssociationSet>
     <AssociationSet Name="FK_OrderDetail_Orders" Association="Self.FK_OrderDetail_Orders">
       <End Role="Orders" EntitySet="Orders" />

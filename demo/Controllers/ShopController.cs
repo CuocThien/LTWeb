@@ -532,6 +532,41 @@ namespace demo.Controllers
             return View(l);
         }
 
+        public JsonResult Feedback(string id, string feedback)
+        {
+            User user = Session["User"] as User;
+            FeedBack fb = new FeedBack();
+            fb.ID_Order = id;
+            fb.FeedBack1 = feedback;
+            _db.FeedBacks.AddOrUpdate(fb);
+            _db.SaveChanges();
+            return Json(new
+            {
+                status = true
+            });
+        }
+
+        public ActionResult _FeedBack(int? page, string id)
+        {
+            //var list = from l in _db.FeedBacks // lấy toàn bộ liên kết
+            //           select l;
+            var order = _db.OrderDetails.Where(x => x.ID_Product == id).ToList();
+            List<FeedBack> idorder = new List<FeedBack>();
+            if (!(order is null))
+            {
+                foreach (var item in order)
+                {
+                    var Pro = _db.FeedBacks.Where(x => x.ID_Order == item.ID_Order).ToList();
+                    idorder.AddRange(Pro);
+
+                }
+            }
+            //list = idorder.ToList();
+            int pagesize = 8;
+            int pageNumber = (page ?? 1);
+            var result = idorder.OrderBy(k => k.ID_Order);
+            return View(result.ToPagedList(pageNumber, pagesize));
+        }
         //Doi dia chi giao hang
 
         [HttpGet]
@@ -1054,9 +1089,10 @@ namespace demo.Controllers
             u.Address = frm["Address"];
             u.Email = frm["Email"];
             u.Birthday = DateTime.Parse(frm["Birthday"]);
-
+            byte[] image = Encoding.ASCII.GetBytes(frm["avatar"]);
+            u.avatar = image;
+           // var x = u.avatar.Length;
             _db.Users.AddOrUpdate(u);
-            _db.SaveChanges();
             _db.SaveChanges();
             // return View();
             return RedirectToAction("Profiles", "Shop");

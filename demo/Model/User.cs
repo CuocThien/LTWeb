@@ -28,7 +28,7 @@ namespace demo.Model
         public string Phone { get; set; }
         public string Address { get; set; }
         public Nullable<bool> isAdmin { get; set; }
-        public string avatar { get; set; }
+        public byte[] avatar { get; set; }
         public string Email { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
