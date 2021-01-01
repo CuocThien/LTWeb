@@ -737,6 +737,7 @@ namespace demo.Controllers
 
         {
             //var u = Check.convertFtoUPro(pro);
+            //var l = pro["Brand"];
             Product product = new Product();
             if (Check.CheckProduct(pro) == true)
             {

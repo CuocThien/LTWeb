@@ -22,7 +22,7 @@ namespace demo.Controllers
         {
             if (pro["Name"] != "" && pro["Image"] != "" && pro["Price"] != "" && pro["Warranty"] != ""
                 && pro["DateCreate"] != "" && pro["Description"] != "" && pro["Style"] != ""
-                && pro["Brand"] != "" && pro["Country"]!= "")
+                && pro["Brand"] != "Chọn hãng đồng hồ" && pro["Country"]!= "")
                 return true;
             else
                 return false;
