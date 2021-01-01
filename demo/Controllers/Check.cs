@@ -12,17 +12,17 @@ namespace demo.Controllers
     {
         public static bool CheckUser(FormCollection user)
         {
-            if (user["Address"] != null && user["Birthday"] != null && user["Name"] != null && user["Password"] != null
-                && user["Phone"] != null && user["Username"] != null && user["Email"] != null)
+            if (user["ward"] !="" && user["district"] != "" && user["province"] != "" && user["Address"] != "" && user["Birthday"] != "" 
+                && user["Name"] != "" && user["Password"] != "" && user["Phone"] != "" && user["Username"] != "" && user["Email"] != "")
                 return true;
             else
                 return false;
         }
         public static bool CheckProduct(FormCollection pro)
         {
-            if (pro["Name"] != null && pro["Image"] != null && pro["Price"] != null && pro["Warranty"] != null
-                && pro["DateCreate"] != null && pro["Description"] != null && pro["Style"] != null
-                && pro["Brand"] != null && pro["Country"]!= null)
+            if (pro["Name"] != "" && pro["Image"] != "" && pro["Price"] != "" && pro["Warranty"] != ""
+                && pro["DateCreate"] != "" && pro["Description"] != "" && pro["Style"] != ""
+                && pro["Brand"] != "" && pro["Country"]!= "")
                 return true;
             else
                 return false;

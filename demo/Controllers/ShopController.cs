@@ -904,7 +904,7 @@ namespace demo.Controllers
             {
                 //Nếu có thì tiến hành kiểm tra ở Form và ở database có trùng khớp hay không
                 var u = _db.Users.Find(user["Username"].Trim());
-                if (user["oldpassword"]!="" && user["oldpassword"] != u.Password)
+                if (user["oldpassword"] != "" && user["oldpassword"] != u.Password)
                     return Content("Wrong");
                 if (user["Password"] == "" || user["Confirm"] == "")
                     return Content("null");

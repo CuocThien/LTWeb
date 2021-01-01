@@ -47,13 +47,21 @@
                                 <div class="AddCart">
 
                                     <h4><a href="/Shop/Login" id="buy">Mua Ngay</a></h4>
-                     
+
                                     <a id="urlAddCart" href="/Shop/Login?controller=Shop&action=ProDetail&id=11" class="glyphicon glyphicon-shopping-cart"></a>
                                 </div>
                                 <script>
 
                                     var url = window.location.href;
                                     var addCart = document.getElementById('urlAddCart');
+                                    url = url.substring(24).split('/');
+                                    url = `/Shop/Login?controller=${url[0]}&action=${url[1].replace('?', '&')}`;
+                                    addCart.setAttribute('href', url);
+                                </script>
+                                <script>
+
+                                    var url = window.location.href;
+                                    var addCart = document.getElementById('buy');
                                     url = url.substring(24).split('/');
                                     url = `/Shop/Login?controller=${url[0]}&action=${url[1].replace('?', '&')}`;
                                     addCart.setAttribute('href', url);

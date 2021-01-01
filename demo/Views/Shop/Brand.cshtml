@@ -19,10 +19,10 @@
 
     @if (Model.Count > 0)
     {
-        <h2 style="text-align:center">
-            <p> ĐỒNG HỒ @Model.FirstOrDefault().Brand1.Name.ToString().ToUpper()</p>
+        <h2 style="text-align:center;margin-top:50px;">
+            ĐỒNG HỒ @Model.FirstOrDefault().Brand1.Name.ToString().ToUpper()
         </h2>
-        <div class="container-fluid">
+        <div class="container">
             <div id="loadProduct" class="products row">
                 @{
 

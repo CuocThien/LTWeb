@@ -152,12 +152,11 @@
                     Quantity: quantity
                 },
                 success: function (res) {
-                    if (res === "false") {
-                        alert("Nhập sản phẩm thất bại")
-                    }
+                    if (res === "false")
+                        toastr.error("Nhập sản phẩm thất bại", "Add Product", { timeOut: 2000, positionClass: "toast-top-right" })
                     else {
-                        alert("Nhập sản phẩm thành công")
-                        window.location.href = "/Shop/ListProduct";
+                        toastr.success("Nhập sản phẩm thành công", "Add Product", { timeOut: 1500, positionClass: "toast-top-right" })
+                        setTimeout(function () { window.location.href = "/Shop/ListProduct"; }, 2000)
                     }
                 }
             });
