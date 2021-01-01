@@ -737,7 +737,7 @@ namespace demo.Controllers
 
         {
             //var u = Check.convertFtoUPro(pro);
-            //var l = pro["Brand"];
+            var l = pro["Image"];
             Product product = new Product();
             if (Check.CheckProduct(pro) == true)
             {
@@ -871,9 +871,11 @@ namespace demo.Controllers
 
         [HttpGet]
         [AuthorizeController]
-        public ActionResult Home(int? page,string SearchString)
+        public ActionResult Home(int? page)
         {
-                var result = _db.Products.OrderBy(id => id.ID);
+            var list = from l in _db.Products // lấy toàn bộ liên kết
+                       select l;
+            var result = _db.Products.OrderBy(id => id.ID);
                 int pagesize = 8;
                 int pageNumber = (page ?? 1);
                 return View(result.ToPagedList(pageNumber, pagesize));
@@ -888,6 +890,7 @@ namespace demo.Controllers
         [HttpGet]
         public ActionResult HomeGuest(int? page)
         {
+
             int pagesize = 8;
             int pageNumber = (page ?? 1);
             var result = _db.Products.OrderBy(id => id.ID);
@@ -1059,18 +1062,17 @@ namespace demo.Controllers
             return RedirectToAction("Profiles", "Shop");
         }
 
+       
         //hãng sản phẩm
         //[HttpPost]
         public ActionResult Brand(string id)
-        {
-
+        { 
             var brand = _db.Brands.Where(x => x.Name == id).SingleOrDefault();
             var list = new List<Product>();
             var pro = _db.Products.Where(x => x.Brand == brand.ID.ToString()).ToList();
             list = (List<Product>)pro;
             return View(list);
         }
-
         //Loại đồng hồ
         public ActionResult Style(string id)
         {

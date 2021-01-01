@@ -7,24 +7,6 @@
 @{ User user = Session["User"] as User;}
 @if (!(Model is null))
 {
-    if (user is null)
-    {
-<div style="text-align: center; margin-bottom: 50px; ">
-    @using (Html.BeginForm("HomeGuest", "Shop", FormMethod.Get))
-    {
-        @Html.TextBox("SearchString",null, new { @class = "searchbox" })<input type="submit" style="width: 10%;" value="Tìm kiếm" />
-    }
-</div>
-    }
-    else
-    {
-        <div style="text-align: center; margin-bottom: 50px; ">
-            @using (Html.BeginForm("Home", "Shop", FormMethod.Get))
-            {
-                @Html.TextBox("SearchString", null, new { @class = "searchbox" })<input type="submit" style="width: 10%;" value="Tìm kiếm" />
-            }
-        </div>
-    }
     foreach (var pro in Model.ToList())
     {
         <div class="total col-lg-3">

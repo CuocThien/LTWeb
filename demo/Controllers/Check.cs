@@ -20,7 +20,7 @@ namespace demo.Controllers
         }
         public static bool CheckProduct(FormCollection pro)
         {
-            if (pro["Name"] != "" && pro["Image"] != "" && pro["Price"] != "" && pro["Warranty"] != ""
+            if (pro["Name"] != "" && pro["Image"] != "https://localhost:44305/Shop/AddProduct" && pro["Price"] != "" && pro["Warranty"] != ""
                 && pro["DateCreate"] != "" && pro["Description"] != "" && pro["Style"] != ""
                 && pro["Brand"] != "Chọn hãng đồng hồ" && pro["Country"]!= "")
                 return true;

@@ -5,9 +5,17 @@
     ViewBag.Title = "Home";
 }
 @using demo.Controllers;
+
 <div>
     @{Html.RenderAction("HeaderMenuGuest", "Shop");}
-    <div class="container"style="margin-top:50px">
+   
+    <div class="container" style="margin-top:50px">
+        <div style="text-align: center; margin-bottom: 50px; ">
+            @using (Html.BeginForm("HomeGuest", "Shop", FormMethod.Get))
+            {
+                @Html.TextBox("SearchString", null, new { @class = "searchbox" })<input type="submit" style="width: 10%;" value="Tìm kiếm" />
+            }
+        </div>
         <div id="loadProduct" class="products row">
             @{ string brand = "all";
                 string id = "home";}
@@ -69,7 +77,7 @@
                 data: {
                     page: currentpage,
                     brand: Brand,
-                    id: ID
+                    id: ID,
                 },
                 success: function (res) {
                     $('#loadProduct').html(res)
