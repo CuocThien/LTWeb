@@ -13,7 +13,7 @@
 
 @{ Html.RenderAction("HeaderMenu", "Shop");}
 
-<div>
+<div style="height:600px">
     <div id="layout-page" style="left: 0; position: absolute; width: 100%;padding: 0 270px;">
         <h1 style="margin: 50px; text-align: center; font-size: -webkit-xxx-large; font-style: italic; font-family: ui-sans-serif; font-weight: bolder; color: darkmagenta;">
             Hồ sơ của tôi
@@ -90,6 +90,7 @@
 
 
     </div>
+
     <div class="popup" style="left: 0;" id="openPopup">
         <div class="popup-form" style="padding: 50px 100px!important;">
             <div class="form-group row">
@@ -130,7 +131,9 @@
 
 
 </div>
-@{ Html.RenderAction("Footer", "Shop");}
+<div>
+    @{ Html.RenderAction("Footer", "Shop");}
+</div>
 <script>
     $(document).ready(function () {
         $("#link").change(function () {

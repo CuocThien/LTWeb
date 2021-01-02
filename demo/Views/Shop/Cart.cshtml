@@ -86,19 +86,19 @@
                                             <td style="width: 5%;text-align:center;"><div class="Deletepro"><a href="#" data-id="@item.Product.ID">Xóa</a></div></td>
                                         </tr>
 
-                                                }
+                                    }
                                 </tbody>
                             </table>
 
-                                                }
-                                                else
-                                                {
-                                                    {
+                        }
+                        else
+                        {
+                            {
                                 <p class="text-center">
                                     Không có sản phẩm nào trong giỏ hàng!
                                 </p>
-                                                    }
-                                                }
+                            }
+                        }
                     }
 
 
@@ -130,6 +130,7 @@
         </div>
     </div>
 </div>
+@{ Html.RenderAction("Footer", "Shop");}
 <script>
             $(document).ready(function () {
                 @{shopEntities _db = new shopEntities();}
@@ -197,7 +198,7 @@
 
                         window.location.href = "/Shop/Payment";
                 });
-                
+
                 //$('#tb1 tr').click(function (e) {
                 //    var pro = $(this).closest('.onRow').find('td:nth-child(2)').text();
                 //    $('#quantity').keyup(function () {

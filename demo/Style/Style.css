@@ -1,6 +1,10 @@
-﻿html{
-    height: 650px;
+﻿html {
+    height: 100%;
 }
+body {
+    height: 100%;
+}
+
 a {
     text-decoration: none;
     padding-left: 20px;

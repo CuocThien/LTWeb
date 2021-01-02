@@ -39,13 +39,13 @@
     </div>
 </div>
 <div class="container">
-    <div class="row" style="position:absolute;width:95%">
-        <div id="cart" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="row" style="position:absolute;    left: 0;width:100%">
+        <div id="cart" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin:0;padding:0;">
             <!-- Begin empty cart -->
             <div class="row">
                 <div id="layout-page" class="col-md-12 col-sm-12 col-xs-12">
                     <span class="header-page clearfix">
-                        <h1 style="color:black">
+                        <h1 style="color:black;margin-left:30px">
                             Giỏ hàng
                         </h1>
                     </span>
@@ -89,8 +89,8 @@
                                             }
 
                                             @*<tr>
-                                                    <td colspan="7"><br /><br /><br /></td>
-                                                </tr>*@
+                                            <td colspan="7"><br /><br /><br /></td>
+                                        </tr>*@
 
                                             <tr>
                                                 @if (!(user is null) && user.isAdmin == false)
@@ -151,8 +151,8 @@
 
                                             </tr>
                                             @*<tr>
-                                                    <td colspan="7"><br /></td>
-                                                </tr>*@
+                                            <td colspan="7"><br /></td>
+                                        </tr>*@
 
                                             k = i.ID_Order;
 
@@ -216,6 +216,7 @@
                     </div>
 
                 </div>
+
                 <div class="popup" style="left: 0;" id="openPopup">
                     <div class="popup-form" style="padding: 50px 100px!important;">
                         <h1 class="feedback">Đánh giá sản phẩm</h1>
@@ -234,10 +235,13 @@
                 </div>
             </div>
             <!-- End cart -->
+
+            @{ Html.RenderAction("Footer", "Shop");}
         </div>
+
     </div>
 </div>
-@{ Html.RenderAction("Footer", "Shop");}
+
 <script>
     $(document).ready(function () {
         $('.DeleteOrder').click(function (e) {
