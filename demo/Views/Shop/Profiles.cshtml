@@ -13,9 +13,9 @@
 
 @{ Html.RenderAction("HeaderMenu", "Shop");}
 
-<div >
-    <div id="layout-page" style="left: 0; position: absolute; width: 100%;padding: 0 350px;">
-        <h1 style="margin-bottom:10px;text-align: center; font-size: -webkit-xxx-large; font-style: italic; font-family: ui-sans-serif; font-weight: bolder; color: darkmagenta;">
+<div>
+    <div id="layout-page" style="left: 0; position: absolute; width: 100%;padding: 0 270px;">
+        <h1 style="margin: 50px; text-align: center; font-size: -webkit-xxx-large; font-style: italic; font-family: ui-sans-serif; font-weight: bolder; color: darkmagenta;">
             Hồ sơ của tôi
         </h1>
         @{
@@ -31,57 +31,59 @@
                 }
                 <div class="col-lg-5">
                     <div class="content-right">
-                        <div class="product-img">
+                        <div class="product-img" style="margin:0;height: 220px;">
                             @*@Html.Image(image, "Alternate Text", "300", "250")*@
-                            <img src="@image" id="loadImg" alt="Alternate Text" height="300" width="250" />
+                            <img src="@image" id="loadImg" alt="Alternate Text" height="200" width="200" />
                         </div>
-                        <input type="file" id="link" name="name" accept="image/*" style="padding-left:50px;margin-left:33px;" />
+                        <input type="file" id="link" name="name" accept="image/*" />
                     </div>
                 </div>
                 // var item = Model.Find(user.Username);
                 shopEntities _db = new shopEntities();
                 var item = _db.Users.Find(user.Username);
                 // var password = user.Password;
-                <div class="form-group row">
-                    <label for="Username" class="col-sm-3 col-form-label">Tên đăng nhập</label>
-                    <div class="col-sm-8">
-                        <input type="text" style="border:none" readonly class="form-control-plaintext" id="Username" value="@item.Username">
+                <div class="col-lg-7">
+                    <div class="form-group row">
+                        <label for="Username" class="col-sm-3 col-form-label">Tên đăng nhập</label>
+                        <div class="col-sm-8">
+                            <input type="text" style="border:none" readonly class="form-control-plaintext" id="Username" value="@item.Username">
+                        </div>
                     </div>
-                </div>
-                <div class="form-group row">
-                    <label for="Name" class="col-sm-3 col-form-label">Tên</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" id="Name" value="@item.Name">
+                    <div class="form-group row">
+                        <label for="Name" class="col-sm-3 col-form-label">Tên</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="Name" value="@item.Name">
+                        </div>
                     </div>
-                </div>
-                <div class="form-group row">
-                    <label for="Email" class="col-sm-3 col-form-label">Email</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" id="Email" value="@item.Email">
+                    <div class="form-group row">
+                        <label for="Email" class="col-sm-3 col-form-label">Email</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="Email" value="@item.Email">
+                        </div>
                     </div>
-                </div>
-                <div class="form-group row">
-                    <label for="Phone" class="col-sm-3 col-form-label">Số điện thoại</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" id="Phone" value="@item.Phone">
+                    <div class="form-group row">
+                        <label for="Phone" class="col-sm-3 col-form-label">Số điện thoại</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="Phone" value="@item.Phone">
+                        </div>
                     </div>
-                </div>
-                <div class="form-group row">
-                    <label for="Address" class="col-sm-3 col-form-label">Địa chỉ</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" id="Address" value="@item.Address">
+                    <div class="form-group row">
+                        <label for="Address" class="col-sm-3 col-form-label">Địa chỉ</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="Address" value="@item.Address">
+                        </div>
                     </div>
-                </div>
-                <div class="form-group row">
-                    <label for="Birthday" class="col-sm-3 col-form-label">Ngày sinh</label>
-                    <div class="col-sm-8">
-                        @{var date = item.Birthday.Value.ToString("yyyy-MM-dd");}
-                        <input type="date" class="form-control" id="Birthday" value="@date">
+                    <div class="form-group row">
+                        <label for="Birthday" class="col-sm-3 col-form-label">Ngày sinh</label>
+                        <div class="col-sm-8">
+                            @{var date = item.Birthday.Value.ToString("yyyy-MM-dd");}
+                            <input type="date" class="form-control" id="Birthday" value="@date">
+                        </div>
                     </div>
-                </div>
-                <div class="form-group row" style="text-align:center;">
-                    <button type="submit" id="save" class="btn" style=" margin-top: 50px; width: 20%; height: 40px;">Lưu</button>
-                    <button type="button" id="Change" class="btn" style=" margin-top: 50px; width: 20%; height: 40px;">Đổi mật khẩu</button>
+                    <div class="form-group row" style="text-align:center;">
+                        <button type="submit" id="save" class="btn" style=" margin-top: 50px; width: 20%; margin-right:20px; height: 40px;">Lưu</button>
+                        <button type="button" id="Change" class="btn" style=" margin-top: 50px; width: 30%; height: 40px;">Đổi mật khẩu</button>
+                    </div>
                 </div>
             }
         }
@@ -128,6 +130,7 @@
 
 
 </div>
+@{ Html.RenderAction("Footer", "Shop");}
 <script>
     $(document).ready(function () {
         $("#link").change(function () {

@@ -216,6 +216,7 @@
     <Content Include="Core\Compression\Zstandard\lib\win\libzstd.dll" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Img\avt.jpg" />
     <Content Include="Img\calendar-11-24.png" />
     <Content Include="Img\Cart.jpg" />
     <Content Include="Img\dongho.jpg" />
@@ -227,8 +228,10 @@
     <Content Include="Img\m.png" />
     <Content Include="Img\map-marker-2-24.png" />
     <Content Include="Img\phone-24.png" />
+    <Content Include="Img\Thien.jpg" />
     <Content Include="Img\tick.png" />
     <Content Include="Img\twitter.png" />
+    <Content Include="Img\Vy.jpg" />
     <Content Include="Model\shop.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>shop.edmx</DependentUpon>
@@ -239,6 +242,7 @@
       <DependentUpon>shop.edmx</DependentUpon>
       <LastGenOutput>shop.cs</LastGenOutput>
     </Content>
+    <Content Include="Scripts\Avt.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <EntityDeploy Include="Model\shop.edmx">
@@ -617,6 +621,7 @@
     <Content Include="Scripts\toastr.js" />
     <Content Include="Scripts\toastr.min.js" />
     <Content Include="Style\Cart.css" />
+    <Content Include="Style\Footer.css" />
     <Content Include="Style\Home.css" />
     <Content Include="Style\Product.css" />
     <Content Include="Style\Style.css" />
@@ -1068,6 +1073,7 @@
     <Content Include="Views\Shop\EditAddress.cshtml" />
     <Content Include="Views\Shop\ResetPassword.cshtml" />
     <Content Include="Views\Shop\_FeedBack.cshtml" />
+    <Content Include="Views\Shop\Footer.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

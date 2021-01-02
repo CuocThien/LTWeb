@@ -42,6 +42,7 @@ namespace demo.Controllers
             product.Warranty = int.Parse(pro["Warranty"]);
             return product;
         }
+        
 
         public static User convertFtoU(FormCollection user)
         {

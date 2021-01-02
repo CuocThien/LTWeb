@@ -16,7 +16,7 @@
         <div id="cart" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             @{var ID = user.Orders.Where(o => o.ID_Customer == user.Username && o.status == "Cart").SingleOrDefault();
                 <h2>Địa chỉ nhận hàng</h2>
-                var address = user.DeliveryAddresses.Where(u => u.UserName == user.Username).ToList().Where(a=>a.isDefault==true).SingleOrDefault();
+                var address = user.DeliveryAddresses.Where(u => u.UserName == user.Username).ToList().Where(a => a.isDefault == true).SingleOrDefault();
                 <div class="content" style="display:flex">
                     <span class="Address" id="name">@address.FullName</span>&ensp;
                     <span class="Address" id="phone"> @address.Phone</span>&ensp;
@@ -89,7 +89,7 @@
         <!-- End cart -->
     </div>
 </div>
-
+@{ Html.RenderAction("Footer", "Shop");}
 
 
 <script>
@@ -113,7 +113,7 @@
                     else {
                         toastr.success("Thanh toán đơn hàng thành công", "Payment", { timeOut: 1500, positionClass: "toast-top-right" })
                         setTimeout(function () { $("#loadBody").html(res) }, 2000)
-                       
+
                     }
                 }
 

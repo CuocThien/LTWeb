@@ -1,11 +1,13 @@
-﻿<div class="home-Contact">
+﻿@using demo.Model;
+
+<div class="home-Contact">
 
     <div class="col-lg-4" style="margin-left: 66px;">
         <img src="~/Img/logoMyTeam.gif" height="100" width="100" style="border-radius:50%;" alt="#" />
     </div>
-    <div class="col-lg-8" style="display: flex;justify-content: flex-end;margin-top:30px;">
-        <span>Contact us: <a href="tel:#0708033730">0708033730</a></span>
-        <div class="Before-login" style=" display: inline; width: 300px;">
+    <div class="col-lg-8" style="display: flex;justify-content: flex-end;margin-top:43px;">
+        <span style="padding-top: 30px;">Contact us: <a href="tel:#0708033730">0708033730</a></span>
+        <div class="Before-login" style="padding-top: 30px; padding-right: 20px; display: inline; width: 309px;">
             <span><a href="~/Shop/Register">ĐĂNG KÝ</a></span>
             <SPAN><a href="~/Shop/Login">ĐĂNG NHẬP</a></SPAN>
         </div>
@@ -32,24 +34,17 @@
                 <li class="nav-item submenu dropdown ">
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">HÃNG</a>
                     <ul class="dropdown-menu">
-                        <li class="nav-item">
-                            <a class="nav-link" href="/Shop/Brand?id=Rolex">ROLEX</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/Shop/Brand?id=Daniel Wellington">DW</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/Shop/Brand?id=Casio">CASIO</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/Shop/Brand?id=Dior">DIOR</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/Shop/Brand?id=Apple">APPLE</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/Shop/Brand?id=Jacques Lemans">JACQUES LEMANS</a>
-                        </li>
+                        @{
+                            shopEntities db = new shopEntities();
+                            var brand = db.Brands.ToList();
+                            foreach (var item in brand)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/Shop/Brand?id=@item.Name">@item.Name.ToUpper()</a>
+                                </li>
+                            }
+                        }
+
                     </ul>
                 </li>
                 <li class="nav-item">

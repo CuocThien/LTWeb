@@ -1,0 +1,28 @@
+﻿body {
+}
+
+.footer {
+    padding-top:25px;
+    background: linear-gradient(to right, #b066fe, #63e2ff);
+    height:200px;
+    width:100%
+}
+    .footer > div > div > span {
+        display: block;
+    }
+        .footer > div > div > span > a {
+            text-decoration: none;
+            color: white;
+            font-size: 14px;
+            padding: 0;
+        }
+    .footer > div > div > div > span {
+        display: block;
+    }
+        .footer > div > div > div > span > a {
+            text-decoration: none;
+            color: white;
+            font-size: 14px;
+            padding: 0;
+        }
+        

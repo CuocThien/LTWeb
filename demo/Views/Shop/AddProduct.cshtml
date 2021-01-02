@@ -92,11 +92,12 @@
                 </div>
             </div>
 
-            <button type="submit" id="AddFrm" class="btn" style=" margin-right: 50px;margin-left:50px; margin-top: 50px; float: left; width: 27%; height: 40px;">Thên Hãng</button>
+            <button type="submit" id="AddFrm" class="btn" style=" margin-right: 50px;margin-left:50px; margin-top: 50px; float: left; width: 27%; height: 40px;">Thêm Hãng</button>
             <button type="button" id="BackFrm" class="btn" style=" margin-top: 50px; float: left; width: 25%; height: 40px;">Trở lại</button>
         </div>
     </div>
 </div>
+@{ Html.RenderAction("Footer", "Shop");}
 <script>
 
     $(document).ready(function () {
@@ -185,7 +186,7 @@
                         toastr.error("Thương hiệu này đã tồn tại", "Add Brand", { timeOut: 2000, positionClass: "toast-top-right" })
                     else if (res === "falsename")
                         toastr.error("Tên thương hiệu này đã tồn tại", "Add Brand", { timeOut: 2000, positionClass: "toast-top-right" })
-                    else if(res==="success"){
+                    else if (res === "success") {
                         toastr.success("Thêm thương hiệu thành công", "Add Brand", { timeOut: 1500, positionClass: "toast-top-right" })
                         setTimeout(function () { window.location.href = "/Shop/AddProduct"; }, 2000)
                     }

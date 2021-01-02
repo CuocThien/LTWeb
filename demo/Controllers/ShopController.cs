@@ -12,6 +12,7 @@ using System.Configuration;
 using System.Data.Entity.Migrations;
 using System.Data.OleDb;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Web.Mvc;
@@ -384,12 +385,13 @@ namespace demo.Controllers
 
         public JsonResult Received(long id)
         {
+            shopEntities db = new shopEntities();
             string Id = id.ToString();
             User user = Session["User"] as User;
-            var ID = _db.Orders.Where(o => o.ID_Order == Id).SingleOrDefault();
+            var ID = db.Orders.Where(o => o.ID_Order == Id).SingleOrDefault();
             ID.status = "Finish";
             ID.Date_Recived = DateTime.Now;
-            var pros = _db.OrderDetails.Where(p => p.ID_Order == ID.ID_Order).ToList();
+            var pros = db.OrderDetails.Where(p => p.ID_Order == ID.ID_Order).ToList();
             foreach (var pro in pros)
             {
                 var tmp = _db.Products.Where(x => x.ID == pro.ID_Product).SingleOrDefault();
@@ -397,8 +399,8 @@ namespace demo.Controllers
                 count = count + int.Parse(pro.Quantity.ToString());
                 tmp.TopHot = count.ToString();
             }
-            _db.Orders.AddOrUpdate(ID);
-            _db.SaveChanges();
+            db.Orders.AddOrUpdate(ID);
+            db.SaveChanges();
             var dh = _db.Orders.Where(o => o.status == "Delivery").ToList();
             List<OrderDetail> idorder = new List<OrderDetail>();
             if (!(ID is null))
@@ -411,6 +413,9 @@ namespace demo.Controllers
                 }
                 Session[CartSession] = idorder;
             }
+            Session.Clear();
+            Session["Is Login"] = 1;
+            Session["User"] = user;
             return Json(new
             {
                 status = true
@@ -534,12 +539,16 @@ namespace demo.Controllers
 
         public JsonResult Feedback(string id, string feedback)
         {
+            shopEntities db = new shopEntities();
             User user = Session["User"] as User;
             FeedBack fb = new FeedBack();
             fb.ID_Order = id;
             fb.FeedBack1 = feedback;
-            _db.FeedBacks.AddOrUpdate(fb);
-            _db.SaveChanges();
+            db.FeedBacks.AddOrUpdate(fb);
+            db.SaveChanges();
+            Session.Clear();
+            Session["Is Login"] = 1;
+            Session["User"] = user;
             return Json(new
             {
                 status = true
@@ -562,7 +571,7 @@ namespace demo.Controllers
                 }
             }
             //list = idorder.ToList();
-            int pagesize = 8;
+            int pagesize = 4;
             int pageNumber = (page ?? 1);
             var result = idorder.OrderBy(k => k.ID_Order);
             return View(result.ToPagedList(pageNumber, pagesize));
@@ -713,6 +722,8 @@ namespace demo.Controllers
                 if (user["Password"].Equals(user["Confirm"]))
                 {
                     u = Check.convertFtoU(user);
+                    byte[] image = Encoding.ASCII.GetBytes(user["Img"]);
+                    u.avatar = image;
                     address.UserName = u.Username;
                     address.Phone = u.Phone;
                     address.Address = u.Address;
@@ -772,7 +783,7 @@ namespace demo.Controllers
 
         {
             //var u = Check.convertFtoUPro(pro);
-            var l = pro["Image"];
+            //var l = pro["Image"];
             Product product = new Product();
             if (Check.CheckProduct(pro) == true)
             {
@@ -1095,6 +1106,10 @@ namespace demo.Controllers
             _db.Users.AddOrUpdate(u);
             _db.SaveChanges();
             // return View();
+
+            Session.Clear();
+            Session["Is Login"] = 1;
+            Session["User"] = u;
             return RedirectToAction("Profiles", "Shop");
         }
 
@@ -1107,6 +1122,7 @@ namespace demo.Controllers
             var list = new List<Product>();
             var pro = _db.Products.Where(x => x.Brand == brand.ID.ToString()).ToList();
             list = (List<Product>)pro;
+            ViewBag.Message = brand.Name;
             return View(list);
         }
         //Loại đồng hồ
@@ -1295,9 +1311,17 @@ namespace demo.Controllers
                 brand.Name = name;
                 _db.Brands.Add(brand);
                 _db.SaveChanges();
+                var user = Session["User"] as User;
+                Session.Clear();
+                Session["Is Login"] = 1;
+                Session["User"] = user;
                 return Content("success");
             }
             
+        }
+        public ActionResult Footer()
+        {
+            return View();
         }
     }
 }

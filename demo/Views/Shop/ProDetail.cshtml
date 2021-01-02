@@ -103,7 +103,7 @@
                 <h2>Mô tả sản phẩm</h2>
                 <span style="color:black">@Html.Raw(pro.Description)</span>
             </div>
-            <div>
+            <div id="loadFeedBack">
                 <h2>Đánh giá sản phẩm</h2>
                 @{Html.RenderAction("_FeedBack", "Shop", new { pro.ID }); }
             </div>
@@ -117,6 +117,7 @@
         </ul>
     </div>
 </div>
+@{ Html.RenderAction("Footer", "Shop");}
 @* Đánh giá sản phẩm (phân trang) *@
 <script>
 
@@ -168,12 +169,12 @@
                     id: ID
                 },
                 success: function (res) {
-                    $('#loadProduct').html(res)
+                    $('#loadFeedBack').html(res)
                 }
             });
         });
         $('#next').click(function () {
-            pagesize = 8;
+            pagesize = 4;
             var max = 0;
             var size = (@db.Products.Count()) / pagesize;
             if ((@db.Products.Count()) % pagesize == 0) {
@@ -193,7 +194,7 @@
                     id: ID
                 },
                 success: function (res) {
-                    $('#loadProduct').html(res)
+                    $('#loadFeedBack').html(res)
                 }
             });
         });
@@ -207,12 +208,12 @@
                     id: ID
                 },
                 success: function (res) {
-                    $('#loadProduct').html(res)
+                    $('#loadFeedBack').html(res)
                 }
             });
         });
         $('#maxpage').click(function () {
-            pagesize = 8;
+            pagesize = 4;
             var max = 0;
             var size = (@db.Products.Count()) / pagesize;
             if ((@db.Products.Count()) % pagesize == 0) {
@@ -230,7 +231,7 @@
                     id: ID
                 },
                 success: function (res) {
-                    $('#loadProduct').html(res)
+                    $('#loadFeedBack').html(res)
                 }
             });
         });

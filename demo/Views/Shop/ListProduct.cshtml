@@ -20,7 +20,7 @@
         </span>
     </div>
     <div id="loadProduct" class="products row">
-        @{Html.RenderAction("_ListProduct", "Shop", new { page = 1});}
+        @{Html.RenderAction("_ListProduct", "Shop", new { page = 1 });}
     </div>
     <ul class="pager">
         <li><a id="minpage">|<<</a></li>
@@ -29,6 +29,7 @@
         <li><a id="maxpage">>>|</a></li>
     </ul>
 </div>
+@{ Html.RenderAction("Footer", "Shop");}
 <script>
         var currentpage = 1;
         var max = 0;
@@ -111,4 +112,4 @@
                 });
             });
         });
-    </script>
+</script>

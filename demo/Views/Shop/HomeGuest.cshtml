@@ -8,7 +8,7 @@
 
 <div>
     @{Html.RenderAction("HeaderMenuGuest", "Shop");}
-   
+
     <div class="container" style="margin-top:50px">
         <div style="text-align: center; margin-bottom: 50px; ">
             @using (Html.BeginForm("HomeGuest", "Shop", FormMethod.Get))
@@ -29,7 +29,7 @@
         </ul>
     </div>
 </div>
-
+@{ Html.RenderAction("Footer", "Shop");}
 <script>
     var currentpage = 1;
     var max = 0;

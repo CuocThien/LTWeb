@@ -4,14 +4,23 @@
 @using demo.Model;
 
 
-@if (Model.Count>0)
+@if (Model.Count > 0)
 {
-    foreach (var pro in Model.ToList())
-    {
-        <table class="table table-hover">
+    <table class="table table-hover">
+        <thead>
+            <tr></tr>
+            <tr>
+                <th style="text-align: center;"></th>
+                <th style="text-align: left;">Người dùng</th>
+                <th style="text-align: left;">Nhận xét</th>
+            </tr>
+        </thead>
+        @foreach (var pro in Model.ToList())
+        {
+
             <tbody>
                 <tr>
-                    <td>
+                    <td width="67px">
                         @{ string image = "";
                             var user = pro.Order.User;}
                         @{if (!(user.avatar is null))
@@ -20,16 +29,18 @@
                                 image = System.Text.Encoding.ASCII.GetString(imgBytes);
                             }
                         }
-                        @Html.Image(image, "Alternate Text", "50", "30") &nbsp; &nbsp; &nbsp;
-                        @user.Name
-                        <br />
-                        @pro.FeedBack1
+                        @Html.Image(image, "Alternate Text", "50", "50") &nbsp; &nbsp; &nbsp;
+
+
 
                     </td>
+                    <td width="200px">@user.Name</td>
+                    <td>@pro.FeedBack1</td>
                 </tr>
             </tbody>
-        </table>
-    }
+
+        }
+    </table>
 }
 else
 {

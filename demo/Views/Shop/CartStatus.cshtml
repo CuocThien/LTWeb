@@ -38,12 +38,12 @@
 
     </div>
 </div>
-<div class="container" >
-    <div class="row" style="position:absolute; width: 100%;">
+<div class="container">
+    <div class="row" style="position:absolute;width:95%">
         <div id="cart" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <!-- Begin empty cart -->
             <div class="row">
-                <div id="layout-page" class="col-md-12 col-sm-12 col-xs-12" margin-left:10px">
+                <div id="layout-page" class="col-md-12 col-sm-12 col-xs-12">
                     <span class="header-page clearfix">
                         <h1 style="color:black">
                             Giỏ hàng
@@ -92,77 +92,64 @@
                                                     <td colspan="7"><br /><br /><br /></td>
                                                 </tr>*@
 
-                                    <tr>
-                                        @if (!(user is null) && user.isAdmin == false)
-                                        {
-                                            <td> ID đơn hàng:@i.ID_Order</td>
-                                            <td></td>
-                                            <td>Tổng tiền đơn hàng:@total.ToString("N0")</td>
-                                            if (status == "Wait")
-                                            {
-                                                <td></td>
-                                                <td style="text-align:center"> <div class="DeleteOrder"><a href="#" data-id="@i.ID_Order">Xóa</a></div></td>
-                                            }
-                                            else if (status == "Delivery")
-                                            {
-                                                <td colspan="2"><div class="Received"><a href="#" data-id="@i.ID_Order">Đã nhận hàng</a></div></td>
-                                            }
+                                            <tr>
+                                                @if (!(user is null) && user.isAdmin == false)
+                                                {
+                                                    <td> ID đơn hàng:@i.ID_Order</td>
+                                                    <td></td>
+                                                    <td>Tổng tiền đơn hàng:@total.ToString("N0")</td>
+                                                    if (status == "Wait")
+                                                    {
+                                                        <td></td>
+                                                        <td style="text-align:center"> <div class="DeleteOrder"><a href="#" data-id="@i.ID_Order">Xóa</a></div></td>
+                                                    }
+                                                    else if (status == "Delivery")
+                                                    {
+                                                        <td colspan="2"><div class="Received"><a href="#" data-id="@i.ID_Order">Đã nhận hàng</a></div></td>
 
-                                            else
-                                            {
-                                                <td colspan="2"></td>
-                                            }
-                                            if (status == "Finish" && (i.Order.FeedBack.FeedBack1 is null))
-                                            {
-                                                <td style="text-align:center"> <div class="FB"><a href="#" data-id="@i.ID_Order">Đánh giá</a></div></td>
-                                            }
-                                            else
-                                            {
-                                                <td></td>
-                                            }
-                                            <td style="text-align:center"><div class="Detail"><a href="~/Shop/Detail?ID=@i.ID_Order" data-id="@i.ID_Order">Xem chi tiết</a></div></td>
+                                                    }
 
-                                        }
-                                        else
-                                        {
-                                            <td colspan="3" style="text-align:center">
-                                                ID đơn hàng:@i.ID_Order &nbsp;&nbsp;&nbsp;
-                                                Khách Hàng:@i.Order.User.Name &nbsp; &nbsp; &nbsp;
-                                                Tổng tiền đơn hàng:@total.ToString("N0") &nbsp; &nbsp; &nbsp;
-                                            </td>
-                                            if (status == "Wait")
-                                            {
-                                                <td style="text-align:center"><div class="DeleteOrder"><a href="#" data-id="@i.ID_Order">Xóa</a></div></td>
-                                                <td style="text-align:center"><div class="ConfirmOrder"><a href="#" data-id="@i.ID_Order">Xác nhận</a></div></td>
-                                                <td colspan="2" style="text-align:center"><div class="Detail"><a href="~/Shop/Detail?ID=@i.ID_Order" data-id="@i.ID_Order">Xem chi tiết</a></div></td>
-                                            }
-                                            else
-                                            {
+                                                    if (status == "Finish" && (i.Order.FeedBack is null))
+                                                    {
+                                                        <td style="text-align:center" colspan="2"> <div class="FB"><a href="#" data-id="@i.ID_Order">Đánh giá</a></div></td>
+                                                        <td style="text-align:center"><div class="Detail"><a href="~/Shop/Detail?ID=@i.ID_Order" data-id="@i.ID_Order">Xem chi tiết</a></div></td>
+                                                    }
+                                                    else if (status == "Finish" && !(i.Order.FeedBack is null))
+                                                    {
+                                                        <td colspan="2"></td>
+                                                        <td style="text-align:center"><div class="Detail"><a href="~/Shop/Detail?ID=@i.ID_Order" data-id="@i.ID_Order">Xem chi tiết</a></div></td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td style="text-align:center"><div class="Detail"><a href="~/Shop/Detail?ID=@i.ID_Order" data-id="@i.ID_Order">Xem chi tiết</a></div></td>
 
-                                                <td></td>
-                                                <td></td>
-                                                <td><div class="Detail"><a href="~/Shop/Detail?ID=@i.ID_Order" data-id="@i.ID_Order">Xem chi tiết</a></div></td>
-                                                <td></td>
-                                            }
-                                        }
-                                        <div class="popup" style="left: 0;" id="openPopup">
-                                            <div class="popup-form" style="padding: 50px 100px!important;">
-                                                <h1>Đánh giá sản phẩm</h1>
+                                                    }
 
-                                                <h2 id="Id_Order">Mã đơn hàng:@i.ID_Order</h2>
-                                                <div class="form-group row">
-                                                    <label for="Password" class="col-sm-3 col-form-label">Đánh giá</label>
-                                                    <div class="col-sm-8">
-                                                        <textarea id="comment" name="comment" cols="45" rows="8" minlength="10" required="" placeholder="Mời bạn chia sẻ thêm một số cảm nhận..." aria-required="true"></textarea>
-                                                    </div>
-                                                </div>
+                                                }
+                                                else
+                                                {
+                                                    <td colspan="3" style="text-align:center">
+                                                        ID đơn hàng:@i.ID_Order &nbsp;&nbsp;&nbsp;
+                                                        Khách Hàng:@i.Order.User.Name &nbsp; &nbsp; &nbsp;
+                                                        Tổng tiền đơn hàng:@total.ToString("N0") &nbsp; &nbsp; &nbsp;
+                                                    </td>
+                                                    if (status == "Wait")
+                                                    {
+                                                        <td style="text-align:center"><div class="DeleteOrder"><a href="#" data-id="@i.ID_Order">Xóa</a></div></td>
+                                                        <td style="text-align:center"><div class="ConfirmOrder"><a href="#" data-id="@i.ID_Order">Xác nhận</a></div></td>
+                                                        <td colspan="2" style="text-align:center"><div class="Detail"><a href="~/Shop/Detail?ID=@i.ID_Order" data-id="@i.ID_Order">Xem chi tiết</a></div></td>
+                                                    }
+                                                    else
+                                                    {
 
-                                                <button type="submit" id="submit" class="btn" style=" margin-right: 50px;margin-left:50px; margin-top: 50px; float: left; width: 27%; height: 40px;">Đánh giá</button>
-                                                <button type="button" id="BackFrm" class="btn" style=" margin-top: 50px; float: left; width: 25%; height: 40px;">Trở lại</button>
-                                            </div>
-                                        </div>
+                                                        <td></td>
+                                                        <td><div class="Detail"><a href="~/Shop/Detail?ID=@i.ID_Order" data-id="@i.ID_Order">Xem chi tiết</a></div></td>
+                                                        <td></td>
+                                                    }
+                                                }
 
-                                    </tr>
+
+                                            </tr>
                                             @*<tr>
                                                     <td colspan="7"><br /></td>
                                                 </tr>*@
@@ -229,11 +216,28 @@
                     </div>
 
                 </div>
+                <div class="popup" style="left: 0;" id="openPopup">
+                    <div class="popup-form" style="padding: 50px 100px!important;">
+                        <h1 class="feedback">Đánh giá sản phẩm</h1>
+
+                        <h2 style="text-align:center" id="Id_Order">Mã đơn hàng: </h2>
+                        <div class="form-group row">
+                            <label style="display:block" for="Password" class="col-form-label">Đánh giá</label>
+                            <div>
+                                <textarea id="comment" style="max-width: 420px; width: 420px;" name="comment" cols="70" rows="8" minlength="10" required="" placeholder="Mời bạn chia sẻ thêm một số cảm nhận..." aria-required="true"></textarea>
+                            </div>
+                        </div>
+
+                        <button type="submit" id="submit" class="btn" style=" margin-right: 50px;margin-left:50px; margin-top: 50px; float: left; width: 27%; height: 40px;">Đánh giá</button>
+                        <button type="button" id="BackFrm" class="btn" style=" margin-top: 50px; float: left; width: 25%; height: 40px;">Trở lại</button>
+                    </div>
+                </div>
             </div>
             <!-- End cart -->
         </div>
     </div>
 </div>
+@{ Html.RenderAction("Footer", "Shop");}
 <script>
     $(document).ready(function () {
         $('.DeleteOrder').click(function (e) {
@@ -293,8 +297,11 @@
 </script>
 <script>
     $(document).ready(function () {
-        
-        $('.FB').click(function () {
+
+        $('.FB').click(function (e) {
+            const current = e.currentTarget;
+            var id = current.children[0].dataset.id
+            $("#Id_Order").html("Mã đơn hàng: " + id)
             $('#openPopup').css('opacity', 1);
             $('#openPopup').css('visibility', 'visible');
         })
@@ -304,7 +311,7 @@
         })
 
         $("#submit").click(function (e) {
-            var Id_Order = $("#Id_Order")[0].innerText.substring(12)
+            var Id_Order = $("#Id_Order")[0].innerText.substring(13)
             var description = document.getElementById("comment");
             description = description.value;
             $.ajax({
@@ -320,7 +327,7 @@
                         toastr.error("Đánh giá thất bại", "FeedBack", { timeOut: 2000, positionClass: "toast-top-right" })
                     else {
                         toastr.success("Đánh giá thành công", "FeedBack", { timeOut: 1500, positionClass: "toast-top-right" })
-                        setTimeout(function () { $('/Shop/CartStatus?status=Finish').html(res); }, 2000)
+                        setTimeout(function () { window.location.href = "/Shop/CartStatus?status=Finish" }, 2000)
                     }
                 }
             });

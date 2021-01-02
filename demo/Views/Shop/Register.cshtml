@@ -11,6 +11,8 @@
             <div class="header-left-top">
 
                 <form>
+                    <img style="display:none" id="Img" src="" alt="" />
+
                     <span>User Name:</span>
                     <input type="text" id="user" class="ip-text" value="" name="username" />
                     <span id="usererror"></span>
@@ -101,6 +103,8 @@
             let address = $("#address")[0].value;
             let email = $("#email")[0].value
             let confirm = $("#confirm")[0].value
+            var img = document.getElementById("Img");
+            img = img.src;
             $.ajax({
                 cache: false,
                 type: "POST",
@@ -118,7 +122,8 @@
                     ward: ward,
                     address: address,
                     email: email,
-                    confirm: confirm
+                    confirm: confirm,
+                    img: img
                 },
                 success: function (res) {
                     if (res === "false")
@@ -207,3 +212,4 @@
         });
     });
 </script>
+<script src="~/Scripts/Avt.js"></script>

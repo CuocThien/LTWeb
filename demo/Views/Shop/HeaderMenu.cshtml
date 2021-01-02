@@ -8,8 +8,8 @@
     <div class="col-lg-4" style="margin-left: 66px;">
         <img src="~/Img/logoMyTeam.gif" height="100" width="100" style="border-radius:50%;" alt="#" />
     </div>
-    <div class="col-lg-8" style="display: flex;justify-content: flex-end;">
-        <span>Contact us: <a href="tel:#0708033730">0708033730</a></span>
+    <div class="col-lg-8" style="display: flex;justify-content: flex-end;padding-top: 43px;">
+        <span style="padding-top: 30px;">Contact us: <a href="tel:#0708033730">0708033730</a></span>
         <hr>
         @{
 
@@ -35,8 +35,8 @@
                                 image = System.Text.Encoding.ASCII.GetString(imgBytes);
                             }
                         }
-                        @Html.Image(image, "Alternate Text", "50", "30")
-                        <li class="nav-item submenu dropdown">
+                        @Html.Image(image, "Alternate Text", "50", "50","50%")
+                        <li class="nav-item submenu dropdown" style="padding-top: 33px; padding-right: 20px;">
                             <a href="#" style="padding:0!important" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="user">@temp</a>
                             <ul class="dropdown-menu">
                                 <li class="nav-item">
@@ -91,24 +91,16 @@
             <li class="nav-item submenu dropdown ">
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">HÃNG</a>
                 <ul class="dropdown-menu">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/Shop/Brand?id=Rolex">ROLEX</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/Shop/Brand?id=Daniel Wellington">DW</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/Shop/Brand?id=Casio">CASIO</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/Shop/Brand?id=Dior">DIOR</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/Shop/Brand?id=Apple">APPLE</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/Shop/Brand?id=Jacques Lemans">JACQUES LEMANS</a>
-                    </li>
+                    @{
+                        shopEntities db = new shopEntities();
+                        var brand = db.Brands.ToList();
+                        foreach (var item in brand)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Shop/Brand?id=@item.Name">@item.Name.ToUpper()</a>
+                            </li>
+                        }
+                    }
                 </ul>
             </li>
             @{ Html.RenderAction("HeaderCart", "Shop");}
