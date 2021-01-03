@@ -610,6 +610,22 @@ namespace demo.Controllers
                 _db.DeliveryAddresses.Add(deliveryAddress);
                 _db.SaveChanges();
             }
+            else if(frm["idAddress"] != "" && frm["isEdit"] == 1.ToString())
+            {
+                var id = frm["idAddress"];
+                
+            }
+            else if (frm["idAddress"] != "" && frm["isDelete"] == 1.ToString())
+            {
+                shopEntities db = new shopEntities();
+                var id = frm["idAddress"];
+                var Del = db.DeliveryAddresses.Where(a => a.Id.ToString() == id).SingleOrDefault();
+                db.DeliveryAddresses.Remove(Del);
+                db.SaveChanges();
+                Session.Clear();
+                Session["Is Login"] = 1;
+                Session["User"] = db.Users.Where(u => u.Username == user.Username).SingleOrDefault();
+            }
             else
             {
                 var idAddress = frm["idAddress"];
@@ -622,10 +638,7 @@ namespace demo.Controllers
             }
             return RedirectToAction("EditAddress", "Shop");
         }
-        public ActionResult MyAddress()
-        {
-            return View();
-        }
+       
         [HttpGet]
 
         [ChildActionOnly]

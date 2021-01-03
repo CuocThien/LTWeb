@@ -1074,7 +1074,6 @@
     <Content Include="Views\Shop\ResetPassword.cshtml" />
     <Content Include="Views\Shop\_FeedBack.cshtml" />
     <Content Include="Views\Shop\Footer.cshtml" />
-    <Content Include="Views\Shop\MyAddress.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
