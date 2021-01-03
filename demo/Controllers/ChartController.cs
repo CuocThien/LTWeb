@@ -54,7 +54,7 @@ namespace demo.Controllers
 			else if(chart=="revenue")
             {
 				List<DataPointLine> dataPoints = new List<DataPointLine>();
-				var order = db.Orders.Where(o => o.status == "Finish").ToList();
+				var order = db.Orders.Where(o => o.status == "Finish").OrderBy(o=>o.Date_delivery).ToList();
 				foreach(var o in order)
                 {
 					double price = 0;

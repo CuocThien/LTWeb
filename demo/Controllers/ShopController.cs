@@ -622,7 +622,10 @@ namespace demo.Controllers
             }
             return RedirectToAction("EditAddress", "Shop");
         }
-
+        public ActionResult MyAddress()
+        {
+            return View();
+        }
         [HttpGet]
 
         [ChildActionOnly]
