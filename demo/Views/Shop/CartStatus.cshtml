@@ -43,7 +43,7 @@
         <div id="cart" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin:0;padding:0;">
             <!-- Begin empty cart -->
             <div class="row">
-                <div id="layout-page" class="col-md-12 col-sm-12 col-xs-12">
+                <div id="layout-page" class="col-md-12 col-sm-12 col-xs-12" style="padding-left:35px">
                     <span class="header-page clearfix">
                         <h1 style="color:black;margin-left:30px">
                             Giỏ hàng
@@ -92,64 +92,66 @@
                                             <td colspan="7"><br /><br /><br /></td>
                                         </tr>*@
 
-                                            <tr>
-                                                @if (!(user is null) && user.isAdmin == false)
-                                                {
-                                                    <td> ID đơn hàng:@i.ID_Order</td>
-                                                    <td></td>
-                                                    <td>Tổng tiền đơn hàng:@total.ToString("N0")</td>
-                                                    if (status == "Wait")
-                                                    {
-                                                        <td></td>
-                                                        <td style="text-align:center"> <div class="DeleteOrder"><a href="#" data-id="@i.ID_Order">Xóa</a></div></td>
-                                                    }
-                                                    else if (status == "Delivery")
-                                                    {
-                                                        <td colspan="2"><div class="Received"><a href="#" data-id="@i.ID_Order">Đã nhận hàng</a></div></td>
+                                    <tr>
+                                        @if (!(user is null) && user.isAdmin == false)
+                                        {
+                                            <td> ID đơn hàng:@i.ID_Order</td>
+                                            <td></td>
+                                            <td>Tổng tiền đơn hàng:@total.ToString("N0")</td>
+                                            if (status == "Wait")
+                                            {
+                                                <td></td>
+                                                <td style="text-align:center"> <div class="DeleteOrder"><a href="#" data-id="@i.ID_Order">Xóa</a></div></td>
+                                            }
+                                            else if (status == "Delivery")
+                                            {
+                                                <td colspan="2"><div class="Received"><a href="#" data-id="@i.ID_Order">Đã nhận hàng</a></div></td>
 
-                                                    }
+                                            }
 
-                                                    if (status == "Finish" && (i.Order.FeedBack is null))
-                                                    {
-                                                        <td style="text-align:center" colspan="2"> <div class="FB"><a href="#" data-id="@i.ID_Order">Đánh giá</a></div></td>
-                                                        <td style="text-align:center"><div class="Detail"><a href="~/Shop/Detail?ID=@i.ID_Order" data-id="@i.ID_Order">Xem chi tiết</a></div></td>
-                                                    }
-                                                    else if (status == "Finish" && !(i.Order.FeedBack is null))
-                                                    {
-                                                        <td colspan="2"></td>
-                                                        <td style="text-align:center"><div class="Detail"><a href="~/Shop/Detail?ID=@i.ID_Order" data-id="@i.ID_Order">Xem chi tiết</a></div></td>
-                                                    }
-                                                    else
-                                                    {
-                                                        <td style="text-align:center"><div class="Detail"><a href="~/Shop/Detail?ID=@i.ID_Order" data-id="@i.ID_Order">Xem chi tiết</a></div></td>
+                                            if (status == "Finish" && (i.Order.FeedBack is null))
+                                            {
+                                                <td style="text-align:center" colspan="2"> <div class="FB"><a href="#" data-id="@i.ID_Order">Đánh giá</a></div></td>
+                                                <td style="text-align:center"><div class="Detail"><a href="~/Shop/Detail?ID=@i.ID_Order" data-id="@i.ID_Order">Xem chi tiết</a></div></td>
+                                            }
+                                            else if (status == "Finish" && !(i.Order.FeedBack is null))
+                                            {
+                                                <td colspan="2"></td>
+                                                <td style="text-align:center"><div class="Detail"><a href="~/Shop/Detail?ID=@i.ID_Order" data-id="@i.ID_Order">Xem chi tiết</a></div></td>
+                                            }
+                                            else
 
-                                                    }
+                                            {
+                                                <td colspan="2"></td>
+                                                <td style="text-align:center"><div class="Detail"><a href="~/Shop/Detail?ID=@i.ID_Order" data-id="@i.ID_Order">Xem chi tiết</a></div></td>
 
-                                                }
-                                                else
-                                                {
-                                                    <td colspan="3" style="text-align:center">
-                                                        ID đơn hàng:@i.ID_Order &nbsp;&nbsp;&nbsp;
-                                                        Khách Hàng:@i.Order.User.Name &nbsp; &nbsp; &nbsp;
-                                                        Tổng tiền đơn hàng:@total.ToString("N0") &nbsp; &nbsp; &nbsp;
-                                                    </td>
-                                                    if (status == "Wait")
-                                                    {
-                                                        <td style="text-align:center"><div class="DeleteOrder"><a href="#" data-id="@i.ID_Order">Xóa</a></div></td>
-                                                        <td style="text-align:center"><div class="ConfirmOrder"><a href="#" data-id="@i.ID_Order">Xác nhận</a></div></td>
-                                                        <td colspan="2" style="text-align:center"><div class="Detail"><a href="~/Shop/Detail?ID=@i.ID_Order" data-id="@i.ID_Order">Xem chi tiết</a></div></td>
-                                                    }
-                                                    else
-                                                    {
+                                            }
 
-                                                        <td></td>
-                                                        <td><div class="Detail"><a href="~/Shop/Detail?ID=@i.ID_Order" data-id="@i.ID_Order">Xem chi tiết</a></div></td>
-                                                        <td></td>
-                                                    }
-                                                }
+                                        }
+                                        else
+                                        {
+                                            <td colspan="3" style="text-align:center">
+                                                ID đơn hàng:@i.ID_Order &nbsp;&nbsp;&nbsp;
+                                                Khách Hàng:@i.Order.User.Name &nbsp; &nbsp; &nbsp;
+                                                Tổng tiền đơn hàng:@total.ToString("N0") &nbsp; &nbsp; &nbsp;
+                                            </td>
+                                            if (status == "Wait")
+                                            {
+                                                <td style="text-align:center"><div class="DeleteOrder"><a href="#" data-id="@i.ID_Order">Xóa</a></div></td>
+                                                <td style="text-align:center"><div class="ConfirmOrder"><a href="#" data-id="@i.ID_Order">Xác nhận</a></div></td>
+                                                <td colspan="2" style="text-align:center"><div class="Detail"><a href="~/Shop/Detail?ID=@i.ID_Order" data-id="@i.ID_Order">Xem chi tiết</a></div></td>
+                                            }
+                                            else
+                                            {
+
+                                                <td></td>
+                                                <td><div class="Detail"><a href="~/Shop/Detail?ID=@i.ID_Order" data-id="@i.ID_Order">Xem chi tiết</a></div></td>
+                                                <td></td>
+                                            }
+                                        }
 
 
-                                            </tr>
+                                    </tr>
                                             @*<tr>
                                             <td colspan="7"><br /></td>
                                         </tr>*@
