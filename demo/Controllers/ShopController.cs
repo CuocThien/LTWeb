@@ -610,11 +610,6 @@ namespace demo.Controllers
                 _db.DeliveryAddresses.Add(deliveryAddress);
                 _db.SaveChanges();
             }
-            else if(frm["idAddress"] != "" && frm["isEdit"] == 1.ToString())
-            {
-                var id = frm["idAddress"];
-                
-            }
             else if (frm["idAddress"] != "" && frm["isDelete"] == 1.ToString())
             {
                 shopEntities db = new shopEntities();
