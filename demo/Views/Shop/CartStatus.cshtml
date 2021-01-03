@@ -122,7 +122,10 @@
                                             else
 
                                             {
+                                                if (status == "Cancel")
+                                                {
                                                 <td colspan="2"></td>
+                                                            }
                                                 <td style="text-align:center"><div class="Detail"><a href="~/Shop/Detail?ID=@i.ID_Order" data-id="@i.ID_Order">Xem chi tiết</a></div></td>
 
                                             }
@@ -132,8 +135,8 @@
                                         {
                                             <td colspan="3" style="text-align:center">
                                                 ID đơn hàng:@i.ID_Order &nbsp;&nbsp;&nbsp;
-                                                Khách Hàng:@i.Order.User.Name &nbsp; &nbsp; &nbsp;
-                                                Tổng tiền đơn hàng:@total.ToString("N0") &nbsp; &nbsp; &nbsp;
+                                            Khách Hàng:@i.Order.User.Name &nbsp; &nbsp; &nbsp;
+                                            Tổng tiền đơn hàng:@total.ToString("N0") &nbsp; &nbsp; &nbsp;
                                             </td>
                                             if (status == "Wait")
                                             {
@@ -142,7 +145,7 @@
                                                 <td colspan="2" style="text-align:center"><div class="Detail"><a href="~/Shop/Detail?ID=@i.ID_Order" data-id="@i.ID_Order">Xem chi tiết</a></div></td>
                                             }
                                             else
-                                            {
+                                        {
 
                                                 <td></td>
                                                 <td><div class="Detail"><a href="~/Shop/Detail?ID=@i.ID_Order" data-id="@i.ID_Order">Xem chi tiết</a></div></td>

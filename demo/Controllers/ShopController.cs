@@ -624,7 +624,7 @@ namespace demo.Controllers
             else
             {
                 var idAddress = frm["idAddress"];
-                _db.DeliveryAddresses.Where(u => u.isDefault == true).SingleOrDefault().isDefault = false;
+                _db.DeliveryAddresses.Where(u => u.isDefault == true && u.UserName == user.Username).SingleOrDefault().isDefault = false;
                 _db.DeliveryAddresses.Where(u => u.Id.ToString() == idAddress).SingleOrDefault().isDefault = true;
                 _db.SaveChanges();
                 Session.Clear();
