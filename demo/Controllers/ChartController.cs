@@ -105,7 +105,7 @@ namespace demo.Controllers
                         }
 						for(int i=0;i<3;i++)
                         {
-							if(price>min)
+							if(price>min && prices[i]==min)
                             {
 								prices[i] = price;
 								users[i] = u;
